@@ -1,15 +1,13 @@
-////////////////////////////////////////////////////////////////////////////////
-// Author: Juan Luis Suarez Diaz
-// Jun, 2015
-// Dropbox MSN
-////////////////////////////////////////////////////////////////////////////////
 package GUI;
 
+import Model.Pair;
 import Model.User;
 import Model.UserOverflowException;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+
+
 
 /**
  * Class ComunioIntro.
@@ -22,6 +20,11 @@ public class ComunioIntro extends javax.swing.JDialog {
      * User's name.
      */
     private String user;
+    
+    /**
+     * User's password.
+     */
+    private char[] password;
     
     /**
      * Checks if the name is ok.
@@ -129,6 +132,12 @@ public class ComunioIntro extends javax.swing.JDialog {
         labelAskName1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         labelAskName1.setText("Contraseña:");
 
+        txtPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPasswordActionPerformed(evt);
+            }
+        });
+
         btStart1.setBackground(new java.awt.Color(0, 204, 51));
         btStart1.setForeground(new java.awt.Color(255, 255, 255));
         btStart1.setText("Registrarse");
@@ -223,6 +232,7 @@ public class ComunioIntro extends javax.swing.JDialog {
      */
     private void performReadName(){
         user = this.txtUserName.getText();
+        password = this.txtPassword.getPassword();
         this.dispose();
     }
     
@@ -254,13 +264,17 @@ public class ComunioIntro extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_btStart1ActionPerformed
 
+    private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
+        if(validName) performReadName();
+    }//GEN-LAST:event_txtPasswordActionPerformed
+
     /**
      * Shows the view to get the user name.
      * @return 
      */
-    public String getUser(){
+    public Pair<String,char[]> getUser(){
         this.setVisible(true);
-        return user;
+        return new Pair(user,password);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

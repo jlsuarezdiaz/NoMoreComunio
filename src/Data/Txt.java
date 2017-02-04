@@ -1,11 +1,6 @@
 
 package Data;
 
-/**
- * Class Txt.
- * Contains all remarkable texts related to the program.
- * @author Juan Luis
- */
 public class Txt {
     /**
      * String with info about old versions.

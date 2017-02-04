@@ -1,8 +1,4 @@
-/*
- * Author: Juan Luis Su�rez D�az
- * July, 2016
- * No More Dropbox MSN
- */
+
 package Model;
 
 import java.util.ArrayList;
@@ -13,35 +9,7 @@ import java.util.Date;
  * Class pair. A utility to mage pairs of structures.
  * @author Juan Luis
  */
-class Pair<T,S>{
-    /**
-     * First element of the pair.
-     */
-    public T first;
-    
-    /**
-     * Second element of the pair.
-     */
-    public S second;
-    
-    /**
-     * Default constructor.
-     */
-    Pair(){
-        first = null;
-        second = null;
-    }
-    
-    /**
-     * Constructor.
-     * @param t First element of the pair.
-     * @param s Second element of the pair.
-     */
-    Pair(T t, S s){
-        this.first = t;
-        this.second = s;
-    }
-}
+
 
 /**
  * Tracer class. A singleton class for debugging and recording.

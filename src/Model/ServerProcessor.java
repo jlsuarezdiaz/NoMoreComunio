@@ -86,9 +86,10 @@ class ServerProcessor extends Thread{
                 
                 switch(receivedData.getMessageKind()){
                     case LOGIN: 
-                        int id = serverData.addUser((String)receivedData.getData(0),this);    //Necesita Mutex
+                        int id = serverData.addUser((String)receivedData.getData(0),(char[])receivedData.getData(1),this);    //Necesita Mutex
                         remoteId=id;
-                        sendData = new CSMessage(MessageKind.OK_LOGIN, new Object[]{remoteId});
+                        if(id == -2) sendData = new CSMessage(MessageKind.ERR_INVALIDUSER, new Object[]{"Usuario o contraseña incorrectos."});
+                        else if(id==-3) sendData = new CSMessage(MessageKind.ERR, new Object[]{"Error al conectar a la base de datos."});
                         break;
 
                     case LOGOUT:   

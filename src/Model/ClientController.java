@@ -1,6 +1,4 @@
-/*
 
- */
 package Model;
 
 import GUI.LoadingView;
@@ -280,10 +278,11 @@ public class ClientController{
                                 clientState = ClientState.ONLINE;
                                 clientControllerInstance.updater.start();
                                 break;
-                                
+                            case ERR:    
+                            case ERR_INVALIDUSER: 
                             case ERR_USEROVERFLOW:
                                 String err_msg = (String) receivedMsg.getData(0);
-                                //JOptionPane.showMessageDialog(view, err_msg, "ERROR: USER OVERFLOW", JOptionPane.ERROR_MESSAGE);
+                                JOptionPane.showMessageDialog(view, err_msg, "ERROR AL INICIAR SESIÓN", JOptionPane.ERROR_MESSAGE);
                                 clientControllerInstance.myUser = null;
                                 startLogin();
                                 break;
@@ -427,13 +426,18 @@ public class ClientController{
      * Performs login.
      */
     private void startLogin(){
+        String userName=null;
+        char[] passwd = null;
         if(this.myUser==null){
             ComunioIntro intro = new ComunioIntro(view,true);
-            String userName=null;              
-            userName = intro.getUser();
+            Pair <String,char[]> logData;
+            
+            logData = intro.getUser();
+            userName = logData.first;
+            passwd = logData.second;
             this.myUser = new User(userName);
         }
-        sendToServer(new CSMessage(MessageKind.LOGIN, new Object[]{myUser.getName()}));
+        sendToServer(new CSMessage(MessageKind.LOGIN, new Object[]{userName,passwd}));
     }
     
     /**

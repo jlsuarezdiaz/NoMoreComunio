@@ -1,8 +1,4 @@
-/*
- * Author: Juan Luis Suárez Díaz
- * July, 2016
- * No More Dropbox MSN
- */
+
 package Model;
 
 import java.io.IOException;

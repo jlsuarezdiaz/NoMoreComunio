@@ -1,8 +1,3 @@
-////////////////////////////////////////////////////////////////////////////////
-// Author: Juan Luis Suarez Diaz
-// Jun, 2015
-// No More Dropbox MSN
-////////////////////////////////////////////////////////////////////////////////
 package Model;
 
 import static java.util.Arrays.stream;
@@ -56,6 +51,8 @@ public enum MessageKind {
     WARN_NOTUPATED     (405),
     ERR_NEEDUPDATE     (406),
     ERR_JARNOTFOUND    (407),
+    
+    ERR_INVALIDUSER    (408),
     
     
     //0xx

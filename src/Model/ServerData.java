@@ -173,7 +173,7 @@ public class ServerData {
      * @param p Processor thread associated.
      * @return User's id. If no space is available, -1 is returned.
      */   
-    public synchronized int addUser(String name, ServerProcessor p){
+    public synchronized int addUser(String name,char[] passwd, ServerProcessor p){
         if(numUsers==getMAX_USERS()){
             
             try {
@@ -183,23 +183,28 @@ public class ServerData {
             return -1;
         }
         else{
-            for(int i = 0; i < ServerData.getMAX_USERS(); i++){
-        /*        if(!user_list[i].validState()){
-                    user_list[i] = new User(name);
-                    privateMode[i] = false;
-                    processors[i] = p;
-                    for(int j = 0; j < getMAX_USERS(); j++){
-                        selectedUsers[i][j] = false;
+            try{
+                if(DBFunctions.login(name,passwd)){
+                    for(int i = 0; i < ServerData.getMAX_USERS(); i++){
+                       if(user_list[i] == null || !user_list[i].validState()){
+                            user_list[i] = new User(name);
+                            processors[i] = p;
+
+                            numUsers++;
+                            sendTo(i,new CSMessage(MessageKind.OK_LOGIN,new Object[]{i}));
+                            //sendToAll(new CSMessage(MessageKind.USERS, new Object[]{user_list}));
+                            return i;
+                        }
                     }
-                    numUsers++;
-                    sendTo(i,new CSMessage(MessageKind.OK_LOGIN,new Object[]{i}));
-                    sendToAll(new CSMessage(MessageKind.SEND,new Object[]{
-                        new Message(name+" ha iniciado sesión.",null, -1, true)}));
-                    sendToAll(new CSMessage(MessageKind.USERS, new Object[]{user_list}));
-                    return i;
-                }*/
+                }
+                else{
+                    return -2;
+                }
             }
-                
+            catch(Exception ex){
+                Tracer.getInstance().trace(ex);
+                return -3;
+            }
             return -1;
         }
     }
@@ -273,49 +278,6 @@ public class ServerData {
         }
     }
     
-    /*
-    public synchronized void sendFile(int id, String name, File f, String sender){
-        
-        try{
-            if(this.privateMode[id]){
-                sendFileToSelected(id,name,FileUtils.FileSend.loadFile(f.getAbsolutePath()), sender);
-            }
-            else{
-                sendFileToAll(name,FileUtils.FileSend.loadFile(f.getAbsolutePath()), sender);
-                sendTo(id, new Message(MessageKind.OK, null).toMessage());
-            }
-        }
-        catch(Exception ex){
-            System.err.println("Error: No se pudo iniciar el envío del archivo. "
-                +ex.getMessage());
-        }
-        
-    }*/
-    
-    
-    /*
-        
-    public synchronized void sendFile(ServerProcessor p, String name, byte[] data, String sender){
-        FileUtils.FileSend.sendFile(p, data, name, null, sender);
-    }
-    
-    public synchronized void sendFileToAll(String name, byte[] data, String sender){
-        for(int i = 0; i < MAX_USERS; i++){
-            if(processors[i] != null && user_list[i].validState()){
-                FileUtils.FileSend.sendFile(processors[i], data, name, null, sender);
-            }
-        }
-    }*/
-/*    
-    public synchronized void sendFileToSelected(int id, String name, byte[] data, String sender){
-        for(int j = 0; j < MAX_USERS; j++){
-            if(selectedUsers[id][j]){
-                if(processors[j] != null && user_list[j].validState()){
-                    FileUtils.FileSend.sendFile(processors[j], data, name, null, sender+" [MENSAJE PRIVADO]");
-                }
-            }
-        }
-    }
- */   
+   
 
 }
