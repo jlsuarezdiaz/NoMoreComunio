@@ -31,8 +31,17 @@ BEGIN
   END IF;
 END;
 
+FUNCTION yaexisteComunidad(nombre VARCHAR2) return INTEGER IS existe INTEGER;
+BEGIN
+  select count(*) into existe from COMUNIDAD where nombre_comunidad=nombre;
+  return(existe);
+END;
+
+PROCEDURE registrarComunidad(nombre_comunidad VARCHAR2, pass_comunidad VARCHAR2) AS
+BEGIN
+  IF (yaexisteComunidad(nombre_comunidad) = 0) THEN
+    INSERT into Comunidad(nombre_comunidad,pass) values (nombre_comunidad,pass_comunidad);
+  END IF;
+END registrarComunidad;
+
 END PKG_CONNECTION;
-
-
-
-
