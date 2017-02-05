@@ -23,13 +23,12 @@ BEGIN
   INSERT into PERTENECE(nombre_usu,nombre_comunidad,creditos,administrador) values (usuario,comunidad,20.0, 0);
 END;
 
-FUNCTION acceder(usuario VARCHAR2, comunidad VARCHAR2, pass_comunidad VARCHAR2) return INTEGER IS okaccess INTEGER;
+PROCEDURE acceder(usuario VARCHAR2, comunidad VARCHAR2, pass_comunidad VARCHAR2, okaccess OUT VARCHAR2) AS
 BEGIN
   select count(*) into okaccess from COMUNIDAD where nombre_comunidad=comunidad and pass_comunidad=pass;
   IF(pertenece(usuario,comunidad) = 0 and okaccess=1) THEN
     proceso_acceso(usuario,comunidad);
   END IF;
-  return(okaccess);
 END;
 
 END PKG_CONNECTION;
