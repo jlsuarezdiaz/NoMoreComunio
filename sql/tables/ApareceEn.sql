@@ -1,21 +1,27 @@
 /*Creación de la tabla Aparece En*/
 
-/*drop TABLE ApareceEn;*/
+drop TABLE ApareceEn;
 
 create table ApareceEn(
+  nombre_vendedor varchar(20) NOT NULL,
   nombre_comunidad varchar(20) NOT NULL,
   codigo_jugador int NOT NULL,
+  precio_min real,
   PRIMARY KEY (nombre_comunidad, codigo_jugador),
   FOREIGN KEY (nombre_comunidad) REFERENCES Mercado(nombre_com),
   FOREIGN KEY (codigo_jugador) REFERENCES Jugadores(cod)
 
 );
+select * from ApareceEN;
 
-INSERT into ApareceEn( nombre_comunidad, codigo_jugador) VALUES
-('ComunioDDSI2',1);
-INSERT into ApareceEn( nombre_comunidad, codigo_jugador) VALUES
-('ComunioDDSI2',4);
-INSERT into ApareceEn( nombre_comunidad, codigo_jugador) VALUES
+INSERT into ApareceEn( nombre_vendedor, nombre_comunidad, codigo_jugador, precio_min) VALUES
+('rbnuria','ComunioDDSI2',1, 100000);
+
+/*INSERT into ApareceEn( nombre_comunidad, codigo_jugador, precio_min) VALUES
+('ComunioDDSI2',1, 100000);
+INSERT into ApareceEn( nombre_comunidad, codigo_jugador, precio_min) VALUES
+('ComunioDDSI2',4, 200000);*/
+/*INSERT into ApareceEn( nombre_comunidad, codigo_jugador) VALUES
 ('ComunioDDSI2',5);
 INSERT into ApareceEn( nombre_comunidad, codigo_jugador) VALUES
 ('ComunioDDSI2',7);
@@ -32,14 +38,14 @@ INSERT into ApareceEn( nombre_comunidad, codigo_jugador) VALUES
 INSERT into ApareceEn( nombre_comunidad, codigo_jugador) VALUES
 ('ComunioDDSI2',20);
 INSERT into ApareceEn( nombre_comunidad, codigo_jugador) VALUES
-('ComunioDDSI2',22);
+('ComunioDDSI2',22);*/
 
+/*INSERT into ApareceEn( nombre_comunidad, codigo_jugador, precio_min) VALUES
+('ComunioDDSI',1, 100000);
 INSERT into ApareceEn( nombre_comunidad, codigo_jugador) VALUES
-('ComunioDDSI',1);
+('ComunioDDSI',2, 150000);
 INSERT into ApareceEn( nombre_comunidad, codigo_jugador) VALUES
-('ComunioDDSI',2);
-INSERT into ApareceEn( nombre_comunidad, codigo_jugador) VALUES
-('ComunioDDSI',4);
+('ComunioDDSI',4, 200000);/*
 INSERT into ApareceEn( nombre_comunidad, codigo_jugador) VALUES
 ('ComunioDDSI',5);
 INSERT into ApareceEn( nombre_comunidad, codigo_jugador) VALUES
@@ -69,4 +75,4 @@ INSERT into ApareceEn( nombre_comunidad, codigo_jugador) VALUES
 INSERT into ApareceEn( nombre_comunidad, codigo_jugador) VALUES
 ('ComunioDDSI',31);
 INSERT into ApareceEn( nombre_comunidad, codigo_jugador) VALUES
-('ComunioDDSI',32);
+('ComunioDDSI',32);*/
