@@ -1,0 +1,6 @@
+CREATE OR REPLACE PACKAGE PKG_GLOBAL AS
+
+FUNCTION calcMax(comunidad VARCHAR2) return INTEGER;
+PROCEDURE escribeNoticia(usuario VARCHAR2, comunidad VARCHAR2, noticia VARCHAR2);
+
+END PKG_GLOBAL;
