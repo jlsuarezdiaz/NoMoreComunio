@@ -9,13 +9,13 @@ create table RealizarOferta(
   precio real,
   PRIMARY KEY (nombre_usuario, nombre_comunidad, codigo_jugador),
   FOREIGN KEY (nombre_usuario) REFERENCES Usuario(nom_usu),
-  FOREIGN KEY (nombre_comunidad) REFERENCES Comunidad(nombre_comunidad),
-  FOREIGN KEY (codigo_jugador) REFERENCES Jugadores(cod)
+  FOREIGN KEY (codigo_jugador) REFERENCES Jugadores(cod),
+  FOREIGN KEY (nombre_comunidad) REFERENCES Comunidad(nombre_comunidad)
 
 );
 
-INSERT into RealizarOferta(nombre_usuario, nombre_comunidad, codigo_jugador, precio) VALUES
-('rbnuria', 'ComunioDDSI2',2, 6950000);
+/*INSERT into RealizarOferta(nombre_usuario, nombre_comunidad, codigo_jugador, precio) VALUES
+('rbnuria', 'ComunioDDSI2',2, 6950000);/*
 INSERT into RealizarOferta(nombre_usuario, nombre_comunidad, codigo_jugador, precio) VALUES
 ('rbnuria', 'ComunioDDSI2',17, 5713200);
 INSERT into RealizarOferta(nombre_usuario, nombre_comunidad, codigo_jugador, precio) VALUES
@@ -47,4 +47,4 @@ INSERT into RealizarOferta(nombre_usuario, nombre_comunidad, codigo_jugador, pre
 INSERT into RealizarOferta(nombre_usuario, nombre_comunidad, codigo_jugador, precio) VALUES
 ('jpoyatos','ComunioDDSI',52, 1612000);
 INSERT into RealizarOferta(nombre_usuario, nombre_comunidad, codigo_jugador, precio) VALUES
-('jpoyatos','ComunioDDSI',45, 2690001);
+('jpoyatos','ComunioDDSI',45, 2690001);*/
