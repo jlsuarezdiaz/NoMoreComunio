@@ -5,9 +5,9 @@ drop TABLE Jugadores cascade constraints;
 
 create TABLE Jugadores(
   cod int NOT NULL PRIMARY KEY,
-  nombre varchar(20),
-  equipo varchar(20),
-  pos varchar(20),
+  nombre varchar(40),
+  equipo varchar(40),
+  pos varchar(40),
   precio INT
 );
 
@@ -37,10 +37,10 @@ INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES
 (7, 'Luka Modric', 'Real Madrid', 'Mediocentro', 9070000);
 
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
-(8, 'Lucas Vázquez', 'Real Madrid', 'Mediocentro'7030000);
+(8, 'Lucas Vázquez', 'Real Madrid', 'Mediocentro', 7030000);
 
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
-(9, 'Karim Benzema', 'Real Madrid', 'Delantero'10540000);
+(9, 'Karim Benzema', 'Real Madrid', 'Delantero', 10540000);
 
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
 (10, 'Gareth Bale', 'Real Madrid', 'Delantero', 11550000);
@@ -229,3 +229,4 @@ INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
 (66, 'Federico Piovaccari', 'Córdoba FC', 'Delantero', 1520000);
 
+select count(*) from Jugadores;

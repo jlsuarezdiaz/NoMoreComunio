@@ -1,6 +1,6 @@
 /*Creación de la tabla Aparece En*/
 
-drop TABLE ApareceEn;
+drop TABLE ApareceEn cascade constraints;
 
 create table ApareceEn(
   nombre_vendedor varchar(20) NOT NULL,

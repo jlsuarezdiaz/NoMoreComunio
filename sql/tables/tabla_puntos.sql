@@ -1,6 +1,6 @@
 /*Creación tabla de puntos*/
 
-/*drop TABLE Puntos;*/
+drop TABLE Puntos;
 
 create TABLE Puntos
 (
