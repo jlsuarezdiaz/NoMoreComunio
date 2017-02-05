@@ -6,9 +6,17 @@ BEGIN
   RETURN(oklog);
 END;
 
+FUNCTION existe_usuario(nombre_usuario VARCHAR2) return INTEGER is existe INTEGER;
+BEGIN
+  select count(*) into existe from USUARIO where nombre_usuario = nom_usu;
+  return(existe);
+END;
+
 PROCEDURE registrar(nombre_usuario VARCHAR2, nombre VARCHAR2, apellido VARCHAR2, pssword VARCHAR2, mail VARCHAR2) AS
 BEGIN 
-  INSERT into USUARIO (nom_usu,nombre,apellidos,pass,email) values (nombre_usuario, nombre, apellido, pssword, mail);
+  IF(existe_usuario(nombre_usuario) = 0) THEN
+    INSERT into USUARIO (nom_usu,nombre,apellidos,pass,email) values (nombre_usuario, nombre, apellido, pssword, mail);
+  END IF;
 END registrar;
 
 
