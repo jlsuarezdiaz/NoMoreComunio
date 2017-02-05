@@ -6,7 +6,7 @@ create table ApareceEn(
   nombre_vendedor varchar(20) NOT NULL,
   nombre_comunidad varchar(20) NOT NULL,
   codigo_jugador int NOT NULL,
-  precio_min real,
+  precio_min INT,
   PRIMARY KEY (nombre_comunidad, codigo_jugador),
   FOREIGN KEY (nombre_comunidad) REFERENCES Mercado(nombre_com),
   FOREIGN KEY (codigo_jugador) REFERENCES Jugadores(cod)

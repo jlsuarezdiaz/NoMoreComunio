@@ -1,23 +1,28 @@
 /*Creación tabla Realizar Oferta*/
 
-/*drop TABLE RealizarOferta;*/
+drop TABLE RealizarOferta;
 
 create table RealizarOferta(
   nombre_usuario varchar(20) NOT NULL,
   nombre_comunidad varchar(20) NOT NULL,
   codigo_jugador int NOT NULL,
-  precio real,
+  precio INT,
+  estado INT, /*0: no fichado, 1: fichado */
   PRIMARY KEY (nombre_usuario, nombre_comunidad, codigo_jugador),
   FOREIGN KEY (nombre_usuario) REFERENCES Usuario(nom_usu),
   FOREIGN KEY(nombre_comunidad, codigo_jugador) REFERENCES APARECEEN(nombre_comunidad, codigo_jugador)
 );
 
-INSERT into RealizarOferta(nombre_usuario, nombre_comunidad, codigo_jugador, precio) VALUES
-('rbnuria', 'ComunioDDSI2',1, 5713200);
 
 select * from RealizarOferta;
 
-/*INSERT into RealizarOferta(nombre_usuario, nombre_comunidad, codigo_jugador, precio) VALUES
+INSERT into RealizarOferta(nombre_usuario,nombre_comunidad,codigo_jugador,precio, estado) values ('rbnuria', 'ComunioDDSI2',1, 5713200, 0);
+
+/* todo esto esta mal, hay que añadir estado
+INSERT into RealizarOferta(nombre_usuario, nombre_comunidad, codigo_jugador, precio) VALUES
+('rbnuria', 'ComunioDDSI2',1, 5713200);
+ 
+INSERT into RealizarOferta(nombre_usuario, nombre_comunidad, codigo_jugador, precio) VALUES
 ('rbnuria', 'ComunioDDSI2',2, 6950000);/*
 INSERT into RealizarOferta(nombre_usuario, nombre_comunidad, codigo_jugador, precio) VALUES
 ('rbnuria', 'ComunioDDSI2',17, 5713200);

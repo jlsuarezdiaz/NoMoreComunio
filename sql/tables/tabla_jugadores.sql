@@ -1,14 +1,14 @@
 /*Creación de la tabla de jugadores*/
 
 /*Por si ya estaba creado*/
-/*drop TABLE Jugadores;
-*/
+drop TABLE Jugadores cascade constraints;
+
 create TABLE Jugadores(
   cod int NOT NULL PRIMARY KEY,
   nombre varchar(20),
   equipo varchar(20),
   pos varchar(20),
-  precio real
+  precio INT
 );
 
 /*Inserción de los jugadores*/
