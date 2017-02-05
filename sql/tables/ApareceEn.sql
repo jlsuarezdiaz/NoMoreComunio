@@ -12,6 +12,10 @@ create table ApareceEn(
   FOREIGN KEY (codigo_jugador) REFERENCES Jugadores(cod)
 
 );
+select * from ApareceEN;
+
+INSERT into ApareceEn( nombre_vendedor, nombre_comunidad, codigo_jugador, precio_min) VALUES
+('rbnuria','ComunioDDSI2',1, 100000);
 
 /*INSERT into ApareceEn( nombre_comunidad, codigo_jugador, precio_min) VALUES
 ('ComunioDDSI2',1, 100000);
