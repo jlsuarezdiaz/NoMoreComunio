@@ -3,24 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Juan%20Luis/Documents/NetBeansProjects/Comunio/NoMoreDropboxMSN/src/GUI/ComunioView.java</file>
-            <file>file:/C:/Users/Juan%20Luis/Documents/NetBeansProjects/Comunio/NoMoreDropboxMSN/src/GUI/UserView.java</file>
-            <file>file:/C:/Users/Juan%20Luis/Documents/NetBeansProjects/Comunio/NoMoreDropboxMSN/src/Model/ServerData.java</file>
-            <file>file:/C:/Users/Juan%20Luis/Documents/NetBeansProjects/Comunio/NoMoreDropboxMSN/src/Model/AppDateFormat.java</file>
-            <file>file:/C:/Users/Juan%20Luis/Documents/NetBeansProjects/Comunio/NoMoreDropboxMSN/src/FileUtils/FileSend.java</file>
-            <file>file:/C:/Users/Juan%20Luis/Documents/NetBeansProjects/Comunio/NoMoreDropboxMSN/src/Data/Txt.java</file>
-            <file>file:/C:/Users/Juan%20Luis/Documents/NetBeansProjects/Comunio/NoMoreDropboxMSN/src/Model/ClientController.java</file>
-            <file>file:/C:/Users/Juan%20Luis/Documents/NetBeansProjects/Comunio/NoMoreDropboxMSN/src/Model/ClientState.java</file>
-            <file>file:/C:/Users/Juan%20Luis/Documents/NetBeansProjects/Comunio/NoMoreDropboxMSN/src/Model/UserOverflowException.java</file>
-            <file>file:/C:/Users/Juan%20Luis/Documents/NetBeansProjects/Comunio/NoMoreDropboxMSN/src/Model/User.java</file>
-            <file>file:/C:/Users/Juan%20Luis/Documents/NetBeansProjects/Comunio/NoMoreDropboxMSN/src/Model/Client.java</file>
-            <file>file:/C:/Users/Juan%20Luis/Documents/NetBeansProjects/Comunio/NoMoreDropboxMSN/src/Model/Tracer.java</file>
-            <file>file:/C:/Users/Juan%20Luis/Documents/NetBeansProjects/Comunio/NoMoreDropboxMSN/src/Model/MessageKind.java</file>
-            <file>file:/C:/Users/Juan%20Luis/Documents/NetBeansProjects/Comunio/NoMoreDropboxMSN/src/Main/Main.java</file>
-            <file>file:/C:/Users/Juan%20Luis/Documents/NetBeansProjects/Comunio/NoMoreDropboxMSN/src/GUI/ComunioIntro.java</file>
-            <file>file:/C:/Users/Juan%20Luis/Documents/NetBeansProjects/Comunio/NoMoreDropboxMSN/src/Model/Server.java</file>
-            <file>file:/C:/Users/Juan%20Luis/Documents/NetBeansProjects/Comunio/NoMoreDropboxMSN/src/Model/ServerProcessor.java</file>
-            <file>file:/C:/Users/Juan%20Luis/Documents/NetBeansProjects/Comunio/NoMoreDropboxMSN/src/Model/CSMessage.java</file>
+            <file>file:/Users/nuria/NetBeansProjects/NoMoreComunio/src/Model/MessageKind.java</file>
+            <file>file:/Users/nuria/NetBeansProjects/NoMoreComunio/src/Model/ClientState.java</file>
+            <file>file:/Users/nuria/NetBeansProjects/NoMoreComunio/src/Model/DBFunctions.java</file>
+            <file>file:/Users/nuria/NetBeansProjects/NoMoreComunio/src/Model/ClientController.java</file>
+            <file>file:/Users/nuria/NetBeansProjects/NoMoreComunio/src/Model/Pair.java</file>
         </group>
     </open-files>
 </project-private>
