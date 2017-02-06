@@ -1,17 +1,17 @@
 /*Creación de la tabla Tiene*/
 
-/*drop TABLE Tiene;*/
+drop TABLE Tiene;
 
 create table Tiene(
   nombre_usuario varchar(20) NOT NULL,
   nombre_comunidad varchar(20) NOT NULL,
   codigo_jugador int NOT NULL,
   PRIMARY KEY (nombre_usuario, nombre_comunidad, codigo_jugador),
-  FOREIGN KEY (nombre_usuario) REFERENCES Usuario(nom_usu),
-  FOREIGN KEY (nombre_comunidad) REFERENCES Comunidad(nombre_comunidad),
+  FOREIGN KEY(nombre_usuario, nombre_comunidad) REFERENCES Pertenece(nombre_usu, nombre_comunidad),
   FOREIGN KEY (codigo_jugador) REFERENCES Jugadores(cod)
 
 );
+
 
 INSERT into Tiene(nombre_usuario, nombre_comunidad, codigo_jugador) VALUES
 ('rbnuria', 'ComunioDDSI2',1);
