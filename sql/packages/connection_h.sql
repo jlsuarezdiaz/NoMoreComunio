@@ -1,6 +1,6 @@
 CREATE OR REPLACE PACKAGE PKG_CONNECTION AS
 
-FUNCTION login(nombre_usuario VARCHAR2, passwd IN VARCHAR2) return INTEGER;
+PROCEDURE login(nombre_usuario VARCHAR2, passwd IN VARCHAR2, oklog OUT VARCHAR2);
 FUNCTION existe_usuario(nombre_usuario VARCHAR2) return INTEGER;
 PROCEDURE registrar(nombre_usuario VARCHAR2, nombre VARCHAR2, apellido VARCHAR2, pssword VARCHAR2, mail VARCHAR2);
 FUNCTION pertenece(usuario VARCHAR2, comunidad VARCHAR2) return INTEGER;

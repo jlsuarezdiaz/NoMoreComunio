@@ -198,11 +198,19 @@ public class ServerData {
                     }
                 }
                 else{
+                    try{
+                        p.getSocket().writeMessage(new CSMessage(MessageKind.ERR_INVALIDUSER, new Object[]{"Usuario o contraseña incorrectos."}));
+                    }
+                    catch(Exception ex2){}
                     return -2;
                 }
             }
             catch(Exception ex){
                 Tracer.getInstance().trace(ex);
+                try{
+                    p.getSocket().writeMessage(new CSMessage(MessageKind.ERR_DATABASE, new Object[]{"Error al conectar a la base de datos:"+ex.getMessage()}));
+                }
+                catch(Exception ex2){}
                 return -3;
             }
             return -1;
