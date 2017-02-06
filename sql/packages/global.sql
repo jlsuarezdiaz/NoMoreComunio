@@ -29,4 +29,10 @@ BEGIN
   SELECT nombre_comunidad FROM Pertenece WHERE nombre_usu = usuario;
 END;
 
+PROCEDURE getNoticias(comunidad VARCHAR2) AS
+BEGIN
+  SELECT * FROM EscribeNoticia WHERE nombre_comunidad = comunidad;
+END;
+
+
 END PKG_GLOBAL;
