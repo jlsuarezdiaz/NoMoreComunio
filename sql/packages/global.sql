@@ -8,7 +8,7 @@ END;
 
 FUNCTION totalJugadores return INTEGER IS total INTEGER;
 BEGIN
-  select count(*) into total from Jugadores;
+  SELECT COUNT (*) INTO total FROM Jugadores;
   return (total);
 END;
 
@@ -21,6 +21,12 @@ END;
 PROCEDURE registrarJugador(nombre VARCHAR2, equipo VARCHAR2, pos VARCHAR2, precio INTEGER) AS
 BEGIN
   INSERT INTO Jugadores VALUES (totalJugadores+1, nombre, equipo, pos, precio);
+END;
+
+/*Probarlo*/
+PROCEDURE listaComunidades(usuario VARCHAR2) AS
+BEGIN
+  SELECT nombre_comunidad FROM Pertenece WHERE nombre_usu = usuario;
 END;
 
 END PKG_GLOBAL;
