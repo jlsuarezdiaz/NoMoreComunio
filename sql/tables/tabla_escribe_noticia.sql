@@ -7,6 +7,7 @@ create table EscribeNoticia(
   fecha date,
   PRIMARY KEY (nombre_us, nombre_comunidad, codigo_noticia),
   FOREIGN KEY (nombre_us) REFERENCES Usuario(nom_usu),
-  FOREIGN KEY (nombre_comunidad, codigo_noticia) REFERENCES TablonAnuncios(nombre_comunidad,codigo_noticia)
+  FOREIGN KEY(nombre_comunidad, codigo_noticia) REFERENCES TablonAnuncios(nombre_comunidad, codigo_noticia)
 );
 
+select * from EscribeNoticia;

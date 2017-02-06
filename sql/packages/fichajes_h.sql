@@ -16,5 +16,6 @@ PROCEDURE deshacer_fichaje(usuario VARCHAR2, comunidad VARCHAR2, jugador INT);
 
 PROCEDURE realizar_fichaje(jugador INT, comunidad VARCHAR2);
 
+PROCEDURE obtener_jugadores(comunidad VARCHAR2, devolver OUT SYS_REFCURSOR);
 
 END PKG_FICHAJES;
