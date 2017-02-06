@@ -11,6 +11,7 @@ create TABLE Jugadores(
   precio INT
 );
 
+
 /*Inserción de los jugadores*/
 /*NOTA: NO SE QUE HACER CON EL COD, LE VOY PONIENDO EL ORDEN EN EL QUE LO INSERTO*/
 
