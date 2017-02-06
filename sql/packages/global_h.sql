@@ -5,6 +5,6 @@ FUNCTION totalJugadores return INTEGER;
 PROCEDURE escribeNoticia(usuario VARCHAR2, comunidad VARCHAR2, noticia VARCHAR2);
 PROCEDURE registrarJugador(nombre VARCHAR2, equipo VARCHAR2, pos VARCHAR2, precio INTEGER);
 PROCEDURE listaComunidades(usuario VARCHAR2, devolver OUT SYS_REFCURSOR);
-/*PROCEDURE getNoticias(comunidad VARCHAR2);*/
+PROCEDURE getNoticias(comunidad VARCHAR2, devolver OUT SYS_REFCURSOR);
 
 END PKG_GLOBAL;
