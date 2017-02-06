@@ -1,9 +1,8 @@
 CREATE OR REPLACE PACKAGE BODY PKG_CONNECTION AS
 
-FUNCTION login(nombre_usuario VARCHAR2, passwd IN VARCHAR2) return INTEGER IS oklog INTEGER;
+PROCEDURE login(nombre_usuario VARCHAR2, passwd IN VARCHAR2, oklog OUT VARCHAR2) AS
 BEGIN
   select count(*) into oklog from USUARIO where nom_usu = nombre_usuario and pass = passwd;
-  RETURN(oklog);
 END;
 
 FUNCTION existe_usuario(nombre_usuario VARCHAR2) return INTEGER is existe INTEGER;

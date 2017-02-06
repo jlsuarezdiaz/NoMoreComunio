@@ -278,10 +278,11 @@ public class ClientController{
                                 clientState = ClientState.ONLINE;
                                 clientControllerInstance.updater.start();
                                 break;
-                            case ERR:    
+                            case ERR_DATABASE:    
                             case ERR_INVALIDUSER: 
                             case ERR_USEROVERFLOW:
-                                String err_msg = (String) receivedMsg.getData(0);
+                                String err_msg = "";
+                                if(receivedMsg.getData().length > 0) err_msg = (String) receivedMsg.getData(0);
                                 JOptionPane.showMessageDialog(view, err_msg, "ERROR AL INICIAR SESIÓN", JOptionPane.ERROR_MESSAGE);
                                 clientControllerInstance.myUser = null;
                                 startLogin();

@@ -53,6 +53,7 @@ public enum MessageKind {
     ERR_JARNOTFOUND    (407),
     
     ERR_INVALIDUSER    (408),
+    ERR_DATABASE       (409),
     
     
     //0xx

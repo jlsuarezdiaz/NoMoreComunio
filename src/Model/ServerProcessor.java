@@ -89,7 +89,6 @@ class ServerProcessor extends Thread{
                         int id = serverData.addUser((String)receivedData.getData(0),(char[])receivedData.getData(1),this);    //Necesita Mutex
                         remoteId=id;
                         if(id == -2) sendData = new CSMessage(MessageKind.ERR_INVALIDUSER, new Object[]{"Usuario o contraseña incorrectos."});
-                        else if(id==-3) sendData = new CSMessage(MessageKind.ERR, new Object[]{"Error al conectar a la base de datos."});
                         break;
 
                     case LOGOUT:   
@@ -130,34 +129,7 @@ class ServerProcessor extends Thread{
                     case UPDATE_DOWNLOAD:
                         sendJarFile();
                         break;
-                     /*
-                    case UPDATE:
-                        //System.out.println("["+info[1]+"] UPDATE received.");
-                        if(!Server.isThereJarFile()){
-                            datosEnviar=new Message(MessageKind.ERR,
-                                new String[]{"No se puede descargar la actualización."}).toMessage();
-                        }
-                        else{
-                            File f = new File("./NoMoreDropboxMSN.jar");
-                            byte[] data = Files.readAllBytes(f.toPath());
-                            
-                            //FILE, Extensión, data
-                            datosEnviar=new Message(MessageKind.FILE,new String[]{"jar",dataStr}).toMessage();
-                            System.out.println(dataStr.length() + " bloques enviados.");
-                            serverData.sendFile(this, f.getName(), data, "SERVER");
-                        }
-                        break;
-                    case FILE: //FILE, date, name, length, sender
-                        //System.out.println("["+info[1]+"] FILE received.");
-                        String fileName = info[2];
-                        int fileLength = Integer.valueOf(info[3]);
-                        String sender = info[4];
-                        serverData.setActivity(true, remoteId);
-                        File f = FileUtils.FileSend.receiveFileProtocol(this, fileName, fileLength, null);
-                        if(remoteId != -1) serverData.sendFile(remoteId,fileName, f, sender);
-                        serverData.setActivity(false, remoteId);
-                        break;
-                    */
+                   
                     case NOP:
                         break;
                     default:
