@@ -132,5 +132,7 @@ public class CSMessage implements Serializable{
      * CHANGE_STATE: state (userState)
      * 
      * ERR_*: msg (String) [?]
+     * 
+     * SENDMESSAGE: Usuario (String), COmunidad (String), msg (String)
      */
 }

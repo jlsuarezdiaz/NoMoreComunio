@@ -80,9 +80,11 @@ public class ClientController{
     /* The reference for this instance of this object */
     private ClientController clientControllerInstance;
     
-    /**
-     * List of sent messages.
-     */
+    
+    private String comunidadActual;
+    
+    
+    private ArrayList<String> listaComunidades;
     
     /**
      * Files' count.
@@ -219,7 +221,6 @@ public class ClientController{
                             case OK_VERSION: //Switch to LOGIN state.
                                 clientState = ClientState.LOGIN;
                                 startLogin();
-                                sendMessage = new CSMessage(MessageKind.LOGIN, new Object[]{myUser.getName()});
                                 break;
                             case WARN_NOTUPATED:
                             {
@@ -315,6 +316,16 @@ public class ClientController{
                                 }
                                 System.exit(0);
                                 break; 
+                            case OK_SEND:
+                                // Actualizar noticias
+                                break;
+                            case ERR_DATABASE:
+                                String err_msg = "";
+                                if(receivedMsg.getData().length > 0) err_msg = (String) receivedMsg.getData(0);
+                                JOptionPane.showMessageDialog(view, err_msg, "ERROR AL INICIAR SESIÓN", JOptionPane.ERROR_MESSAGE);
+                                clientControllerInstance.myUser = null;
+                                startLogin();
+                                break;
                             case NOP:
                                 break;
                             default:
@@ -446,7 +457,7 @@ public class ClientController{
      */
     private void startUpdating(){
         try {
-            this.updateFile = File.createTempFile("NoMoreDropboxMSN", "jar");
+            this.updateFile = File.createTempFile("NoMoreComunio", "jar");
             this.fosUpdate = new FileOutputStream(updateFile);
             this.updateView= new LoadingView(null, false);
             
@@ -472,6 +483,10 @@ public class ClientController{
             Tracer.getInstance().trace(ex);
         }                          
     }
+
+    public void sendMessage(String msg) {
+        sendToServer(new CSMessage(MessageKind.SENDMESSAGE, new Object[]{myUser.getName(),comunidadActual,msg}));
+    }
          
 
     
@@ -484,15 +499,7 @@ public class ClientController{
         
         updater.stop();
         
-        //Activamos un temporizador para cerrar si no obtenemos respuesta del servidor (timeout)
-        
-        
-        //timeOutOff.start();
-        
-        
-        //Esperamos a que el servidor dé el visto bueno para salir correctamente.
-        //(hasta que el proceso lector no reciba un BYE del servidor.
-        //Si no hay respuesta el temporizador dará paso.
+      
         int timeOutCount = 0;
         while(clientState != clientState.OFF && timeOutCount < 300){
             try {

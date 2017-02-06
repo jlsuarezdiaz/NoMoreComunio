@@ -30,6 +30,7 @@ public enum MessageKind {
     //OK_STATE           (205),
     OK_FILE            (206),
     OK_VERSION         (207),
+    OK_SEND            (208),
     
     //3xx - Communication messages
     USERS              (300),
@@ -39,6 +40,7 @@ public enum MessageKind {
     //CHANGE_PRIV        (304),
     //CHANGE_SLCT        (305),
     //CHANGE_STATE       (306),
+    SENDMESSAGE         (307),
     
     SEND_FILE          (311),
     
