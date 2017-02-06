@@ -27,6 +27,7 @@ END;
 
 PROCEDURE proceso_acceso(usuario VARCHAR2, comunidad VARCHAR2) AS 
 BEGIN
+  
   INSERT into PERTENECE(nombre_usu,nombre_comunidad,creditos,administrador) values (usuario,comunidad,20.0, 0);
 END;
 

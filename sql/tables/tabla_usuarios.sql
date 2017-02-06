@@ -1,4 +1,4 @@
-drop table Usuario;
+drop table Usuario cascade constraints;
 
 create table Usuario(
   nom_usu varchar(20) NOT NULL PRIMARY KEY,
@@ -8,7 +8,9 @@ create table Usuario(
   email varchar(30)
 );
 
-/*Inserción de los usuarios*/
+
+
+/*Inserciï¿½n de los usuarios*/
 
 insert into Usuario(nom_usu,nombre,apellidos,pass,email) values ('rbnuria','nuria','rodriguez barrado','nuriaadra','rbnuria6@gmail.com');
 insert into Usuario(nom_usu,nombre,apellidos,pass,email) values ('elenaro','elena','romero contreras','elena95','elenaromero@gmail.com');
