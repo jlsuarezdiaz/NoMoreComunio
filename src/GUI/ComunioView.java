@@ -47,7 +47,7 @@ public class ComunioView extends javax.swing.JFrame {
     /**
      * MSN Controller.
      */
-    private ClientController msn_ctrl;
+    private ClientController controller;
    
     /**
      * State colors array.
@@ -103,8 +103,9 @@ public class ComunioView extends javax.swing.JFrame {
             }
         });
         UsersPanel.add(uv);
-//        uv.select(msn_ctrl.isSelected(uv.getUserId()));
+//        uv.select(controller.isSelected(uv.getUserId()));
     }
+    
     
     
     
@@ -121,7 +122,7 @@ public class ComunioView extends javax.swing.JFrame {
      * Action of sending a message.
      */
     private void performSend(){
- //       msn_ctrl.send(TextMessage.getText(),BtPrivate.isSelected());
+ //       controller.send(TextMessage.getText(),BtPrivate.isSelected());
     }
     
     /**
@@ -142,7 +143,6 @@ public class ComunioView extends javax.swing.JFrame {
         this.addWindowListener (new WindowAdapter() {
             @Override
             public void windowClosing (WindowEvent e) {
-                msn_ctrl.stop();
                 System.exit(0);
             }
         });
@@ -165,6 +165,7 @@ public class ComunioView extends javax.swing.JFrame {
         initializeTrayIcon();
 
     }
+
 
 
 
@@ -201,16 +202,16 @@ public class ComunioView extends javax.swing.JFrame {
      * Set the view of MSN
      * @param msn msn_controller that will set the view.
      */
-    public void setMSN(ClientController msn){
-        this.msn_ctrl = msn;
-        MyUserPanel.setUser(msn_ctrl.getUser(),msn_ctrl.getMyId());
+    public void setMSN(ClientController ctrl){
+        this.controller = ctrl;
+        MyUserPanel.setUser(controller.getUser(),ctrl.getMyId());
         MyUserPanel.repaint();
-        fillUserPanel(msn_ctrl.getUserList());
+        fillUserPanel(controller.getUserList());
         repaint();
     }
     
     public void setMSN(){
-        if(msn_ctrl != null) setMSN(msn_ctrl);
+        if(controller != null) setMSN(controller);
     }
     
     /**
@@ -294,8 +295,8 @@ public class ComunioView extends javax.swing.JFrame {
      */
 /*    public void updateUserForced(){
         try {
-            msn_ctrl.updateUser(true);
-            MyUserPanel.setUser(msn_ctrl.getUser());
+            controller.updateUser(true);
+            MyUserPanel.setUser(controller.getUser());
         } catch (UserOverflowException ex) {
             ComunioView.showUserOverflowMsg(ex);
         }
@@ -394,11 +395,12 @@ public class ComunioView extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        BtSendMessage = new javax.swing.JButton();
+        msgPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Dropbox MSN");
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Media/football_icon.png")));
-        setMaximumSize(new java.awt.Dimension(945, 591));
         setMinimumSize(new java.awt.Dimension(945, 591));
         setResizable(false);
 
@@ -457,6 +459,24 @@ public class ComunioView extends javax.swing.JFrame {
 
         jLabel5.setText("Escribir noticia:");
 
+        BtSendMessage.setText("ENVIAR");
+        BtSendMessage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtSendMessageActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout msgPanelLayout = new javax.swing.GroupLayout(msgPanel);
+        msgPanel.setLayout(msgPanelLayout);
+        msgPanelLayout.setHorizontalGroup(
+            msgPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        msgPanelLayout.setVerticalGroup(
+            msgPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -468,10 +488,15 @@ public class ComunioView extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addGap(148, 148, 148)
                         .addComponent(jLabel3))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 462, Short.MAX_VALUE)
+                    .addComponent(jLabel5)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(msgPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(BtSendMessage)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 387, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -491,24 +516,25 @@ public class ComunioView extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(UserScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(57, 57, 57)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(MyUserPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                         .addComponent(BtExit, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(msgPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                            .addComponent(BtSendMessage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
 
@@ -522,7 +548,7 @@ public class ComunioView extends javax.swing.JFrame {
      * @param evt 
      */
     private void BtExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtExitActionPerformed
-        msn_ctrl.stop();
+        controller.stop();
         System.exit(0);
     }//GEN-LAST:event_BtExitActionPerformed
 
@@ -549,15 +575,21 @@ public class ComunioView extends javax.swing.JFrame {
 
     private void UsersPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UsersPanelMouseClicked
         if(evt.getComponent() instanceof UserView){
-//            msn_ctrl.changeSelect(((UserView)evt.getComponent()).getUserId());
+//            controller.changeSelect(((UserView)evt.getComponent()).getUserId());
         }
     }//GEN-LAST:event_UsersPanelMouseClicked
+
+    private void BtSendMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtSendMessageActionPerformed
+        controller.sendMessage(TextMessage.getText());
+        TextMessage.setText("");
+    }//GEN-LAST:event_BtSendMessageActionPerformed
 
     
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtExit;
+    private javax.swing.JButton BtSendMessage;
     private GUI.UserView MyUserPanel;
     private javax.swing.JTextArea TextMessage;
     private javax.swing.JScrollPane UserScroll;
@@ -568,5 +600,6 @@ public class ComunioView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel msgPanel;
     // End of variables declaration//GEN-END:variables
 }

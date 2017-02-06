@@ -29,7 +29,7 @@ public class DBFunctions {
              (host,uName,uPass);
         return conn;
     }
-    
+   
     public static boolean login(String user, char[] passwd) throws SQLException{
         Connection con = DBConnect();
         //Consulta que se va a realizar (los argumentos se escriben como ?, se especifican después). 
@@ -58,5 +58,22 @@ public class DBFunctions {
             return true;
     }
     
+    public static void sendMessage(String user, String com, String msg) throws SQLException  {
+        Connection con = DBConnect();
+        //Consulta que se va a realizar (los argumentos se escriben como ?, se especifican después). 
+        String jobquery = "begin pkg_global.escribeNoticia(?,?,?); end;";
+        //Preparamos la llamada.
+        CallableStatement callStmt = con.prepareCall(jobquery);
+        
+        //[ESCRIBENOTICIA(user IN VARCHAR, comunidad IN VARCHAR2, msg OUT INTEGER)]
+        
+        //Parámetros de entrada
+        callStmt.setString(1, user);
+        callStmt.setString(2, com);
+        callStmt.setString(3, msg);
+        
+        //Ejecutamos comando.
+        callStmt.execute();
+    }
 }
     

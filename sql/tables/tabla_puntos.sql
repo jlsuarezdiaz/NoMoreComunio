@@ -10,16 +10,17 @@ create TABLE Puntos
   asistencias int,
   t_amarillas int,
   t_rojas int,
+  valoracion int check (valoracion >= 0 and valoracion <= 4),
   PRIMARY KEY(cod_jugador, cod_jornada),
   FOREIGN KEY(cod_jugador) REFERENCES Jugadores(cod)
 );
 
 /* DATOS DE LA PRIMERA JORNADA */
 
-INSERT into Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t_rojas) VALUES (1,1,1,0,1,0);
-INSERT into Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t_rojas) VALUES (2,1,0,0,1,0);
-INSERT into Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t_rojas) VALUES (3,1,0,1,0,0);
-INSERT into Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t_rojas) VALUES (4,1,0,0,0,0);
+INSERT into Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t_rojas,valoracion) VALUES (1,1,1,0,1,0,1);
+INSERT into Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t_rojas,valoracion) VALUES (2,1,0,0,1,0,1);
+INSERT into Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t_rojas,valoracion) VALUES (3,1,0,1,0,0,1);
+/*INSERT into Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t_rojas) VALUES (4,1,0,0,0,0);
 INSERT into Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t_rojas) VALUES (5,1,0,2,0,0);
 INSERT into Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t_rojas) VALUES (6,1,0,0,0,0);
 INSERT into Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t_rojas) VALUES (7,1,0,2,0,0);
@@ -88,9 +89,9 @@ INSERT into Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t
 INSERT into Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t_rojas) VALUES (65,1,1,2,0,0);
 INSERT into Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t_rojas) VALUES (66,1,1,3,0,0);
 
-
+*/
 /* DATOS DE LA SEGUNDA JORNADA */
-
+/*
 INSERT into Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t_rojas) VALUES (1,2,2,1,0,0);
 INSERT into Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t_rojas) VALUES (2,2,0,0,1,0);
 INSERT into Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t_rojas) VALUES (3,2,0,0,1,0);
@@ -162,3 +163,4 @@ INSERT into Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t
 INSERT into Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t_rojas) VALUES (64,2,0,0,0,0);
 INSERT into Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t_rojas) VALUES (65,2,2,2,1,0);
 INSERT into Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t_rojas) VALUES (66,2,1,3,0,0);
+*/

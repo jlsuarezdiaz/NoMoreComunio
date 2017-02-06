@@ -15,6 +15,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -88,7 +89,6 @@ class ServerProcessor extends Thread{
                     case LOGIN: 
                         int id = serverData.addUser((String)receivedData.getData(0),(char[])receivedData.getData(1),this);    //Necesita Mutex
                         remoteId=id;
-                        if(id == -2) sendData = new CSMessage(MessageKind.ERR_INVALIDUSER, new Object[]{"Usuario o contraseña incorrectos."});
                         break;
 
                     case LOGOUT:   
@@ -126,6 +126,11 @@ class ServerProcessor extends Thread{
                     case FILE:
                         serverData.sendToAll(receivedData);
                         break;
+                    case SENDMESSAGE:
+                        DBFunctions.sendMessage((String)receivedData.getData(0),(String)receivedData.getData(1),(String)receivedData.getData(2));
+                        //DBFunctions.obtenerMensaje();
+                        serverData.sendTo(remoteId, new CSMessage(MessageKind.OK_SEND,null));
+                        break;
                     case UPDATE_DOWNLOAD:
                         sendJarFile();
                         break;
@@ -146,6 +151,9 @@ class ServerProcessor extends Thread{
                 Tracer.getInstance().trace(ex);
                 if(!serviceSocket.isConnectionAlive()){
                     kill();
+                }
+                if(ex instanceof SQLException){
+                    serverData.sendTo(remoteId,new CSMessage(MessageKind.ERR_DATABASE, new Object[]{ex.getMessage()}));
                 }
             }
         }while(running);
