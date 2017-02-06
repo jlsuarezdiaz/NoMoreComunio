@@ -17,10 +17,10 @@ select * from ApareceEN;
 INSERT into ApareceEn( nombre_vendedor, nombre_comunidad, codigo_jugador, precio_min) VALUES
 ('rbnuria','ComunioDDSI2',1, 100000);
 
-/*INSERT into ApareceEn( nombre_comunidad, codigo_jugador, precio_min) VALUES
-('ComunioDDSI2',1, 100000);
-INSERT into ApareceEn( nombre_comunidad, codigo_jugador, precio_min) VALUES
-('ComunioDDSI2',4, 200000);*/
+INSERT into ApareceEn( nombre_vendedor, nombre_comunidad, codigo_jugador, precio_min) VALUES
+('elenaro','ComunioDDSI2',4, 100000);
+INSERT into ApareceEn( nombre_vendedor, nombre_comunidad, codigo_jugador, precio_min) VALUES
+('moyita222','ComunioDDSI',1, 200000);
 /*INSERT into ApareceEn( nombre_comunidad, codigo_jugador) VALUES
 ('ComunioDDSI2',5);
 INSERT into ApareceEn( nombre_comunidad, codigo_jugador) VALUES

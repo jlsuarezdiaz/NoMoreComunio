@@ -80,8 +80,36 @@ BEGIN
   delete from REALIZAROFERTA where codigo_jugador=jugador and estado=0 and nombre_comunidad = comunidad;
   
   delete from APARECEEN where codigo_jugador = jugador and nombre_comunidad = comunidad;
-  
     
 END;
 
+/* Hay que añadirle los puntos -> tener en cuenta que se duplica el ultimo!!!!!!*/
+PROCEDURE obtener_jugadores(comunidad VARCHAR2, devolver OUT SYS_REFCURSOR) AS
+  nombre VARCHAR(40);
+  precio_min INT;
+  equipo VARCHAR(40);
+  nombre_vendedor VARCHAR(40);
+BEGIN
+  OPEN devolver FOR
+  SELECT nombre, equipo, precio_min, nombre_vendedor
+  FROM (select * from APARECEEN, JUGADORES 
+  where apareceen.codigo_jugador = Jugadores.cod and nombre_comunidad = comunidad);
+  
+  LOOP
+    FETCH devolver INTO nombre, equipo, precio_min, nombre_vendedor;
+
+    EXIT WHEN (devolver%NOTFOUND);
+
+  END LOOP;
+  CLOSE devolver;
+END;
+
 END PKG_FICHAJES;
+
+
+
+
+
+
+
+
