@@ -33,16 +33,36 @@ BEGIN
   INSERT INTO Jugadores  VALUES (totalJugadores+1, nombre, equipo, pos, precio);
 END;
 
-/*
-PROCEDURE listaComunidades(usuario VARCHAR2) AS
-BEGIN
-  SELECT nombre_comunidad FROM Pertenece WHERE nombre_usu = usuario;
-END;
 
-PROCEDURE getNoticias(comunidad VARCHAR2) AS
+/*
+DECLARE devolver SYS_REFCURSOR;
 BEGIN
-  select * from TABLONANUNCIOS;
+  PKG_global.listaComunidades('rbnuria', devolver);
 END;
 */
+PROCEDURE listaComunidades(usuario VARCHAR2, devolver OUT SYS_REFCURSOR) AS
+  nombre_comunidad VARCHAR(40);
+BEGIN
+  OPEN devolver FOR
+  SELECT nombre_comunidad FROM PERTENECE where nombre_usu = usuario;
+  
+  LOOP
+    FETCH devolver INTO nombre_comunidad;
+    EXIT WHEN (devolver%NOTFOUND);
 
+  END LOOP;
+  CLOSE devolver;
+END;
+
+/*
+PROCEDURE getNoticias(comunidad VARCHAR2) AS
+noticia VARCHAR(400);
+fecha DATE;
+usuario VARCHAR(20);
+BEGIN
+  OPEN devolver FOR
+  SELECT 
+END;
+
+*/
 END PKG_GLOBAL;
