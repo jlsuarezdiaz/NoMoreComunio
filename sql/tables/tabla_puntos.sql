@@ -1,6 +1,6 @@
 /*Creación tabla de puntos*/
 
-drop TABLE Puntos cascade constraints;
+/*drop TABLE Puntos cascade constraints;*/
 
 create TABLE Puntos
 (

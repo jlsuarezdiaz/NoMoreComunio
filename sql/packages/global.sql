@@ -61,7 +61,7 @@ fecha DATE;
 usuario VARCHAR(20);
 BEGIN
   OPEN devolver FOR
-  SELECT noticia, fecha, usuario FROM 
+  SELECT noticia, fecha, nombre_us FROM 
   (select * from EscribeNoticia, TABLONANUNCIOS 
   where escribenoticia.nombre_comunidad = tablonanuncios.nombre_comunidad 
   and escribenoticia.codigo_noticia = tablonanuncios.codigo_noticia and escribenoticia.nombre_comunidad = comunidad);
@@ -73,6 +73,11 @@ BEGIN
   END LOOP;
   CLOSE devolver;*/
   
+END;
+
+PROCEDURE obtenerDinero(usuario VARCHAR2, comunidad VARCHAR2, dinero OUT INTEGER) AS
+BEGIN
+  select creditos into dinero from pertenece where nombre_usu=usuario and nombre_comunidad=comunidad;
 END;
 
 END PKG_GLOBAL;

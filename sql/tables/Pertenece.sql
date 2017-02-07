@@ -1,4 +1,4 @@
-drop table Pertenece cascade constraints;
+/*drop table Pertenece cascade constraints;*/
 
 create table Pertenece(
   nombre_usu varchar(20) NOT NULL,

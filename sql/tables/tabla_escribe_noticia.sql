@@ -1,4 +1,4 @@
-drop table EscribeNoticia;
+/*drop table EscribeNoticia;*/
 
 create table EscribeNoticia(
   nombre_us varchar(20) NOT NULL,

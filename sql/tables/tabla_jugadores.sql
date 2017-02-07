@@ -1,7 +1,7 @@
 /*Creación de la tabla de jugadores*/
 
 /*Por si ya estaba creado*/
-drop TABLE Jugadores cascade constraints;
+/*drop TABLE Jugadores cascade constraints;*/
 
 create TABLE Jugadores(
   cod int NOT NULL PRIMARY KEY,
@@ -125,7 +125,7 @@ INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES
 
 
 
-/*MÁLAGA FC*/
+/*M�?LAGA FC*/
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
 (34, 'Carlos Kameni', 'Málaga FC', 'Portero', 1210000);
 

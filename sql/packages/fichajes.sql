@@ -91,9 +91,10 @@ PROCEDURE obtener_jugadores(comunidad VARCHAR2, devolver OUT SYS_REFCURSOR) AS
   nombre_vendedor VARCHAR(40);
 BEGIN
   OPEN devolver FOR
-  SELECT nombre, equipo, precio_min, nombre_vendedor
-  FROM (select * from APARECEEN, JUGADORES 
-  where apareceen.codigo_jugador = Jugadores.cod and nombre_comunidad = comunidad);
+  SELECT nombre, equipo,pos, precio_min, precio, nombre_vendedor , sum(goles) as sumg, sum(asistencias) as suma, sum(t_amarillas) as sumta, sum(t_rojas) as sumtr, sum(valoracion) as sumval
+  FROM (select * from APARECEEN, JUGADORES, PUNTOS
+  where apareceen.codigo_jugador = Jugadores.cod and nombre_comunidad = comunidad and jugadores.cod = puntos.cod_jugador)
+  group by nombre, equipo, pos, precio_min,precio, nombre_vendedor;
 /*  
   LOOP
     FETCH devolver INTO nombre, equipo, precio_min, nombre_vendedor;
