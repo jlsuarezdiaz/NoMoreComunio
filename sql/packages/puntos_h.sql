@@ -15,7 +15,7 @@ PROCEDURE asignarPuntos(cod INTEGER, jornada INTEGER, goles_encajados INTEGER, g
 PROCEDURE calcularPuntos(cod INTEGER, jornada INTEGER, resultado OUT INTEGER);
 FUNCTION obtenerPuntosUsuario(usuario VARCHAR2, jor INT, comunidad VARCHAR2) return INTEGER;
 PROCEDURE obtenerPuntosJornada(jor INT, comunidad VARCHAR2, devolver OUT SYS_REFCURSOR);
-/*FUNCTION obtenerPuntosTotalesUsuario(usuario VARCHAR2, comunidad VARCHAR2) return INTEGER;
-PROCEDURE obtenerPuntosTotales(comunidad VARCHAR2, devolver OUT SYS_REFCURSOR);*/
+FUNCTION obtenerPuntosTotalesUsuario(usuario VARCHAR2, comunidad VARCHAR2) return INTEGER;
+PROCEDURE obtenerPuntosTotales(comunidad VARCHAR2, devolver OUT SYS_REFCURSOR);
 
 END PKG_PUNTOS;
