@@ -24,7 +24,9 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -158,6 +160,10 @@ public class ComunioView extends javax.swing.JFrame {
         
         clipboard = null;
         
+        this.boxSelectCom.setVisible(false);
+        this.lblNoCom.setVisible(false);
+        this.btCreateCom.setEnabled(false);
+        this.btJoinCom.setEnabled(false);
         
         this.setTitle(Data.Txt.PROGRAM_NAME);
         
@@ -181,9 +187,9 @@ public class ComunioView extends javax.swing.JFrame {
     
     public void initializeTrayIcon(){
         if(SystemTray.isSupported()){
-            Image img = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Media/msn_icon.png"));
+            Image img = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Media/football_icon.png"));
             myTrayIcon =
-                new TrayIcon(img, "No More Dropbox MSN");
+                new TrayIcon(img, "No More Comunio");
             myTrayIcon.setImageAutoSize(true);
             final SystemTray tray = SystemTray.getSystemTray();
              try {
@@ -194,7 +200,7 @@ public class ComunioView extends javax.swing.JFrame {
     
     public void desktopNotify(String msg){      
         if(SystemTray.isSupported() && !isActive() && desktopNotifications){
-            myTrayIcon.displayMessage("NO MORE DROPBOX MSN", msg, TrayIcon.MessageType.INFO);
+            myTrayIcon.displayMessage("NO MORE COMUNIO", msg, TrayIcon.MessageType.INFO);
         }
     }
     
@@ -228,6 +234,35 @@ public class ComunioView extends javax.swing.JFrame {
         this.MyUserPanel.setVisible(enabled);
         if(!enabled) UsersPanel.removeAll();
         
+        
+    }
+    
+    /**
+     * Sets the community list for a user
+     * @param coms Community list
+     */
+    public void setCommunityList(ArrayList<String> coms){
+        if(coms.isEmpty()){
+            lblNoCom.setVisible(true);
+            boxSelectCom.setVisible(false);
+        }
+        else{
+            lblNoCom.setVisible(false);
+            boxSelectCom.setVisible(true);
+            boxSelectCom.setModel(new DefaultComboBoxModel(coms.toArray()));
+            boxSelectCom.setSelectedIndex(0);
+        }
+        this.btCreateCom.setEnabled(true);
+        this.btJoinCom.setEnabled(true);
+    }
+    
+    
+    public void setMarket(){
+        
+    }
+    
+    
+    public void setNews(){
         
     }
     
@@ -397,10 +432,17 @@ public class ComunioView extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         BtSendMessage = new javax.swing.JButton();
         msgPanel = new javax.swing.JPanel();
+        lblNoCom = new javax.swing.JLabel();
+        boxSelectCom = new javax.swing.JComboBox();
+        btJoinCom = new javax.swing.JButton();
+        btCreateCom = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        lblMoney = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Dropbox MSN");
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Media/football_icon.png")));
+        setMaximumSize(new java.awt.Dimension(945, 591));
         setMinimumSize(new java.awt.Dimension(945, 591));
         setResizable(false);
 
@@ -477,6 +519,25 @@ public class ComunioView extends javax.swing.JFrame {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
+        lblNoCom.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblNoCom.setForeground(new java.awt.Color(255, 51, 0));
+        lblNoCom.setText("¡NO ESTÁS TODAVÍA EN NIGUNA COMUNIDAD! ");
+
+        boxSelectCom.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--NO COMS--" }));
+
+        btJoinCom.setText("Unirse a una comunidad");
+
+        btCreateCom.setText("Crear una nueva comunidad");
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 153, 0));
+        jLabel6.setText("DINERO:");
+
+        lblMoney.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblMoney.setForeground(new java.awt.Color(0, 255, 255));
+        lblMoney.setText(NumberFormat.getNumberInstance().format(20000000)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -484,10 +545,6 @@ public class ComunioView extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(148, 148, 148)
-                        .addComponent(jLabel3))
                     .addComponent(jLabel4)
                     .addComponent(jLabel5)
                     .addGroup(layout.createSequentialGroup()
@@ -495,8 +552,19 @@ public class ComunioView extends javax.swing.JFrame {
                             .addComponent(msgPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(BtSendMessage)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 387, Short.MAX_VALUE)
+                        .addComponent(BtSendMessage))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblMoney, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btCreateCom, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btJoinCom, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(boxSelectCom, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblNoCom, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(148, 148, 148)
+                        .addComponent(jLabel3)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 346, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -516,16 +584,27 @@ public class ComunioView extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(UserScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(MyUserPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                         .addComponent(BtExit, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(lblNoCom)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(boxSelectCom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btJoinCom)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btCreateCom)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblMoney)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(msgPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -594,12 +673,18 @@ public class ComunioView extends javax.swing.JFrame {
     private javax.swing.JTextArea TextMessage;
     private javax.swing.JScrollPane UserScroll;
     private javax.swing.JPanel UsersPanel;
+    private javax.swing.JComboBox boxSelectCom;
+    private javax.swing.JButton btCreateCom;
+    private javax.swing.JButton btJoinCom;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblMoney;
+    private javax.swing.JLabel lblNoCom;
     private javax.swing.JPanel msgPanel;
     // End of variables declaration//GEN-END:variables
 }
