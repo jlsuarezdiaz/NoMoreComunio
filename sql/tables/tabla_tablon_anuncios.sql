@@ -8,3 +8,4 @@ create table TablonAnuncios(
   FOREIGN KEY (nombre_comunidad) REFERENCES Comunidad(nombre_comunidad)
 );
 
+select * from TablonAnuncios;

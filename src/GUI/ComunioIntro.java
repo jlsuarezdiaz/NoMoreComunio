@@ -177,7 +177,7 @@ public class ComunioIntro extends javax.swing.JDialog {
                                         .addComponent(btStart1))
                                     .addComponent(labelAskName1)
                                     .addComponent(txtPassword))
-                                .addGap(0, 7, Short.MAX_VALUE))))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(38, 38, 38)
                         .addComponent(jLabel1)

@@ -61,15 +61,31 @@ BEGIN
 
 END;
 
+
 /*
-PROCEDURE getNoticias(comunidad VARCHAR2) AS
+DECLARE devolver SYS_REFCURSOR;
+BEGIN
+  PKG_global.getNoticias('ComunioDDSI2', devolver);
+END;
+*/
+PROCEDURE getNoticias(comunidad VARCHAR2, devolver OUT SYS_REFCURSOR) AS
 noticia VARCHAR(400);
 fecha DATE;
 usuario VARCHAR(20);
 BEGIN
   OPEN devolver FOR
-  SELECT 
+  SELECT noticia, fecha, usuario FROM 
+  (select * from EscribeNoticia, TABLONANUNCIOS 
+  where escribenoticia.nombre_comunidad = tablonanuncios.nombre_comunidad 
+  and escribenoticia.codigo_noticia = tablonanuncios.codigo_noticia and escribenoticia.nombre_comunidad = comunidad);
+  
+  LOOP
+    FETCH devolver INTO noticia, fecha, usuario;
+    EXIT WHEN (devolver%NOTFOUND);
+
+  END LOOP;
+  CLOSE devolver;
+  
 END;
 
-*/
 END PKG_GLOBAL;

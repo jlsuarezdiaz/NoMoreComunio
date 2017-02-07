@@ -16,3 +16,5 @@ insert into Pertenece(nombre_usu,nombre_comunidad,creditos,administrador) values
 insert into Pertenece(nombre_usu,nombre_comunidad,creditos,administrador) values ('juanikerbrahimi','ComunioDDSI2',200000000000000.0,1);
 insert into Pertenece(nombre_usu,nombre_comunidad,creditos,administrador) values ('elenaro','ComunioDDSI2',100000000000000.0,0);
 insert into Pertenece(nombre_usu,nombre_comunidad,creditos,administrador) values ('rbnuria','ComunioDDSI2',20.0,0);
+
+select * from Pertenece;
