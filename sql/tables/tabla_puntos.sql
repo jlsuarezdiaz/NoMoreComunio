@@ -1,6 +1,6 @@
 /*Creación tabla de puntos*/
 
-drop TABLE Puntos;
+drop TABLE Puntos cascade constraints;
 
 create TABLE Puntos
 (
@@ -8,8 +8,8 @@ create TABLE Puntos
   cod_jornada int NOT NULL,
   goles int,
   asistencias int,
-  t_amarillas int,
-  t_rojas int,
+  t_amarillas int check(t_amarillas >= 0 and t_amarillas <=2),
+  t_rojas int check(t_rojas >= 0 and t_rojas <=1),
   valoracion int check (valoracion >= 0 and valoracion <= 4),
   PRIMARY KEY(cod_jugador, cod_jornada),
   FOREIGN KEY(cod_jugador) REFERENCES Jugadores(cod)
@@ -20,15 +20,16 @@ create TABLE Puntos
 INSERT into Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t_rojas,valoracion) VALUES (1,1,1,0,1,0,1);
 INSERT into Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t_rojas,valoracion) VALUES (2,1,0,0,1,0,1);
 INSERT into Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t_rojas,valoracion) VALUES (3,1,0,1,0,0,1);
-/*INSERT into Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t_rojas) VALUES (4,1,0,0,0,0);
-INSERT into Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t_rojas) VALUES (5,1,0,2,0,0);
-INSERT into Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t_rojas) VALUES (6,1,0,0,0,0);
-INSERT into Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t_rojas) VALUES (7,1,0,2,0,0);
-INSERT into Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t_rojas) VALUES (8,1,0,1,1,0);
-INSERT into Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t_rojas) VALUES (9,1,0,3,1,0);
-INSERT into Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t_rojas) VALUES (10,1,0,2,0,0);
-INSERT into Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t_rojas) VALUES (11,1,3,3,1,0);
+INSERT into Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t_rojas, valoracion) VALUES (4,1,0,0,0,0,0);
+INSERT into Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t_rojas, valoracion) VALUES (5,1,0,2,0,0,2);
+INSERT into Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t_rojas, valoracion) VALUES (6,1,0,0,0,1,1);
+INSERT into Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t_rojas, valoracion) VALUES (7,1,0,2,0,0,3);
+INSERT into Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t_rojas, valoracion) VALUES (8,1,0,1,1,0,2);
+INSERT into Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t_rojas, valoracion) VALUES (9,1,0,3,1,0,1);
+INSERT into Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t_rojas, valoracion) VALUES (10,1,0,2,0,0,2);
+INSERT into Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t_rojas, valoracion) VALUES (11,1,3,3,0,0,4);
 
+/*
 INSERT into Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t_rojas) VALUES (12,1,2,0,1,0);
 INSERT into Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t_rojas) VALUES (13,1,0,0,0,0);
 INSERT into Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t_rojas) VALUES (14,1,0,1,0,0);
@@ -88,9 +89,9 @@ INSERT into Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t
 INSERT into Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t_rojas) VALUES (64,1,0,0,0,0);
 INSERT into Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t_rojas) VALUES (65,1,1,2,0,0);
 INSERT into Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t_rojas) VALUES (66,1,1,3,0,0);
-
 */
 /* DATOS DE LA SEGUNDA JORNADA */
+
 /*
 INSERT into Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t_rojas) VALUES (1,2,2,1,0,0);
 INSERT into Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t_rojas) VALUES (2,2,0,0,1,0);
@@ -164,3 +165,4 @@ INSERT into Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t
 INSERT into Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t_rojas) VALUES (65,2,2,2,1,0);
 INSERT into Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t_rojas) VALUES (66,2,1,3,0,0);
 */
+SELECT COUNT(*) from puntos;

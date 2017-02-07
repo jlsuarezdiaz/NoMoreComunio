@@ -1,5 +1,5 @@
-
 CREATE OR REPLACE PACKAGE BODY PKG_PUNTOS AS
+
 
 FUNCTION obtenerAmarillas(cod INTEGER, jornada INTEGER) return INTEGER IS numero INTEGER;
 BEGIN
@@ -126,4 +126,34 @@ BEGIN
 
 END;
 
+PROCEDURE obtenerPuntosUsuario(usuario VARCHAR2, jor INT, comunidad VARCHAR2,  suma OUT INT) IS
+cod_jugador INT;
+auxiliar INT;
+CURSOR recorrer IS SELECT cod_jugador FROM (select * from Puntos,TieneAlineado 
+  where Puntos.cod_jugador = TieneAlineado.codigo_jugador and nombre_comunidad=comunidad and jornada=jor and nombre_usuario = usuario);
+
+BEGIN
+
+  suma:=0;
+  OPEN recorrer;
+  
+  LOOP
+    FETCH recorrer INTO cod_jugador;
+
+    EXIT WHEN (recorrer%NOTFOUND);
+    calcularPuntos(cod_jugador, jor, auxiliar);
+    suma := suma + auxiliar;
+  END LOOP;
+  CLOSE recorrer;
+END;
+
+/*
+PROCEDURE obtenerPuntos(jor INT, coumidad varchar, devolver OUT SYS_REFCURSOR) AS
+usuario VARCHAR2;
+puntos INT;
+BEGIN
+  OPEN devolver FOR SELECT usuario FROM pertenece;
+END;
+
+*/
 END PKG_PUNTOS;
