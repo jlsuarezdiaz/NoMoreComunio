@@ -170,6 +170,9 @@ public class ClientController{
         this.totalLengthUpdate = 0;
         this.updateFileName = null;
         
+        this.listaComunidades = null;
+        this.comunidadActual = null;
+        
         reader();//Iniciamos la hebra lectora.
         
         
@@ -278,6 +281,8 @@ public class ClientController{
                                 view.enableMSNComponents(true);
                                 clientState = ClientState.ONLINE;
                                 clientControllerInstance.updater.start();
+                                sendMessage = new CSMessage(MessageKind.LISTCOMS, new Object[]{myUser.getName()});
+                                sendToServer(sendMessage);
                                 break;
                             case ERR_DATABASE:    
                             case ERR_INVALIDUSER: 
@@ -316,8 +321,20 @@ public class ClientController{
                                 }
                                 System.exit(0);
                                 break; 
-                            case OK_SEND:
+                            case LISTCOMS:
+                                listaComunidades = (ArrayList<String>)receivedMsg.getData(0);
+                                view.setCommunityList(listaComunidades);
+                                if(listaComunidades.isEmpty()) comunidadActual = null;
+                                // (Posiblemente esto se pueda hacer directamente desde el evento de la combobox)
+                                else{
+                                    comunidadActual = listaComunidades.get(0);
+                                    sendMessage = new CSMessage(MessageKind.GETCOM, new Object[]{comunidadActual});
+                                }
+                            case NEWS:
                                 // Actualizar noticias
+                                break;
+                            case MARKET:
+                                //Actualizar mercado
                                 break;
                             case ERR_DATABASE:
                                 String err_msg = "";

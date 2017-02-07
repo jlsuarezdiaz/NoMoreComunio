@@ -129,12 +129,16 @@ class ServerProcessor extends Thread{
                     case SENDMESSAGE:
                         DBFunctions.sendMessage((String)receivedData.getData(0),(String)receivedData.getData(1),(String)receivedData.getData(2));
                         //DBFunctions.obtenerMensaje();
-                        serverData.sendTo(remoteId, new CSMessage(MessageKind.OK_SEND,null));
+                        //serverData.sendTo(remoteId, new CSMessage(MessageKind.NEWS,null));
                         break;
                     case UPDATE_DOWNLOAD:
                         sendJarFile();
                         break;
-                   
+                    case LISTCOMS:
+                        String user = (String) receivedData.getData(0);
+                        ArrayList<String> listcoms = DBFunctions.listaComunidades(user);
+                        sendData = new CSMessage(MessageKind.LISTCOMS, new Object[]{listcoms});
+                        break;
                     case NOP:
                         break;
                     default:
