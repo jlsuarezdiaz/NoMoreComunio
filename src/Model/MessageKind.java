@@ -30,7 +30,7 @@ public enum MessageKind {
     //OK_STATE           (205),
     OK_FILE            (206),
     OK_VERSION         (207),
-    OK_SEND            (208),
+    
     
     //3xx - Communication messages
     USERS              (300),
@@ -40,9 +40,15 @@ public enum MessageKind {
     //CHANGE_PRIV        (304),
     //CHANGE_SLCT        (305),
     //CHANGE_STATE       (306),
-    SENDMESSAGE         (307),
+    SENDMESSAGE         (307),  //Usuario (String), Comunidad (String), msg (String)
+    LISTCOMS            (308),  //Usuario (String) [C]  coms (ArrayList<String> [S]
+    GETCOM              (309),  //Comunidad (String)
+    MARKET              (310),  //Jugadores (ArrayList<players>)
+    NEWS                (311),  //Noticias  (ArrayList<Message>)
     
-    SEND_FILE          (311),
+    
+    
+    SEND_FILE          (399),
     
     //4xx - Error messages
     ERR                (400),

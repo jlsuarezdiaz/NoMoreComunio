@@ -90,7 +90,7 @@ public class ComunioIntro extends javax.swing.JDialog {
 
         labelAuthor.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
         labelAuthor.setForeground(new java.awt.Color(0, 0, 255));
-        labelAuthor.setText("A");
+        labelAuthor.setText("Grupo DDSI");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 255));
@@ -99,7 +99,7 @@ public class ComunioIntro extends javax.swing.JDialog {
 
         labelEdition.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
         labelEdition.setForeground(new java.awt.Color(0, 0, 255));
-        labelEdition.setText("A");
+        labelEdition.setText("No More Comunio");
 
         labelCopyright.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
         labelCopyright.setForeground(new java.awt.Color(0, 0, 255));
@@ -160,7 +160,7 @@ public class ComunioIntro extends javax.swing.JDialog {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(10, 10, 10)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtUserName, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
+                                    .addComponent(txtUserName)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

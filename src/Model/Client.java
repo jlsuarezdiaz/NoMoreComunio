@@ -86,14 +86,6 @@ public class Client {
         AppSocket msnSocket = null;
         Tracer.getInstance().setDebugLevel(3);
         
-        try {
-            ArrayList<String> s = DBFunctions.listaComunidades("juanikerbrahimi");
-            for(String ss : s){
-                System.out.println(ss);
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
         //Creamos un AppSocket que se conecte a host y a port.
         try{
             msnSocket = new AppSocket(host, port);
