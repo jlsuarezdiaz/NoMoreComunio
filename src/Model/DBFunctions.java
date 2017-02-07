@@ -9,6 +9,7 @@ import java.sql.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import oracle.jdbc.*;
 import oracle.jdbc.pool.OracleDataSource;
@@ -27,6 +28,7 @@ public class DBFunctions {
         DriverManager.registerDriver(new  oracle.jdbc.driver.OracleDriver());
         Connection conn = DriverManager.getConnection
              (host,uName,uPass);
+
         return conn;
     }
    
@@ -74,6 +76,40 @@ public class DBFunctions {
         
         //Ejecutamos comando.
         callStmt.execute();
+    }
+    
+    public static ArrayList<String> listaComunidades(String user) throws SQLException{
+        Connection con = DBConnect();
+
+        //Consulta que se va a realizar (los argumentos se escriben como ?, se especifican después). 
+        String jobquery = "begin pkg_global.listaComunidades(?,?); end;";
+        //Preparamos la llamada.
+        CallableStatement callStmt = con.prepareCall(jobquery);
+        
+        //[ESCRIBENOTICIA(user IN VARCHAR, comunidad IN VARCHAR2, msg OUT INTEGER)]
+        //Parámetros de salida
+        callStmt.registerOutParameter(2, OracleTypes.CURSOR);
+
+        //Parámetros de entrada
+        callStmt.setString(1, user);
+        
+        //Ejecutamos comando.
+        callStmt.execute();
+        
+        ResultSet rset = (ResultSet)callStmt.getObject(2);
+        
+        
+        // determine the number of columns in each row of the result set
+        //ResultSetMetaData rsetMeta = rset.getMetaData();
+        //int count = rsetMeta.getColumnCount();
+      
+        ArrayList<String> coms = new ArrayList();
+
+        while(rset.next()){
+            String rsetRow = rset.getString(1);
+            coms.add(rsetRow);
+        }
+        return coms;
     }
 }
     

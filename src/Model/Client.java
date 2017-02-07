@@ -18,6 +18,8 @@ import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -84,6 +86,14 @@ public class Client {
         AppSocket msnSocket = null;
         Tracer.getInstance().setDebugLevel(3);
         
+        try {
+            ArrayList<String> s = DBFunctions.listaComunidades("juanikerbrahimi");
+            for(String ss : s){
+                System.out.println(ss);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
         //Creamos un AppSocket que se conecte a host y a port.
         try{
             msnSocket = new AppSocket(host, port);

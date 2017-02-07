@@ -46,12 +46,19 @@ BEGIN
   OPEN devolver FOR
   SELECT nombre_comunidad FROM PERTENECE where nombre_usu = usuario;
   
+  /*
   LOOP
     FETCH devolver INTO nombre_comunidad;
+    dbms_output.put_line(nombre_comunidad);
     EXIT WHEN (devolver%NOTFOUND);
-
   END LOOP;
-  CLOSE devolver;
+  
+    WHILE(devolver%FOUND) LOOP
+      FETCH devolver INTO nombre_comunidad;
+      dbms_output.put_line(nombre_comunidad);
+    END LOOP;
+*/  
+
 END;
 
 /*
