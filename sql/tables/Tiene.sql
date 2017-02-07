@@ -1,6 +1,6 @@
 /*Creación de la tabla Tiene*/
 
-drop TABLE Tiene;
+drop TABLE Tiene CASCADE CONSTRAINTS;
 
 create table Tiene(
   nombre_usuario varchar(20) NOT NULL,
@@ -16,8 +16,6 @@ create table Tiene(
 INSERT into Tiene(nombre_usuario, nombre_comunidad, codigo_jugador) VALUES
 ('rbnuria', 'ComunioDDSI2',1);
 INSERT into Tiene(nombre_usuario, nombre_comunidad, codigo_jugador) VALUES
-('rbnuria', 'ComunioDDSI2',4);
-INSERT into Tiene(nombre_usuario, nombre_comunidad, codigo_jugador) VALUES
 ('rbnuria', 'ComunioDDSI2',5);
 INSERT into Tiene(nombre_usuario, nombre_comunidad, codigo_jugador) VALUES
 ('rbnuria', 'ComunioDDSI2',7);
@@ -28,7 +26,7 @@ INSERT into Tiene(nombre_usuario, nombre_comunidad, codigo_jugador) VALUES
 
 
 INSERT into Tiene(nombre_usuario, nombre_comunidad, codigo_jugador) VALUES
-('elenaro','ComunioDDSI2',14);
+('elenaro','ComunioDDSI2',4);
 INSERT into Tiene(nombre_usuario, nombre_comunidad, codigo_jugador) VALUES
 ('elenaro','ComunioDDSI2',16);
 INSERT into Tiene(nombre_usuario, nombre_comunidad, codigo_jugador) VALUES

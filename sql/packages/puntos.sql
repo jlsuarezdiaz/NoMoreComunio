@@ -155,7 +155,8 @@ PROCEDURE obtenerPuntosJornada(jor INT, comunidad VARCHAR2, devolver OUT SYS_REF
 nombre_usu VARCHAR(30);
 resultado INT;
 BEGIN
-  OPEN devolver FOR SELECT nombre_usu, obtenerPuntosUsuario(nombre_usu, jor, comunidad) FROM pertenece where nombre_comunidad=comunidad;
+  OPEN devolver FOR SELECT nombre_usu, obtenerPuntosUsuario(nombre_usu, jor, comunidad) FROM pertenece where nombre_comunidad=comunidad
+  order by obtenerPuntosUsuario(nombre_usu, jor, comunidad) desc;
 END;
 
 
@@ -187,7 +188,8 @@ PROCEDURE obtenerPuntosTotales(comunidad VARCHAR2, devolver OUT SYS_REFCURSOR)AS
 nombre_usu VARCHAR(30);
 resultado INT;
 BEGIN
-  OPEN devolver FOR SELECT nombre_usu, obtenerPuntosTotalesUsuario(nombre_usu, comunidad) FROM pertenece where nombre_comunidad=comunidad;
+  OPEN devolver FOR SELECT nombre_usu, obtenerPuntosTotalesUsuario(nombre_usu, comunidad) FROM pertenece where nombre_comunidad=comunidad
+  order  by obtenerPuntosTotalesUsuario(nombre_usu, comunidad) desc;
   
   LOOP
     FETCH devolver INTO nombre_usu, resultado;
