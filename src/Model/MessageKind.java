@@ -45,6 +45,9 @@ public enum MessageKind {
     GETCOM              (309),  //Comunidad (String)
     MARKET              (310),  //Jugadores (ArrayList<players>)
     NEWS                (311),  //Noticias  (ArrayList<Message>)
+    MONEY               (312),  //Dinero    (int)
+    JOIN                (313),  //Usuario (String), Comunidad (String), passwd (String)
+    
     
     
     

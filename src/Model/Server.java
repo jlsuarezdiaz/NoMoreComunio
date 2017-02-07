@@ -247,7 +247,7 @@ public class Server {
 	ServerSocket serverSocket = null;
         Socket socketServicio = null;
         
-        Tracer.getInstance().setDebugLevel(2);
+        Tracer.getInstance().setDebugLevel(3);
         
         try {
             // Abrimos el socket en modo pasivo, escuchando el en puerto indicado por "port"

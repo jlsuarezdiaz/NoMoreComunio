@@ -127,9 +127,12 @@ class ServerProcessor extends Thread{
                         serverData.sendToAll(receivedData);
                         break;
                     case SENDMESSAGE:
-                        DBFunctions.sendMessage((String)receivedData.getData(0),(String)receivedData.getData(1),(String)receivedData.getData(2));
-                        //DBFunctions.obtenerMensaje();
-                        //serverData.sendTo(remoteId, new CSMessage(MessageKind.NEWS,null));
+                        String sm_usr = (String) receivedData.getData(0);
+                        String sm_com = (String) receivedData.getData(1);
+                        String sm_msg = (String) receivedData.getData(2);
+                        DBFunctions.sendMessage(sm_usr,sm_com,sm_msg);
+                        ArrayList<Message> sm_tablon = DBFunctions.getNoticias(sm_com);
+                        sendData = new CSMessage(MessageKind.NEWS, new Object[]{sm_tablon});
                         break;
                     case UPDATE_DOWNLOAD:
                         sendJarFile();
@@ -138,6 +141,16 @@ class ServerProcessor extends Thread{
                         String user = (String) receivedData.getData(0);
                         ArrayList<String> listcoms = DBFunctions.listaComunidades(user);
                         sendData = new CSMessage(MessageKind.LISTCOMS, new Object[]{listcoms});
+                        break;
+                    case GETCOM:
+                        String com = (String) receivedData.getData(0);
+                        String gc_user = (String) receivedData.getData(1);
+                        ArrayList<Message> gc_tablon = DBFunctions.getNoticias(com);
+                        serverData.sendTo(remoteId,new CSMessage(MessageKind.NEWS, new Object[]{gc_tablon}));
+                        ArrayList<Player> gc_market = DBFunctions.obtener_jugadores(com);
+                        serverData.sendTo(remoteId,new CSMessage(MessageKind.MARKET, new Object[]{gc_market}));
+                        long gc_money = DBFunctions.obtenerDinero(gc_user, com);
+                        serverData.sendTo(remoteId,new CSMessage(MessageKind.MONEY, new Object[]{gc_money}));
                         break;
                     case NOP:
                         break;

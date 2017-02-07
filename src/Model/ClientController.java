@@ -325,23 +325,26 @@ public class ClientController{
                                 listaComunidades = (ArrayList<String>)receivedMsg.getData(0);
                                 view.setCommunityList(listaComunidades);
                                 if(listaComunidades.isEmpty()) comunidadActual = null;
-                                // (Posiblemente esto se pueda hacer directamente desde el evento de la combobox)
-                                else{
-                                    comunidadActual = listaComunidades.get(0);
-                                    sendMessage = new CSMessage(MessageKind.GETCOM, new Object[]{comunidadActual});
-                                }
+                                break;
                             case NEWS:
                                 // Actualizar noticias
+                                ArrayList<Message> tablon = (ArrayList<Message>)receivedMsg.getData(0);
+                                view.setNews(tablon);
                                 break;
                             case MARKET:
                                 //Actualizar mercado
+                                ArrayList<Player> market = (ArrayList<Player>)receivedMsg.getData(0);
+                                view.setMarket(market);
+                                break;
+                            case MONEY:   
+                                long money = (long)receivedMsg.getData(0);
+                                view.setMoney(money);
                                 break;
                             case ERR_DATABASE:
                                 String err_msg = "";
                                 if(receivedMsg.getData().length > 0) err_msg = (String) receivedMsg.getData(0);
-                                JOptionPane.showMessageDialog(view, err_msg, "ERROR AL INICIAR SESIÓN", JOptionPane.ERROR_MESSAGE);
+                                JOptionPane.showMessageDialog(view, err_msg, "SQL EXCEPTION", JOptionPane.ERROR_MESSAGE);
                                 clientControllerInstance.myUser = null;
-                                startLogin();
                                 break;
                             case NOP:
                                 break;
@@ -553,5 +556,9 @@ public class ClientController{
         view.setMSN();
         JOptionPane.showMessageDialog(this.view,"Te has desconectado.","Desconexión",JOptionPane.WARNING_MESSAGE);
     }
-    
+  
+    public void setCommunity(String com){
+        this.comunidadActual = com;
+        sendToServer(new CSMessage(MessageKind.GETCOM, new Object[]{comunidadActual,myUser.getName()}));
+    }
 }

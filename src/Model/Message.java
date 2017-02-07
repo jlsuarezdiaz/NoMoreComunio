@@ -38,12 +38,12 @@ public class Message implements Serializable{
     /**
      * Index for the message.
      */
-    private int seqNumber;
+    //private int seqNumber;
     
     /**
      * User who sent the message.
      */
-    private User sender;
+    private String sender;
     
     /**
      * Indicates if the message is public.
@@ -59,11 +59,11 @@ public class Message implements Serializable{
      * @param seqNumber Message index.
      * @param isPublic Indicates if the message is public or private.
      */
-    private void set(String text,User sender, int seqNumber, boolean isPublic){
+    private void set(String text,String sender, Date d){
         this.messageData = text;
-        this.date = new Date();
+        this.date = d;
         this.sender = sender;
-        this.seqNumber = seqNumber;
+        //this.seqNumber = seqNumber;
         //this.isPublic = isPublic;
     }
     
@@ -71,7 +71,7 @@ public class Message implements Serializable{
      * Default constructor.
      */
     public Message(){
-        set("",null,-1,true);
+        set("",null,null);
     }
     
     /**
@@ -81,8 +81,8 @@ public class Message implements Serializable{
      * @param seqNumber Message index.
      * @param isPublic Indicates if the message is public or private.
      */
-    public Message(String text,User sender, int seqNumber, boolean isPublic){
-        set(text, sender, seqNumber, isPublic);
+    public Message(String text,String sender, Date d){
+        set(text, sender, d);
     }
     
     /**
@@ -105,15 +105,15 @@ public class Message implements Serializable{
      * Gets the message number.
      * @return Message number.
      */
-    public int getSeqNumber() {
+/*    public int getSeqNumber() {
         return seqNumber;
-    }
+    }*/
 
     /**
      * Gets the message sender.
      * @return Sender.
      */
-    public User getSender() {
+    public String getSender() {
         return sender;
     }
     
@@ -151,10 +151,10 @@ public class Message implements Serializable{
     @Override
     public String toString(){
         return
-                "SENDER: "+((sender==null)?"No More Dropbox MSN Server":sender.toString())+
+                "SENDER: "+((sender==null)?"No More Comunio Server":sender.toString())+
                 //"\nPUBLIC: "+Boolean.toString(isPublic)+
                 
-                "\nNUM: "+Integer.toString(seqNumber)+
+                //"\nNUM: "+Integer.toString(seqNumber)+
                 "\nDATE: "+AppDateFormat.getInstance().format(date)+
                 "\nDATA:\n\t"+messageData;
     }

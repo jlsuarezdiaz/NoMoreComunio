@@ -2,7 +2,9 @@ package GUI;
 
 import Model.ClientController;
 import Model.AppDateFormat;
+import Model.Message;
 import Model.MessageKind;
+import Model.Player;
 import Model.User;
 import Model.UserOverflowException;
 import java.awt.Color;
@@ -101,10 +103,10 @@ public class ComunioView extends javax.swing.JFrame {
 
             @Override
             public void mouseClicked(MouseEvent me) {
-                UsersPanelMouseClicked(me);
+        //        UsersPanelMouseClicked(me);
             }
         });
-        UsersPanel.add(uv);
+       // UsersPanel.add(uv);
 //        uv.select(controller.isSelected(uv.getUserId()));
     }
     
@@ -169,6 +171,10 @@ public class ComunioView extends javax.swing.JFrame {
         
         myTrayIcon = null;
         initializeTrayIcon();
+        
+        //jLabel1.setVisible(false);
+        //UsersPanel.setVisible(false);
+        //MyUserPanel.setVisible(false);
 
     }
 
@@ -210,9 +216,9 @@ public class ComunioView extends javax.swing.JFrame {
      */
     public void setMSN(ClientController ctrl){
         this.controller = ctrl;
-        MyUserPanel.setUser(controller.getUser(),ctrl.getMyId());
-        MyUserPanel.repaint();
-        fillUserPanel(controller.getUserList());
+        //MyUserPanel.setUser(controller.getUser(),ctrl.getMyId());
+        //MyUserPanel.repaint();
+        //fillUserPanel(controller.getUserList());
         repaint();
     }
     
@@ -228,11 +234,11 @@ public class ComunioView extends javax.swing.JFrame {
    
         setValidText(enabled && !TextMessage.getText().trim().isEmpty());
         //this.ComboUserState.setEnabled(enabled);
-        this.MyUserPanel.setEnabled(enabled);
+//        this.MyUserPanel.setEnabled(enabled);
         this.TextMessage.setEnabled(enabled);
-        this.UsersPanel.setEnabled(enabled);
-        this.MyUserPanel.setVisible(enabled);
-        if(!enabled) UsersPanel.removeAll();
+ //       this.UsersPanel.setEnabled(enabled);
+//        this.MyUserPanel.setVisible(enabled);
+ //       if(!enabled) UsersPanel.removeAll();
         
         
     }
@@ -257,13 +263,51 @@ public class ComunioView extends javax.swing.JFrame {
     }
     
     
-    public void setMarket(){
+    public void setMarket(ArrayList<Player> market){
+        this.marketPanel.removeAll();
+        for(Player p: market){
+            PlayerView pv = new PlayerView();
+            pv.setPlayer(p);
+            marketPanel.add(pv);
+        }
         
+        marketPanel.repaint();
+        marketPanel.revalidate();
+    }
+    
+    public void setMoney(long money){
+        if(money >= 20000000)
+            this.lblMoney.setForeground(Color.CYAN);
+        else if(money >= 5000000)
+            this.lblMoney.setForeground(Color.GREEN);
+        else if(money >= 1000000)
+            this.lblMoney.setForeground(Color.YELLOW);
+        else if(money >= 0)
+            this.lblMoney.setForeground(Color.ORANGE);
+        else
+            this.lblMoney.setForeground(Color.RED);
+            
+        this.lblMoney.setText(NumberFormat.getNumberInstance().format(money));
     }
     
     
-    public void setNews(){
+    public void setNews(ArrayList<Message> tablon){
+        this.msgPanel.removeAll();
+        for(Message m : tablon){
+            MessageView mv = new MessageView();
+            mv.setMessage(m);
+            msgPanel.add(mv);
+        }
+        MessageScroll.validate();
+        boolean isOnBottom = MessageScroll.getVerticalScrollBar().getValue() == 
+                MessageScroll.getVerticalScrollBar().getMaximum()-MessageScroll.getVerticalScrollBar().getVisibleAmount();
+        if(isOnBottom){
+            JScrollBar vertical = MessageScroll.getVerticalScrollBar();
+            vertical.setValue( vertical.getMaximum() );
+        }
         
+        msgPanel.repaint();
+        msgPanel.revalidate();
     }
     
     /**
@@ -273,11 +317,11 @@ public class ComunioView extends javax.swing.JFrame {
     public ArrayList<User> getSelectedUsers(){
        UserView uv;
        ArrayList<User> users = new ArrayList();
-       for(Component c : UsersPanel.getComponents()){
+/*       for(Component c : UsersPanel.getComponents()){
            uv = (UserView) c;
            if(uv.isSelected())
                users.add(uv.getUser());
-       }
+       }*/
        return users;
     }
     
@@ -291,7 +335,7 @@ public class ComunioView extends javax.swing.JFrame {
      * @param user_list Array of users that will fill the panel.
      */
     public void fillUserPanel(User[] user_list){
-        UsersPanel.removeAll();
+//        UsersPanel.removeAll();
         for(int i = 0; i < User.getMaxUsers(); i++){
             User u = user_list[i];
             if(u != null){
@@ -301,8 +345,8 @@ public class ComunioView extends javax.swing.JFrame {
             }
         //    UsersPanel.add(Box.createRigidArea(new Dimension(5,0)));
         }
-        UsersPanel.repaint();
-        UsersPanel.revalidate();
+  //      UsersPanel.repaint();
+  //      UsersPanel.revalidate();
     }
     
     /**
@@ -312,7 +356,7 @@ public class ComunioView extends javax.swing.JFrame {
     public void updateUserPanel(User[] user_list){
         boolean selection_now;
         //UserView view;
-        for(int i = 1; i < User.getMaxUsers(); i++){
+  /*      for(int i = 1; i < User.getMaxUsers(); i++){
             selection_now = ((UserView)UsersPanel.getComponent(i)).isSelected();
             ((UserView)UsersPanel.getComponent(i)).setUser(user_list[i],i);
             if(user_list[i].validState())
@@ -321,8 +365,8 @@ public class ComunioView extends javax.swing.JFrame {
         //    selection_now = view.isSelected();
         //    view.setUser(user_list[i]);
         //   view.select(selection_now);   
-        }
-        UsersPanel.repaint();
+        }*/
+//        UsersPanel.repaint();
     }
     
     /**
@@ -419,25 +463,24 @@ public class ComunioView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        MyUserPanel = new GUI.UserView();
-        UserScroll = new javax.swing.JScrollPane();
-        UsersPanel = new javax.swing.JPanel();
         BtExit = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        MessageScroll = new javax.swing.JScrollPane();
         TextMessage = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         BtSendMessage = new javax.swing.JButton();
-        msgPanel = new javax.swing.JPanel();
         lblNoCom = new javax.swing.JLabel();
         boxSelectCom = new javax.swing.JComboBox();
         btJoinCom = new javax.swing.JButton();
         btCreateCom = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         lblMoney = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        msgPanel = new javax.swing.JPanel();
+        marketScroll = new javax.swing.JScrollPane();
+        marketPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Dropbox MSN");
@@ -445,26 +488,6 @@ public class ComunioView extends javax.swing.JFrame {
         setMaximumSize(new java.awt.Dimension(945, 591));
         setMinimumSize(new java.awt.Dimension(945, 591));
         setResizable(false);
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("USUARIOS CONECTADOS:");
-
-        MyUserPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        UserScroll.setMaximumSize(new java.awt.Dimension(204, 32767));
-        UserScroll.setPreferredSize(new java.awt.Dimension(204, 1000000));
-
-        UsersPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        UsersPanel.setNextFocusableComponent(TextMessage);
-        UsersPanel.setLayout(new javax.swing.BoxLayout(UsersPanel, javax.swing.BoxLayout.PAGE_AXIS));
-        UsersPanel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                UsersPanelMouseClicked(evt);
-            }
-        });
-        UsersPanel.setLayout(new javax.swing.BoxLayout(UsersPanel, javax.swing.BoxLayout.PAGE_AXIS));
-        UserScroll.setViewportView(UsersPanel);
 
         BtExit.setBackground(new java.awt.Color(255, 0, 0));
         BtExit.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -477,7 +500,7 @@ public class ComunioView extends javax.swing.JFrame {
             }
         });
 
-        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        MessageScroll.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         TextMessage.setColumns(20);
         TextMessage.setLineWrap(true);
@@ -491,7 +514,7 @@ public class ComunioView extends javax.swing.JFrame {
                 TextMessageKeyReleased(evt);
             }
         });
-        jScrollPane1.setViewportView(TextMessage);
+        MessageScroll.setViewportView(TextMessage);
 
         jLabel2.setText("Seleccionar comunidad: ");
 
@@ -508,22 +531,16 @@ public class ComunioView extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout msgPanelLayout = new javax.swing.GroupLayout(msgPanel);
-        msgPanel.setLayout(msgPanelLayout);
-        msgPanelLayout.setHorizontalGroup(
-            msgPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        msgPanelLayout.setVerticalGroup(
-            msgPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-
         lblNoCom.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblNoCom.setForeground(new java.awt.Color(255, 51, 0));
         lblNoCom.setText("¡NO ESTÁS TODAVÍA EN NIGUNA COMUNIDAD! ");
 
         boxSelectCom.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--NO COMS--" }));
+        boxSelectCom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boxSelectComActionPerformed(evt);
+            }
+        });
 
         btJoinCom.setText("Unirse a una comunidad");
 
@@ -538,6 +555,14 @@ public class ComunioView extends javax.swing.JFrame {
         lblMoney.setText(NumberFormat.getNumberInstance().format(20000000)
         );
 
+        msgPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        msgPanel.setLayout(new javax.swing.BoxLayout(msgPanel, javax.swing.BoxLayout.PAGE_AXIS));
+        jScrollPane2.setViewportView(msgPanel);
+
+        marketPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        marketPanel.setLayout(new javax.swing.BoxLayout(marketPanel, javax.swing.BoxLayout.PAGE_AXIS));
+        marketScroll.setViewportView(marketPanel);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -545,53 +570,42 @@ public class ComunioView extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(msgPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(BtSendMessage))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblMoney, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btCreateCom, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btJoinCom, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(boxSelectCom, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblNoCom, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(148, 148, 148)
-                        .addComponent(jLabel3)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 346, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(BtExit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(UserScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1007, Short.MAX_VALUE)
+                        .addComponent(BtExit, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(MyUserPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(37, 37, 37))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblMoney, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btCreateCom, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btJoinCom, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(boxSelectCom, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblNoCom, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel4)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(MessageScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(BtSendMessage))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(marketScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 744, javax.swing.GroupLayout.PREFERRED_SIZE)))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(UserScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(MyUserPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                        .addComponent(BtExit, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblNoCom)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -604,16 +618,20 @@ public class ComunioView extends javax.swing.JFrame {
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblMoney)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(msgPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE))
+                    .addComponent(marketScroll))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
-                            .addComponent(BtSendMessage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(MessageScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                            .addComponent(BtSendMessage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(BtExit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -652,16 +670,14 @@ public class ComunioView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_TextMessageKeyPressed
 
-    private void UsersPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UsersPanelMouseClicked
-        if(evt.getComponent() instanceof UserView){
-//            controller.changeSelect(((UserView)evt.getComponent()).getUserId());
-        }
-    }//GEN-LAST:event_UsersPanelMouseClicked
-
     private void BtSendMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtSendMessageActionPerformed
         controller.sendMessage(TextMessage.getText());
         TextMessage.setText("");
     }//GEN-LAST:event_BtSendMessageActionPerformed
+
+    private void boxSelectComActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxSelectComActionPerformed
+        this.controller.setCommunity((String)this.boxSelectCom.getSelectedItem());
+    }//GEN-LAST:event_boxSelectComActionPerformed
 
     
 
@@ -669,22 +685,21 @@ public class ComunioView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtExit;
     private javax.swing.JButton BtSendMessage;
-    private GUI.UserView MyUserPanel;
+    private javax.swing.JScrollPane MessageScroll;
     private javax.swing.JTextArea TextMessage;
-    private javax.swing.JScrollPane UserScroll;
-    private javax.swing.JPanel UsersPanel;
     private javax.swing.JComboBox boxSelectCom;
     private javax.swing.JButton btCreateCom;
     private javax.swing.JButton btJoinCom;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblMoney;
     private javax.swing.JLabel lblNoCom;
+    private javax.swing.JPanel marketPanel;
+    private javax.swing.JScrollPane marketScroll;
     private javax.swing.JPanel msgPanel;
     // End of variables declaration//GEN-END:variables
 }

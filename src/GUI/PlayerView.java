@@ -25,7 +25,7 @@ public class PlayerView extends javax.swing.JPanel {
     public void setPlayer(Player p){
         this.playerModel = p;
         this.lblName.setText(p.getName());
-        this.lblPos.setText(p.getPos());
+        
         this.lblTeam.setText(p.getTeam());
         this.btGoles.setText(Integer.toString(p.getGoals()));
         this.btAsist.setText(Integer.toString(p.getAsists()));
@@ -33,6 +33,27 @@ public class PlayerView extends javax.swing.JPanel {
         this.btAmarillas.setText(Integer.toString(p.getYellowCards()));
         this.btRojas.setText(Integer.toString(p.getRedCards()));
         this.btPuntos.setText(Integer.toString(p.getPoints()));
+        this.lblVend.setText(p.getVendedor());
+        this.lblPrecioMin.setText(Integer.toString(p.getPrecioMin()));
+        this.lblValor.setText(Integer.toString(p.getValor()));
+        
+        switch(p.getPos()){
+            case "Portero":
+                this.lblPos.setText("POR");
+                break;
+            case "Defensa":
+                this.lblPos.setText("DEF");
+                break;
+            case "Mediocentro":
+                this.lblPos.setText("MED");
+                break;
+            case "Delantero":
+                this.lblPos.setText("DEL");
+                break;
+            default:
+                this.lblPos.setText("???");
+                break;
+        }
     }
     
     public Player getPlayer(){
@@ -57,9 +78,14 @@ public class PlayerView extends javax.swing.JPanel {
         btRojas = new javax.swing.JButton();
         btPuntos = new javax.swing.JButton();
         lblPos = new javax.swing.JLabel();
+        lblPrecioMin = new javax.swing.JLabel();
+        lblValor = new javax.swing.JLabel();
+        lblVend = new javax.swing.JLabel();
 
-        setMaximumSize(new java.awt.Dimension(714, 55));
-        setMinimumSize(new java.awt.Dimension(714, 55));
+        setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        setMaximumSize(new java.awt.Dimension(714, 74));
+        setMinimumSize(new java.awt.Dimension(714, 74));
+        setPreferredSize(new java.awt.Dimension(714, 74));
 
         lblName.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblName.setText("Youssef El-Arabi");
@@ -111,16 +137,32 @@ public class PlayerView extends javax.swing.JPanel {
         lblPos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblPos.setText("DEL");
 
+        lblPrecioMin.setText("10000000");
+        lblPrecioMin.setToolTipText("Precio mínimo");
+
+        lblValor.setText("10000000");
+        lblValor.setToolTipText("Valor de mercado");
+
+        lblVend.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
+        lblVend.setText("juanikerbrahimi");
+        lblVend.setToolTipText("Propiertario");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblName, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(lblVend, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(lblName, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                        .addComponent(lblTeam, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblTeam, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblPrecioMin, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblValor, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblPos, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btGoles, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -138,22 +180,29 @@ public class PlayerView extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblPos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btGoles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblTeam, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btAsist, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btGolesEnc, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btAmarillas, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btRojas, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btPuntos, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(btGoles, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblPos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblName)
+                            .addComponent(lblPrecioMin))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblTeam)
+                            .addComponent(lblValor))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblVend)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -167,6 +216,9 @@ public class PlayerView extends javax.swing.JPanel {
     private javax.swing.JButton btRojas;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblPos;
+    private javax.swing.JLabel lblPrecioMin;
     private javax.swing.JLabel lblTeam;
+    private javax.swing.JLabel lblValor;
+    private javax.swing.JLabel lblVend;
     // End of variables declaration//GEN-END:variables
 }

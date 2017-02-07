@@ -5,16 +5,24 @@
  */
 package Model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Juan Luis
  */
-public class Player {
+public class Player implements Serializable{
     private String name;
     
     private String team;
     
     private String pos;
+    
+    private String vendedor;
+    
+    private int precioMin;
+    
+    private int valor;
     
     private int goals;
     
@@ -31,10 +39,13 @@ public class Player {
     public Player() {
     }
 
-    public Player(String name, String team, String pos, int goals, int asists, int encajados, int yellowCards, int redCards, int points) {
+    public Player(String name, String team, String pos, String vendedor, int precioMin, int valor, int goals, int asists, int encajados, int yellowCards, int redCards, int points) {
         this.name = name;
         this.team = team;
         this.pos = pos;
+        this.vendedor = vendedor;
+        this.precioMin = precioMin;
+        this.valor = valor;
         this.goals = goals;
         this.asists = asists;
         this.encajados = encajados;
@@ -43,7 +54,7 @@ public class Player {
         this.points = points;
     }
     
-    public void set(String name, String team, String pos, int goals, int asists, int encajados, int yellowCards, int redCards, int points){
+    public void set(String name, String team, String pos, String vendedor, int precioMin, int valor, int goals, int asists, int encajados, int yellowCards, int redCards, int points){
         this.name = name;
         this.team = team;
         this.pos = pos;
@@ -61,6 +72,18 @@ public class Player {
 
     public int getEncajados() {
         return encajados;
+    }
+
+    public String getVendedor() {
+        return vendedor;
+    }
+
+    public int getValor() {
+        return valor;
+    }
+
+    public int getPrecioMin() {
+        return precioMin;
     }
 
     public int getGoals() {

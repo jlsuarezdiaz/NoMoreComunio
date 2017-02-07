@@ -69,6 +69,7 @@ public class MessageView extends MessageableView{
     public void setMessage(Message m){
         select(false);
         this.messageModel = m;
+        this.labelUser.setText(messageModel.getSender());
         this.labelText.setText(messageModel.getText());
         this.labelDate.setText((m.getDate() == null)?"--ERR_DATE--":
             AppDateFormat.getInstance().format(messageModel.getDate()));
@@ -100,12 +101,13 @@ public class MessageView extends MessageableView{
         jScrollPane2 = new javax.swing.JScrollPane();
         labelText = new javax.swing.JEditorPane();
         labelDate = new javax.swing.JLabel();
+        labelUser = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(204, 204, 204));
         setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        setMaximumSize(new java.awt.Dimension(690, 93));
-        setMinimumSize(new java.awt.Dimension(690, 93));
-        setPreferredSize(new java.awt.Dimension(690, 93));
+        setMaximumSize(new java.awt.Dimension(385, 93));
+        setMinimumSize(new java.awt.Dimension(385, 93));
+        setPreferredSize(new java.awt.Dimension(385, 93));
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 formMouseClicked(evt);
@@ -125,20 +127,28 @@ public class MessageView extends MessageableView{
         labelDate.setForeground(new java.awt.Color(0, 0, 255));
         labelDate.setText("24/06/2015 11:30:00");
 
+        labelUser.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        labelUser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelUser.setText("juanikerbrahimi");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 686, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(labelDate, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(labelUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(labelDate)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelDate)
+                    .addComponent(labelUser))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -157,5 +167,6 @@ public class MessageView extends MessageableView{
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel labelDate;
     private javax.swing.JEditorPane labelText;
+    private javax.swing.JLabel labelUser;
     // End of variables declaration//GEN-END:variables
 }
