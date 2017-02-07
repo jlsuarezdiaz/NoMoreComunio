@@ -36,7 +36,9 @@ BEGIN
     IF (esAdmin(usu,comunidad) = 0) THEN
       update Pertenece set administrador = 1 where usu=nombre_usu and nombre_comunidad=comunidad;
     ELSE
-      update Pertenece set administrador = 0 where usu=nombre_usu and nombre_comunidad=comunidad;
+      IF ((numeroAdmin(comunidad)-1) != 0) THEN
+        update Pertenece set administrador = 0 where usu=nombre_usu and nombre_comunidad=comunidad;
+      END IF;
     END IF;
   END IF;
 END;

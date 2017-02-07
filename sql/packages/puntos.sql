@@ -58,13 +58,13 @@ END;
 PROCEDURE asignarPuntos(cod INTEGER, jornada INTEGER, goles_encajados INTEGER, goles_jugador INTEGER, amarillas INTEGER, rojas INTEGER, asist INTEGER, val INTEGER) AS
 BEGIN
   IF (hayPuntosParaJugador(cod,jornada) = 0) THEN
-    IF (esPortero(cod) = 1) THEN
+    IF (esPortero(cod) > 0) THEN
       INSERT INTO Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t_rojas,valoracion) VALUES (cod,jornada,goles_encajados,asist,amarillas,rojas,val);
     ELSE
       INSERT INTO Puntos (cod_jugador, cod_jornada, goles, asistencias, t_amarillas, t_rojas,valoracion) VALUES (cod,jornada,goles_jugador,asist,amarillas,rojas,val);
     END IF;
   ELSE
-    IF (esPortero(cod) = 1) THEN
+    IF (esPortero(cod) > 0) THEN
       update Puntos set goles = goles_encajados where cod_jugador=cod and cod_jornada=jornada;
       update Puntos set asistencias = asist where cod_jugador=cod and cod_jornada=jornada;
       update Puntos set t_amarillas = amarillas where cod_jugador=cod and cod_jornada=jornada;
@@ -84,11 +84,12 @@ END;
 
 PROCEDURE calcularPuntos(cod INTEGER, jornada INTEGER, resultado OUT INTEGER) AS
 BEGIN  
-  IF (esPortero(cod) = 1) THEN
+  resultado:=0;
+  IF (esPortero(cod) > 0) THEN
     resultado:= -1 *obtenerGoles(cod,jornada) -2 + 4*obtenerValoracion(cod,jornada);
   END IF;
   
-  IF (esDefensa(cod) = 1) THEN
+  IF (esDefensa(cod) > 0) THEN
     resultado:= 5 *obtenerGoles(cod,jornada) -2 + 4*obtenerValoracion(cod,jornada);
     
     IF (obtenerAmarillas(cod,jornada) = 2) THEN
@@ -100,7 +101,7 @@ BEGIN
     END IF;
   END IF;
 
-  IF (esMediocentro(cod) = 1) THEN
+  IF (esMediocentro(cod) > 0) THEN
     resultado:= 4 *obtenerGoles(cod,jornada) -2 + 4*obtenerValoracion(cod,jornada);
     
     IF (obtenerAmarillas(cod,jornada) = 2) THEN
@@ -112,7 +113,7 @@ BEGIN
     END IF;
   END IF;
 
-  IF (esDelantero(cod) = 1) THEN
+  IF (esDelantero(cod) > 0) THEN
     resultado:= 3 *obtenerGoles(cod,jornada) -2 + 4*obtenerValoracion(cod,jornada);
     
     IF (obtenerAmarillas(cod,jornada) = 2) THEN
@@ -123,14 +124,15 @@ BEGIN
       END IF;
     END IF;
   END IF;
-
+  
 END;
 
-PROCEDURE obtenerPuntosUsuario(usuario VARCHAR2, jor INT, comunidad VARCHAR2,  suma OUT INT) IS
-cod_jugador INT;
+
+FUNCTION obtenerPuntosUsuario(usuario VARCHAR2, jor INT, comunidad VARCHAR2) return INTEGER IS suma INTEGER;
+codigo_jugador INT;
 auxiliar INT;
-CURSOR recorrer IS SELECT cod_jugador FROM (select * from Puntos,TieneAlineado 
-  where Puntos.cod_jugador = TieneAlineado.codigo_jugador and nombre_comunidad=comunidad and jornada=jor and nombre_usuario = usuario);
+CURSOR recorrer IS SELECT codigo_jugador FROM (select * from TieneAlineado 
+  where  nombre_comunidad=comunidad and jornada=jor and nombre_usuario = usuario);
 
 BEGIN
 
@@ -138,22 +140,68 @@ BEGIN
   OPEN recorrer;
   
   LOOP
-    FETCH recorrer INTO cod_jugador;
+    FETCH recorrer INTO codigo_jugador;
 
     EXIT WHEN (recorrer%NOTFOUND);
-    calcularPuntos(cod_jugador, jor, auxiliar);
+    calcularPuntos(codigo_jugador, jor, auxiliar);
+    
     suma := suma + auxiliar;
   END LOOP;
   CLOSE recorrer;
+  return(suma);
 END;
 
-/*
-PROCEDURE obtenerPuntos(jor INT, coumidad varchar, devolver OUT SYS_REFCURSOR) AS
-usuario VARCHAR2;
-puntos INT;
+PROCEDURE obtenerPuntosJornada(jor INT, comunidad VARCHAR2, devolver OUT SYS_REFCURSOR) AS
+nombre_usu VARCHAR(30);
+resultado INT;
 BEGIN
-  OPEN devolver FOR SELECT usuario FROM pertenece;
+  OPEN devolver FOR SELECT nombre_usu, obtenerPuntosUsuario(nombre_usu, jor, comunidad) FROM pertenece where nombre_comunidad=comunidad
+  order by obtenerPuntosUsuario(nombre_usu, jor, comunidad) desc;
 END;
 
-*/
+
+FUNCTION obtenerPuntosTotalesUsuario(usuario VARCHAR2, comunidad VARCHAR2) return INTEGER IS suma INTEGER;
+jornada INT;
+codigo_jugador INT;
+auxiliar INT;
+CURSOR recorrer IS SELECT codigo_jugador,jornada FROM (select * from TieneAlineado 
+  where nombre_comunidad=comunidad and nombre_usuario = usuario);
+
+BEGIN
+
+  suma:=0;
+  OPEN recorrer;
+  
+  LOOP
+    FETCH recorrer INTO codigo_jugador, jornada;
+
+    EXIT WHEN (recorrer%NOTFOUND);
+    calcularPuntos(codigo_jugador, jornada, auxiliar);
+    suma := suma + auxiliar;
+  END LOOP;
+  CLOSE recorrer;
+  return(suma);
+END;
+
+
+PROCEDURE obtenerPuntosTotales(comunidad VARCHAR2, devolver OUT SYS_REFCURSOR)AS
+nombre_usu VARCHAR(30);
+resultado INT;
+BEGIN
+  OPEN devolver FOR SELECT nombre_usu, obtenerPuntosTotalesUsuario(nombre_usu, comunidad) FROM pertenece where nombre_comunidad=comunidad
+  order  by obtenerPuntosTotalesUsuario(nombre_usu, comunidad) desc;
+  
+  LOOP
+    FETCH devolver INTO nombre_usu, resultado;
+
+    EXIT WHEN (devolver%NOTFOUND);
+    dbms_output.put_line(nombre_usu);
+    dbms_output.put_line(resultado);
+   
+  END LOOP;
+  
+  CLOSE devolver;
+  
+END;
+
 END PKG_PUNTOS;

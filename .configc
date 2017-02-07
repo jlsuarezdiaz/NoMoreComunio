@@ -1,2 +1,2 @@
-HOST = nomoredropboxmsn.duckdns.org
+HOST = localhost
 PORT = 8928

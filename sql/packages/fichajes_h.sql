@@ -10,8 +10,6 @@ PROCEDURE ofrecer_sistema(nomb_comunidad VARCHAR2, id_jugador INTEGER);
 
 PROCEDURE ofrecer_jugador(nomb_usuario VARCHAR2, nomb_comunidad VARCHAR2, id_jugador INTEGER, precio INT);
 
-FUNCTION fichaje_realizado(usuario VARCHAR2, comunidad VARCHAR2, jugador INT) return INTEGER;
-
 PROCEDURE deshacer_fichaje(usuario VARCHAR2, comunidad VARCHAR2, jugador INT);
 
 PROCEDURE realizar_fichaje(jugador INT, comunidad VARCHAR2);

@@ -1,3 +1,4 @@
+
 CREATE OR REPLACE PACKAGE BODY PKG_FICHAJES AS
 
 FUNCTION precio_minimo(codigo_jugador INT, nombre_comunidad VARCHAR2) return INTEGER IS precio INTEGER;
@@ -31,22 +32,22 @@ BEGIN
   INSERT into ApareceEn(NOMBRE_VENDEDOR, nombre_comunidad,codigo_jugador,precio_min) values (nomb_usuario,nomb_comunidad, id_jugador, precio);
 END ofrecer_jugador;
 
-FUNCTION fichaje_realizado(usuario VARCHAR2, comunidad VARCHAR2, jugador INT) return INTEGER IS realizado INTEGER;
-BEGIN
-  select estado into realizado from REALIZAROFERTA where nombre_usuario = usuario and nombre_comunidad = comunidad and codigo_jugador = jugador;
-  return(realizado);
-END;
-
 PROCEDURE deshacer_fichaje(usuario VARCHAR2, comunidad VARCHAR2, jugador INT) AS
+contador int;
 BEGIN
- 
-  IF(fichaje_realizado(usuario,comunidad,jugador) = 1) THEN
-      update PERTENECE set creditos= (select creditos from PERTENECE where nombre_usu = usuario and nombre_comunidad = comunidad) + 
-      (select precio from REALIZAROFERTA where nombre_usuario = usuario and nombre_comunidad = comunidad and codigo_jugador = jugador)
-      where nombre_usu = usuario and nombre_comunidad = comunidad;
-      delete from REALIZAROFERTA where nombre_usuario = usuario and nombre_comunidad = comunidad and codigo_jugador = jugador;
-      
-  END IF;
+     
+    select count(*) into contador from FICHAJES where nombre_usuario = usuario and nombre_comunidad = comunidad and codigo_jugador = jugador;
+    IF(contador >0) THEN
+    update PERTENECE set creditos= (select creditos from PERTENECE where nombre_usu = usuario and nombre_comunidad = comunidad) + 
+    (select precio from FICHAJES where nombre_usuario = usuario and nombre_comunidad = comunidad and codigo_jugador = jugador)
+    where nombre_usu = usuario and nombre_comunidad = comunidad;
+    
+    delete from TIENEALINEADO where nombre_usuario = usuario and nombre_comunidad = comunidad and codigo_jugador = jugador;
+    delete from TIENE where nombre_usuario = usuario and nombre_comunidad = comunidad and codigo_jugador = jugador;
+    delete from FICHAJES where nombre_usuario = usuario and nombre_comunidad = comunidad and codigo_jugador = jugador;
+    
+    
+    END IF;
 END;
 
 PROCEDURE realizar_fichaje(jugador INT, comunidad VARCHAR2) AS
@@ -59,28 +60,37 @@ BEGIN
   
   update REALIZAROFERTA set estado = 1 where codigo_jugador = jugador and nombre_comunidad = comunidad and nombre_usuario = usuario;
   
+
   /*Retiramos créditos del usuario*/
-  update PERTENECE set creditos = (select creditos from PERTENECE where nombre_usu = usuario) - 
+ /* update PERTENECE set creditos = (select creditos from PERTENECE where nombre_usu = usuario) - 
   (select precio from REALIZAROFERTA where codigo_jugador = jugador and nombre_comunidad = comunidad and nombre_usuario = usuario)
-  where nombre_usu = usuario;
-  
-  /*Si el jugador era de otro usuario, se lo quitamos*/
-  select nombre_vendedor into vendedor from APARECEEN where nombre_comunidad = comunidad and codigo_jugador = jugador;
-    IF(vendedor <> 'COMPUTER') THEN
-      delete from TIENE where nombre_usuario = vendedor and nombre_comunidad = comunidad and codigo_jugador = jugador;
-      update PERTENECE set creditos = (select creditos from PERTENECE where nombre_usu = vendedor) +
-      (select precio from REALIZAROFERTA where codigo_jugador = jugador and nombre_comunidad = comunidad and nombre_usuario = usuario)
-      where nombre_usu = vendedor;
-    END IF;
-    
-  /*Añadir el trio jugador,usuario,comunidad a Tiene*/
-  insert into TIENE(nombre_usuario, nombre_comunidad, codigo_jugador) values (usuario, comunidad, jugador);  
+  where nombre_usu = usuario;*/
   
   /*Quitamos de realizar oferta todos los jugadores que hayan pujado por ese jugador (manteniendo el realizado para la posibilidad de deshacer)*/
   delete from REALIZAROFERTA where codigo_jugador=jugador and estado=0 and nombre_comunidad = comunidad;
   
-  delete from APARECEEN where codigo_jugador = jugador and nombre_comunidad = comunidad;
+  /*Si el jugador era de otro usuario, se lo quitamos*/
+
+  select nombre_vendedor into vendedor from APARECEEN where nombre_comunidad = comunidad and codigo_jugador = jugador;
+    IF(vendedor <> 'COMPUTER') THEN
+      delete from TIENEALINEADO where nombre_usuario = vendedor and nombre_comunidad = comunidad and codigo_jugador = jugador;
+      delete from TIENE where nombre_usuario = vendedor and nombre_comunidad = comunidad and codigo_jugador = jugador;
+      update PERTENECE set creditos = (select creditos from PERTENECE where nombre_usu = vendedor) +
+      (select precio from REALIZAROFERTA where codigo_jugador = jugador and nombre_comunidad = comunidad and nombre_usuario = usuario)
+      where nombre_usu = vendedor;
+    ELSE
+       insert into Fichajes (nombre_usuario, codigo_jugador,nombre_comunidad, precio) values (usuario,jugador, comunidad, (select max(precio) from REALIZAROFERTA where codigo_jugador = jugador and nombre_comunidad = comunidad)); 
+
+    END IF;
+
+  delete from REALIZAROFERTA where codigo_jugador=jugador and estado=1 and nombre_comunidad = comunidad;
+
+  delete from APARECEEN where codigo_jugador = jugador and nombre_comunidad = comunidad ; 
     
+  /*Añadir el trio jugador,usuario,comunidad a Tiene*/
+  insert into TIENE(nombre_usuario, nombre_comunidad, codigo_jugador) values (usuario, comunidad, jugador);  
+  
+
 END;
 
 /* Hay que añadirle los puntos -> tener en cuenta que se duplica el ultimo!!!!!!*/
@@ -95,22 +105,9 @@ BEGIN
   FROM (select * from APARECEEN, JUGADORES, PUNTOS
   where apareceen.codigo_jugador = Jugadores.cod and nombre_comunidad = comunidad and jugadores.cod = puntos.cod_jugador)
   group by nombre, equipo, pos, precio_min,precio, nombre_vendedor;
-/*  
-  LOOP
-    FETCH devolver INTO nombre, equipo, precio_min, nombre_vendedor;
-
-    EXIT WHEN (devolver%NOTFOUND);
-
-  END LOOP;
-  CLOSE devolver;*/
 END;
 
 END PKG_FICHAJES;
-
-
-
-
-
 
 
 

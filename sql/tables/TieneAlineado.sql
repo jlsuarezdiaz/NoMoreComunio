@@ -8,15 +8,15 @@ create table TieneAlineado(
   codigo_jugador int NOT NULL,
   jornada int NOT NULL,
   PRIMARY KEY (nombre_usuario, nombre_comunidad, codigo_jugador, jornada),
-  FOREIGN KEY (nombre_usuario, nombre_comunidad) REFERENCES PERTENECE(nombre_usu, nombre_comunidad),
+  FOREIGN KEY (nombre_usuario, nombre_comunidad, codigo_jugador) REFERENCES TIENE(nombre_usuario, nombre_comunidad, codigo_jugador),
   FOREIGN KEY (codigo_jugador, jornada) REFERENCES Puntos(cod_jugador, cod_jornada)
 
 );
-
+select * from Tiene;
 INSERT into TieneAlineado(nombre_usuario, nombre_comunidad, codigo_jugador,jornada) VALUES
 ('rbnuria', 'ComunioDDSI2',1,1);
-INSERT into TieneAlineado(nombre_usuario, nombre_comunidad, codigo_jugador, jornada) VALUES
-('rbnuria', 'ComunioDDSI2',4,1);
+/*INSERT into TieneAlineado(nombre_usuario, nombre_comunidad, codigo_jugador, jornada) VALUES
+('rbnuria', 'ComunioDDSI2',4,1);*/
 INSERT into TieneAlineado(nombre_usuario, nombre_comunidad, codigo_jugador, jornada) VALUES
 ('rbnuria', 'ComunioDDSI2',5,2);
 
@@ -28,9 +28,11 @@ INSERT into TieneAlineado(nombre_usuario, nombre_comunidad, codigo_jugador, jorn
 ('elenaro','ComunioDDSI2',19,2);
 
 INSERT into TieneAlineado(nombre_usuario, nombre_comunidad, codigo_jugador, jornada) VALUES
-('moyita222','ComunioDDSI',1,1);
+('moyita222','ComunioDDSI',3,1);
 INSERT into TieneAlineado(nombre_usuario, nombre_comunidad, codigo_jugador, jornada) VALUES
-('moyita222','ComunioDDSI',2,1);
+('moyita222','ComunioDDSI',6,2);
+INSERT into TieneAlineado(nombre_usuario, nombre_comunidad, codigo_jugador, jornada) VALUES
+('moyita222','ComunioDDSI',3,2);
 INSERT into TieneAlineado(nombre_usuario, nombre_comunidad, codigo_jugador, jornada) VALUES
 ('moyita222','ComunioDDSI',4,2);
 
