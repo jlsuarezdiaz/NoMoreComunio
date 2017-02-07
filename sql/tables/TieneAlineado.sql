@@ -28,9 +28,11 @@ INSERT into TieneAlineado(nombre_usuario, nombre_comunidad, codigo_jugador, jorn
 ('elenaro','ComunioDDSI2',19,2);
 
 INSERT into TieneAlineado(nombre_usuario, nombre_comunidad, codigo_jugador, jornada) VALUES
-('moyita222','ComunioDDSI',1,1);
+('moyita222','ComunioDDSI',3,1);
 INSERT into TieneAlineado(nombre_usuario, nombre_comunidad, codigo_jugador, jornada) VALUES
-('moyita222','ComunioDDSI',2,1);
+('moyita222','ComunioDDSI',6,2);
+INSERT into TieneAlineado(nombre_usuario, nombre_comunidad, codigo_jugador, jornada) VALUES
+('moyita222','ComunioDDSI',3,2);
 INSERT into TieneAlineado(nombre_usuario, nombre_comunidad, codigo_jugador, jornada) VALUES
 ('moyita222','ComunioDDSI',4,2);
 

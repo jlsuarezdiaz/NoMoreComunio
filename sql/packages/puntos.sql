@@ -84,6 +84,7 @@ END;
 
 PROCEDURE calcularPuntos(cod INTEGER, jornada INTEGER, resultado OUT INTEGER) AS
 BEGIN  
+  resultado:=0;
   IF (esPortero(cod) = 1) THEN
     resultado:= -1 *obtenerGoles(cod,jornada) -2 + 4*obtenerValoracion(cod,jornada);
   END IF;
@@ -123,14 +124,49 @@ BEGIN
       END IF;
     END IF;
   END IF;
+  dbms_output.put_line(resultado);
 
+  
 END;
 
-PROCEDURE obtenerPuntosUsuario(usuario VARCHAR2, jor INT, comunidad VARCHAR2,  suma OUT INT) IS
+
+FUNCTION obtenerPuntosUsuario(usuario VARCHAR2, jor INT, comunidad VARCHAR2) return INTEGER IS suma INTEGER;
+codigo_jugador INT;
+auxiliar INT;
+CURSOR recorrer IS SELECT codigo_jugador FROM (select * from TieneAlineado 
+  where  nombre_comunidad=comunidad and jornada=jor and nombre_usuario = usuario);
+
+BEGIN
+
+  suma:=0;
+  OPEN recorrer;
+  
+  LOOP
+    FETCH recorrer INTO codigo_jugador;
+
+    EXIT WHEN (recorrer%NOTFOUND);
+    calcularPuntos(codigo_jugador, jor, auxiliar);
+    dbms_output.put_line(codigo_jugador);
+    
+    suma := suma + auxiliar;
+  END LOOP;
+  CLOSE recorrer;
+  return(suma);
+END;
+
+PROCEDURE obtenerPuntosJornada(jor INT, comunidad VARCHAR2, devolver OUT SYS_REFCURSOR) AS
+nombre_usu VARCHAR(30);
+resultado INT;
+BEGIN
+  OPEN devolver FOR SELECT nombre_usu, obtenerPuntosUsuario(nombre_usu, jor, comunidad) FROM pertenece where nombre_comunidad=comunidad;
+END;
+
+/*
+FUNCTION obtenerPuntosTotalesUsuario(usuario VARCHAR2, comunidad VARCHAR2) return INTEGER IS suma INTEGER;
 cod_jugador INT;
 auxiliar INT;
 CURSOR recorrer IS SELECT cod_jugador FROM (select * from Puntos,TieneAlineado 
-  where Puntos.cod_jugador = TieneAlineado.codigo_jugador and nombre_comunidad=comunidad and jornada=jor and nombre_usuario = usuario);
+  where Puntos.cod_jugador = TieneAlineado.codigo_jugador and nombre_comunidad=comunidad and nombre_usuario = usuario);
 
 BEGIN
 
@@ -145,15 +181,14 @@ BEGIN
     suma := suma + auxiliar;
   END LOOP;
   CLOSE recorrer;
+  return(suma);
 END;
-
-/*
-PROCEDURE obtenerPuntos(jor INT, coumidad varchar, devolver OUT SYS_REFCURSOR) AS
-usuario VARCHAR2;
-puntos INT;
-BEGIN
-  OPEN devolver FOR SELECT usuario FROM pertenece;
-END;
-
 */
+/*
+PROCEDURE obtenerPuntosTotales(comunidad VARCHAR2, devolver OUT SYS_REFCURSOR)AS
+BEGIN
+  
+END;*/
+
+
 END PKG_PUNTOS;
