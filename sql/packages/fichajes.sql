@@ -94,14 +94,14 @@ BEGIN
   SELECT nombre, equipo, precio_min, nombre_vendedor
   FROM (select * from APARECEEN, JUGADORES 
   where apareceen.codigo_jugador = Jugadores.cod and nombre_comunidad = comunidad);
-  
+/*  
   LOOP
     FETCH devolver INTO nombre, equipo, precio_min, nombre_vendedor;
 
     EXIT WHEN (devolver%NOTFOUND);
 
   END LOOP;
-  CLOSE devolver;
+  CLOSE devolver;*/
 END;
 
 END PKG_FICHAJES;

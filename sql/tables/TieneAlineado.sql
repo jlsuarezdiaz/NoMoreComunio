@@ -1,16 +1,15 @@
 /*Creación de la tabla Aparece En*/
 
-/*drop TABLE TieneAlineado;*/
+drop TABLE TieneAlineado;
 
 create table TieneAlineado(
-  nombre_usuario varchar(20) NOT NULL,
-  nombre_comunidad varchar(20) NOT NULL,
+  nombre_usuario varchar(40) NOT NULL,
+  nombre_comunidad varchar(40) NOT NULL,
   codigo_jugador int NOT NULL,
-  jornada int,
+  jornada int NOT NULL,
   PRIMARY KEY (nombre_usuario, nombre_comunidad, codigo_jugador, jornada),
-  FOREIGN KEY (nombre_usuario) REFERENCES Usuario(nom_usu),
-  FOREIGN KEY (nombre_comunidad) REFERENCES Comunidad(nombre_comunidad),
-  FOREIGN KEY (codigo_jugador) REFERENCES Jugadores(cod)
+  FOREIGN KEY (nombre_usuario, nombre_comunidad) REFERENCES PERTENECE(nombre_usu, nombre_comunidad),
+  FOREIGN KEY (codigo_jugador, jornada) REFERENCES Puntos(cod_jugador, cod_jornada)
 
 );
 
@@ -36,7 +35,7 @@ INSERT into TieneAlineado(nombre_usuario, nombre_comunidad, codigo_jugador, jorn
 ('moyita222','ComunioDDSI',4,2);
 
 INSERT into TieneAlineado(nombre_usuario, nombre_comunidad, codigo_jugador, jornada) VALUES
-('juanikerbrahimi','ComunioDDSI',12,1);
+('juanikerbrahimi','ComunioDDSI',7,1);
 INSERT into TieneAlineado(nombre_usuario, nombre_comunidad, codigo_jugador, jornada) VALUES
 ('juanikerbrahimi','ComunioDDSI',14,2);
 INSERT into TieneAlineado(nombre_usuario, nombre_comunidad, codigo_jugador, jornada) VALUES
@@ -44,8 +43,13 @@ INSERT into TieneAlineado(nombre_usuario, nombre_comunidad, codigo_jugador, jorn
 
 
 INSERT into TieneAlineado(nombre_usuario, nombre_comunidad, codigo_jugador, jornada) VALUES
-('jpoyatos','ComunioDDSI',23,1);
+('jpoyatos','ComunioDDSI',8,1);
 INSERT into TieneAlineado(nombre_usuario, nombre_comunidad, codigo_jugador, jornada) VALUES
-('jpoyatos','ComunioDDSI',26,1);
+('jpoyatos','ComunioDDSI',9,1);
 INSERT into TieneAlineado(nombre_usuario, nombre_comunidad, codigo_jugador, jornada) VALUES
 ('jpoyatos','ComunioDDSI',27,2);
+
+
+select count(*) from TieneAlineado;
+
+select * from TieneAlineado;

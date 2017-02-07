@@ -46,19 +46,6 @@ BEGIN
   OPEN devolver FOR
   SELECT nombre_comunidad FROM PERTENECE where nombre_usu = usuario;
   
-  /*
-  LOOP
-    FETCH devolver INTO nombre_comunidad;
-    dbms_output.put_line(nombre_comunidad);
-    EXIT WHEN (devolver%NOTFOUND);
-  END LOOP;
-  
-    WHILE(devolver%FOUND) LOOP
-      FETCH devolver INTO nombre_comunidad;
-      dbms_output.put_line(nombre_comunidad);
-    END LOOP;
-*/  
-
 END;
 
 
@@ -78,13 +65,13 @@ BEGIN
   (select * from EscribeNoticia, TABLONANUNCIOS 
   where escribenoticia.nombre_comunidad = tablonanuncios.nombre_comunidad 
   and escribenoticia.codigo_noticia = tablonanuncios.codigo_noticia and escribenoticia.nombre_comunidad = comunidad);
-  
+ /* 
   LOOP
     FETCH devolver INTO noticia, fecha, usuario;
     EXIT WHEN (devolver%NOTFOUND);
 
   END LOOP;
-  CLOSE devolver;
+  CLOSE devolver;*/
   
 END;
 
