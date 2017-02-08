@@ -14,11 +14,30 @@ create table TieneAlineado(
 );
 select * from Tiene;
 INSERT into TieneAlineado(nombre_usuario, nombre_comunidad, codigo_jugador,jornada) VALUES
-('rbnuria', 'ComunioDDSI2',1,1);
+('rbnuria', 'ComunioDDSI2',1,2);
 /*INSERT into TieneAlineado(nombre_usuario, nombre_comunidad, codigo_jugador, jornada) VALUES
 ('rbnuria', 'ComunioDDSI2',4,1);*/
 INSERT into TieneAlineado(nombre_usuario, nombre_comunidad, codigo_jugador, jornada) VALUES
 ('rbnuria', 'ComunioDDSI2',5,2);
+INSERT into TieneAlineado(nombre_usuario, nombre_comunidad, codigo_jugador, jornada) VALUES
+('rbnuria', 'ComunioDDSI2',7,2);
+INSERT into TieneAlineado(nombre_usuario, nombre_comunidad, codigo_jugador, jornada) VALUES
+('rbnuria', 'ComunioDDSI2',8,2);
+INSERT into TieneAlineado(nombre_usuario, nombre_comunidad, codigo_jugador, jornada) VALUES
+('rbnuria', 'ComunioDDSI2',11,2);
+INSERT into TieneAlineado(nombre_usuario, nombre_comunidad, codigo_jugador, jornada) VALUES
+('rbnuria', 'ComunioDDSI2',21,2);
+INSERT into TieneAlineado(nombre_usuario, nombre_comunidad, codigo_jugador, jornada) VALUES
+('rbnuria', 'ComunioDDSI2',35,2);
+INSERT into TieneAlineado(nombre_usuario, nombre_comunidad, codigo_jugador, jornada) VALUES
+('rbnuria', 'ComunioDDSI2',27,2);
+INSERT into TieneAlineado(nombre_usuario, nombre_comunidad, codigo_jugador, jornada) VALUES
+('rbnuria', 'ComunioDDSI2',28,2);
+INSERT into TieneAlineado(nombre_usuario, nombre_comunidad, codigo_jugador, jornada) VALUES
+('rbnuria', 'ComunioDDSI2',31,2);
+/*
+INSERT into TieneAlineado(nombre_usuario, nombre_comunidad, codigo_jugador, jornada) VALUES
+('rbnuria', 'ComunioDDSI2',34,2);*/
 
 INSERT into TieneAlineado(nombre_usuario, nombre_comunidad, codigo_jugador, jornada) VALUES
 ('elenaro','ComunioDDSI2',14,1);
@@ -52,6 +71,4 @@ INSERT into TieneAlineado(nombre_usuario, nombre_comunidad, codigo_jugador, jorn
 ('jpoyatos','ComunioDDSI',27,2);
 
 
-select count(*) from TieneAlineado;
-
-select * from TieneAlineado;
+select count(*) from TieneAlineado where nombre_usuario = 'rbnuria' and jornada = 2;

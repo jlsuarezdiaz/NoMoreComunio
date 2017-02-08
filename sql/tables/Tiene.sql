@@ -23,8 +23,23 @@ INSERT into Tiene(nombre_usuario, nombre_comunidad, codigo_jugador) VALUES
 ('rbnuria', 'ComunioDDSI2',8);
 INSERT into Tiene(nombre_usuario, nombre_comunidad, codigo_jugador) VALUES
 ('rbnuria', 'ComunioDDSI2',11);
-
-
+INSERT into Tiene(nombre_usuario, nombre_comunidad, codigo_jugador) VALUES
+('rbnuria', 'ComunioDDSI2',21);
+INSERT into Tiene(nombre_usuario, nombre_comunidad, codigo_jugador) VALUES
+('rbnuria', 'ComunioDDSI2',23);
+INSERT into Tiene(nombre_usuario, nombre_comunidad, codigo_jugador) VALUES
+('rbnuria', 'ComunioDDSI2',27);
+INSERT into Tiene(nombre_usuario, nombre_comunidad, codigo_jugador) VALUES
+('rbnuria', 'ComunioDDSI2',28);
+INSERT into Tiene(nombre_usuario, nombre_comunidad, codigo_jugador) VALUES
+('rbnuria', 'ComunioDDSI2',31);
+INSERT into Tiene(nombre_usuario, nombre_comunidad, codigo_jugador) VALUES
+('rbnuria', 'ComunioDDSI2',32);
+INSERT into Tiene(nombre_usuario, nombre_comunidad, codigo_jugador) VALUES
+('rbnuria', 'ComunioDDSI2',34);
+INSERT into Tiene(nombre_usuario, nombre_comunidad, codigo_jugador) VALUES
+('rbnuria', 'ComunioDDSI2',35);
+/*
 INSERT into Tiene(nombre_usuario, nombre_comunidad, codigo_jugador) VALUES
 ('elenaro','ComunioDDSI2',4);
 INSERT into Tiene(nombre_usuario, nombre_comunidad, codigo_jugador) VALUES
@@ -35,7 +50,7 @@ INSERT into Tiene(nombre_usuario, nombre_comunidad, codigo_jugador) VALUES
 ('elenaro','ComunioDDSI2',20);
 INSERT into Tiene(nombre_usuario, nombre_comunidad, codigo_jugador) VALUES
 ('elenaro','ComunioDDSI2',22);
-
+*/
 
 INSERT into Tiene(nombre_usuario, nombre_comunidad, codigo_jugador) VALUES
 ('moyita222','ComunioDDSI',1);

@@ -1,0 +1,10 @@
+create or replace TRIGGER ACTUALIZAPRECIOMIN
+AFTER INSERT ON PUNTOS
+FOR EACH ROW
+BEGIN
+  IF(:new.goles > 1) THEN
+    UPDATE JUGADORES SET precio = precio + 1000;
+  END IF;
+END;
+
+
