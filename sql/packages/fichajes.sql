@@ -101,36 +101,36 @@ PROCEDURE obtener_jugadores(comunidad VARCHAR2, devolver OUT SYS_REFCURSOR) AS
   nombre_vendedor VARCHAR(40);
 BEGIN
   OPEN devolver FOR
-  SELECT nombre, equipo,pos, precio_min, precio, nombre_vendedor , sum(goles) as sumg, sum(asistencias) as suma, sum(t_amarillas) as sumta, sum(t_rojas) as sumtr, sum(valoracion) as sumval
+  SELECT cod,nombre, equipo,pos, precio_min, precio, nombre_vendedor , sum(goles) as sumg, sum(asistencias) as suma, sum(t_amarillas) as sumta, sum(t_rojas) as sumtr, sum(valoracion) as sumval
   FROM (select * from APARECEEN, JUGADORES, PUNTOS
   where apareceen.codigo_jugador = Jugadores.cod and nombre_comunidad = comunidad and jugadores.cod = puntos.cod_jugador)
-  group by nombre, equipo, pos, precio_min,precio, nombre_vendedor;
+  group by cod,nombre, equipo, pos, precio_min,precio, nombre_vendedor;
 END;
 
-PROCEDURE obtenerAlineacion(comunidad VARCHAR2, devolver OUT SYS_REFCURSOR) AS
+PROCEDURE obtenerAlineacion(usuario VARCHAR2, comunidad VARCHAR2, devolver OUT SYS_REFCURSOR) AS
   nombre VARCHAR(40);
   precio_min INT;
   equipo VARCHAR(40);
   nombre_vendedor VARCHAR(40);
 BEGIN
   OPEN devolver FOR
-  SELECT nombre, equipo,pos, precio, sum(goles) as sumg, sum(asistencias) as suma, sum(t_amarillas) as sumta, sum(t_rojas) as sumtr, sum(valoracion) as sumval
+  SELECT cod,nombre, equipo,pos, precio, sum(goles) as sumg, sum(asistencias) as suma, sum(t_amarillas) as sumta, sum(t_rojas) as sumtr, sum(valoracion) as sumval
   FROM (select * from TieneAlineado, Jugadores, Puntos
-  where TieneAlineado.codigo_jugador = Jugadores.cod and nombre_comunidad = comunidad and jugadores.cod = puntos.cod_jugador)
-  group by nombre, equipo, pos, precio;
+  where TieneAlineado.codigo_jugador = Jugadores.cod and nombre_comunidad = comunidad and jugadores.cod = puntos.cod_jugador and TieneAlineado.nombre_usuario = usuario) 
+  group by cod,nombre, equipo, pos, precio;
 END;
 
-PROCEDURE obtenerMisJugadores(comunidad VARCHAR2, devolver OUT SYS_REFCURSOR) AS
+PROCEDURE obtenerMisJugadores(usuario VARCHAR2, comunidad VARCHAR2, devolver OUT SYS_REFCURSOR) AS
   nombre VARCHAR(40);
   precio_min INT;
   equipo VARCHAR(40);
   nombre_vendedor VARCHAR(40);
 BEGIN
   OPEN devolver FOR
-  SELECT nombre, equipo,pos, precio, sum(goles) as sumg, sum(asistencias) as suma, sum(t_amarillas) as sumta, sum(t_rojas) as sumtr, sum(valoracion) as sumval
+  SELECT cod,nombre, equipo,pos, precio, sum(goles) as sumg, sum(asistencias) as suma, sum(t_amarillas) as sumta, sum(t_rojas) as sumtr, sum(valoracion) as sumval
   FROM (select * from Tiene, Jugadores, Puntos
-  where Tiene.codigo_jugador = Jugadores.cod and nombre_comunidad = comunidad and jugadores.cod = puntos.cod_jugador)
-  group by nombre, equipo, pos, precio;
+  where Tiene.codigo_jugador = Jugadores.cod and nombre_comunidad = comunidad and jugadores.cod = puntos.cod_jugador and Tiene.nombre_usuario = usuario)
+  group by cod,nombre, equipo, pos, precio;
 END;
 
 PROCEDURE ponerJugadorEnOnce(usu VARCHAR2, comunidad VARCHAR2, cod INTEGER, ronda INTEGER) AS

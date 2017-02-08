@@ -16,9 +16,9 @@ PROCEDURE realizar_fichaje(jugador INT, comunidad VARCHAR2);
 
 PROCEDURE obtener_jugadores(comunidad VARCHAR2, devolver OUT SYS_REFCURSOR);
 
-PROCEDURE obtenerAlineacion(comunidad VARCHAR2, devolver OUT SYS_REFCURSOR);
+PROCEDURE obtenerAlineacion(usuario VARCHAR2, comunidad VARCHAR2, devolver OUT SYS_REFCURSOR);
 
-PROCEDURE obtenerMisJugadores(comunidad VARCHAR2, devolver OUT SYS_REFCURSOR);
+PROCEDURE obtenerMisJugadores(usuario VARCHAR2, comunidad VARCHAR2, devolver OUT SYS_REFCURSOR);
 
 PROCEDURE ponerJugadorEnOnce(usu VARCHAR2, comunidad VARCHAR2, cod INTEGER, ronda INTEGER);
 
