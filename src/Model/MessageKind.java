@@ -31,6 +31,7 @@ public enum MessageKind {
     OK_FILE            (206),
     OK_VERSION         (207),
     OK_JOIN            (208),
+    OK_CREATE          (209),
     
     
     //3xx - Communication messages
@@ -48,6 +49,7 @@ public enum MessageKind {
     NEWS                (311),  //Noticias  (ArrayList<Message>)
     MONEY               (312),  //Dinero    (int)
     JOIN                (313),  //Usuario (String), Comunidad (String), passwd (String)
+    CREATECOM           (314),  //Usuario (String), Comunidad (String), passwd (String)
     
     
     

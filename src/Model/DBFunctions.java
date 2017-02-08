@@ -142,7 +142,7 @@ public class DBFunctions {
         while(rset.next()){
             String rsetMsg = rset.getString(1);
             String rsetUsr = rset.getString(3);
-            Date rsetDate = rset.getDate(2);
+            Date rsetDate = new Date(rset.getTimestamp(2).getTime());
             tablon.add(new Message(rsetMsg, rsetUsr, rsetDate));
         }
         return tablon;
@@ -233,9 +233,34 @@ public class DBFunctions {
         
         int res = callStmt.getInt(4);
         if(res==0)
-            return true;
-        else
             return false;
+        else
+            return true;
+    }
+    
+    public static boolean registrarComunidad(String com, String pass) throws SQLException{
+        Connection con = DBConnect();
+
+        //Consulta que se va a realizar (los argumentos se escriben como ?, se especifican después). 
+        String jobquery = "begin pkg_connection.registrarComunidad(?,?,?); end;";
+        //Preparamos la llamada.
+        CallableStatement callStmt = con.prepareCall(jobquery);
+        
+        //Parámetros de salida
+        callStmt.registerOutParameter(3, OracleTypes.INTEGER);
+
+        //Parámetros de entrada
+        callStmt.setString(1, com);
+        callStmt.setString(2, pass);
+        
+        
+        callStmt.execute();
+        
+        int res = callStmt.getInt(3);
+        if(res==1)
+            return false;
+        else
+            return true;
     }
     
     

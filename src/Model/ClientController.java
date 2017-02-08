@@ -344,17 +344,19 @@ public class ClientController{
                                 sendMessage = new CSMessage(MessageKind.LISTCOMS, new Object[]{myUser.getName()});
                                 sendToServer(sendMessage);
                                 break;
+                            case OK_CREATE:
+                                sendMessage = new CSMessage(MessageKind.LISTCOMS, new Object[]{myUser.getName()});
+                                sendToServer(sendMessage);
+                                break;
                             case ERR_INVALIDCOM:
                                 String err_msg = "";
                                 if(receivedMsg.getData().length > 0) err_msg = (String) receivedMsg.getData(0);
                                 JOptionPane.showMessageDialog(view, err_msg, "Comunidad incorrecta", JOptionPane.ERROR_MESSAGE);
-                                clientControllerInstance.myUser = null;
                                 break;
                             case ERR_DATABASE:
                                 String err_db_msg = "";
                                 if(receivedMsg.getData().length > 0) err_db_msg = (String) receivedMsg.getData(0);
                                 JOptionPane.showMessageDialog(view, err_db_msg, "SQL EXCEPTION", JOptionPane.ERROR_MESSAGE);
-                                clientControllerInstance.myUser = null;
                                 break;
                             case NOP:
                                 break;
@@ -572,7 +574,13 @@ public class ClientController{
         sendToServer(new CSMessage(MessageKind.GETCOM, new Object[]{comunidadActual,myUser.getName()}));
     }
     
+    
+    
     public void joinCommunity(ArrayList<String> comData){
         sendToServer(new CSMessage(MessageKind.JOIN, new Object[]{myUser.getName(),comData.get(0),comData.get(1)}));
+    }
+    
+    public void createCommunity(ArrayList<String> comData){
+        sendToServer(new CSMessage(MessageKind.CREATECOM, new Object[]{myUser.getName(),comData.get(0),comData.get(1)}));
     }
 }

@@ -163,6 +163,17 @@ class ServerProcessor extends Thread{
                             sendData = new CSMessage(MessageKind.ERR_INVALIDCOM,new Object[]{"La comunidad o contraseña no son correctos."});
                         }
                         break;
+                    case CREATECOM:
+                        String cc_user = (String) receivedData.getData(0);
+                        String cc_com = (String) receivedData.getData(1);
+                        String cc_pass = (String) receivedData.getData(2);
+                        if(DBFunctions.registrarComunidad(cc_com,cc_pass)){
+                            sendData = new CSMessage(MessageKind.OK_CREATE,new Object[]{cc_com});
+                        }
+                        else{
+                            sendData = new CSMessage(MessageKind.ERR_INVALIDCOM,new Object[]{"La comunidad ya existe."});
+                        }
+                        break;
                     case NOP:
                         break;
                     default:
@@ -193,13 +204,13 @@ class ServerProcessor extends Thread{
      */
     private void sendJarFile() {
         try{
-            File f = new File("./NoMoreDropboxMSN.jar");
+            File f = new File("./NoMoreComunio.jar");
             
             if(f.exists()){
                 String versionNumber = Data.Txt.VERSION;
                 versionNumber = versionNumber.replace('.', '_');
                 serviceSocket.writeMessage(new CSMessage(MessageKind.SEND_FILE, new Object[]
-                    {null,-1,-1,"NoMoreDropboxMSN"+versionNumber+".jar",f.length()}));
+                    {null,-1,-1,"NoMoreComunio"+versionNumber+".jar",f.length()}));
                 
                 final int fileLengthSize = 50000;
                 FileInputStream fis = new FileInputStream(f);
