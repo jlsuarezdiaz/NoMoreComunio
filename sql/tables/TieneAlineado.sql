@@ -1,6 +1,6 @@
 /*Creación de la tabla Aparece En*/
 
-drop TABLE TieneAlineado;
+drop TABLE TieneAlineado cascade constraints;
 
 create table TieneAlineado(
   nombre_usuario varchar(40) NOT NULL,
@@ -34,7 +34,7 @@ INSERT into TieneAlineado(nombre_usuario, nombre_comunidad, codigo_jugador, jorn
 INSERT into TieneAlineado(nombre_usuario, nombre_comunidad, codigo_jugador, jornada) VALUES
 ('rbnuria', 'ComunioDDSI2',28,2);
 INSERT into TieneAlineado(nombre_usuario, nombre_comunidad, codigo_jugador, jornada) VALUES
-('rbnuria', 'ComunioDDSI2',31,2);
+('rbnuria', 'ComunioDDSI2',67,2);
 /*
 INSERT into TieneAlineado(nombre_usuario, nombre_comunidad, codigo_jugador, jornada) VALUES
 ('rbnuria', 'ComunioDDSI2',34,2);*/

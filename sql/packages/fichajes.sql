@@ -120,9 +120,15 @@ PROCEDURE obtener_jugadores(comunidad VARCHAR2, devolver OUT SYS_REFCURSOR) AS
   nombre_vendedor VARCHAR(40);
 BEGIN
   OPEN devolver FOR
-  SELECT cod,nombre, equipo,pos, precio_min, precio, nombre_vendedor , sum(goles) as sumg, sum(asistencias) as suma, sum(t_amarillas) as sumta, sum(t_rojas) as sumtr, sum(valoracion) as sumval
+  SELECT cod,nombre, equipo,pos, precio_min, precio, nombre_vendedor , sum(goles) as sumg, sum(asistencias) as suma, sum(t_amarillas) as sumta, sum(t_rojas) as sumtr, pkg_puntos.calcularPuntosTotales(cod) as puntos
   FROM (select * from APARECEEN, JUGADORES, PUNTOS
   where apareceen.codigo_jugador = Jugadores.cod and nombre_comunidad = comunidad and jugadores.cod = puntos.cod_jugador)
+  group by cod,nombre, equipo, pos, precio_min,precio, nombre_vendedor
+  union 
+  select cod,nombre, equipo,pos, precio_min, precio, nombre_vendedor , 0, 0, 0, 0, 0 from 
+  APARECEEN, JUGADORES, PUNTOS
+  where apareceen.codigo_jugador = Jugadores.cod and nombre_comunidad = comunidad
+  and not exists(select * from PUNTOS where jugadores.cod = puntos.cod_jugador)
   group by cod,nombre, equipo, pos, precio_min,precio, nombre_vendedor;
 END;
 
@@ -136,7 +142,13 @@ BEGIN
   SELECT cod,nombre, equipo,pos, precio, sum(goles) as sumg, sum(asistencias) as suma, sum(t_amarillas) as sumta, sum(t_rojas) as sumtr,  pkg_puntos.calcularPuntosTotales(cod) as puntos
   FROM (select * from TieneAlineado, Jugadores, Puntos
   where TieneAlineado.codigo_jugador = Jugadores.cod and nombre_comunidad = comunidad and jugadores.cod = puntos.cod_jugador and TieneAlineado.nombre_usuario = usuario) 
-  group by cod,nombre, equipo, pos, precio;
+  group by cod,nombre, equipo, pos, precio
+  union 
+  select cod,nombre, equipo,pos, precio, 0, 0, 0, 0, 0 from 
+  TIENEALINEADO, JUGADORES, PUNTOS
+  where TieneAlineado.codigo_jugador = Jugadores.cod and nombre_comunidad = comunidad and TieneAlineado.nombre_usuario = usuario
+  and not exists(select * from PUNTOS where jugadores.cod = puntos.cod_jugador and TieneAlineado.nombre_usuario = usuario)
+  group by cod,nombre, equipo, pos, precio_min,precio, nombre_vendedor;
 END;
 
 PROCEDURE obtenerMisJugadores(usuario VARCHAR2, comunidad VARCHAR2, devolver OUT SYS_REFCURSOR) AS
@@ -149,7 +161,13 @@ BEGIN
   SELECT cod,nombre, equipo,pos, precio , sum(goles) as sumg, sum(asistencias) as suma, sum(t_amarillas) as sumta, sum(t_rojas) as sumtr,  pkg_puntos.calcularPuntosTotales(cod) as puntos
   FROM (select * from Tiene, Jugadores, Puntos
   where Tiene.codigo_jugador = Jugadores.cod and nombre_comunidad = comunidad and jugadores.cod = puntos.cod_jugador and Tiene.nombre_usuario = usuario)
-  group by cod,nombre, equipo, pos, precio;
+  group by cod,nombre, equipo, pos, precio
+  union 
+  select cod,nombre, equipo,pos, precio , 0, 0, 0, 0, 0 from 
+  TIENE, JUGADORES, PUNTOS
+  where TIENE.codigo_jugador = Jugadores.cod and nombre_comunidad = comunidad and Tiene.nombre_usuario = usuario
+  and not exists(select * from PUNTOS where jugadores.cod = puntos.cod_jugador and Tiene.nombre_usuario = usuario)
+  group by cod,nombre, equipo, pos, precio_min,precio, nombre_vendedor;
 END;
 
 PROCEDURE ponerJugadorEnOnce(usu VARCHAR2, comunidad VARCHAR2, cod INTEGER, ronda INTEGER) AS

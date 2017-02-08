@@ -34,7 +34,7 @@ INSERT into Tiene(nombre_usuario, nombre_comunidad, codigo_jugador) VALUES
 INSERT into Tiene(nombre_usuario, nombre_comunidad, codigo_jugador) VALUES
 ('rbnuria', 'ComunioDDSI2',32);
 INSERT into Tiene(nombre_usuario, nombre_comunidad, codigo_jugador) VALUES
-('rbnuria', 'ComunioDDSI2',35);
+('rbnuria', 'ComunioDDSI2',67);
 /*
 INSERT into Tiene(nombre_usuario, nombre_comunidad, codigo_jugador) VALUES
 ('elenaro','ComunioDDSI2',4);

@@ -18,7 +18,7 @@ INSERT into ApareceEn( nombre_vendedor, nombre_comunidad, codigo_jugador, precio
 INSERT into ApareceEn( nombre_vendedor, nombre_comunidad, codigo_jugador, precio_min) VALUES
 ('COMPUTER','ComunioDDSI2',11, 11);
 INSERT into ApareceEn( nombre_vendedor, nombre_comunidad, codigo_jugador, precio_min) VALUES
-('rbnuria','ComunioDDSI2',1, 10);
+('rbnuria','ComunioDDSI2',1, 67);
 
 /*INSERT into ApareceEn( nombre_comunidad, codigo_jugador) VALUES
 ('ComunioDDSI2',5);
