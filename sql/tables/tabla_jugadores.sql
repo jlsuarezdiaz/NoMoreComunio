@@ -38,7 +38,7 @@ INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES
 (7, 'Luka Modric', 'Real Madrid', 'Mediocentro', 9070000);
 
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
-(8, 'Lucas Vázquez', 'Real Madrid', 'Mediocentro', 7030000);
+(8, 'Lucas Vazquez', 'Real Madrid', 'Mediocentro', 7030000);
 
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
 (9, 'Karim Benzema', 'Real Madrid', 'Delantero', 10540000);
@@ -55,109 +55,109 @@ INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES
 
 /*ATLETICO DE MADRID*/
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
-(12, 'Jan Oblak', 'Atlético de Madrid', 'Portero', 1290000);
+(12, 'Jan Oblak', 'Atletico de Madrid', 'Portero', 1290000);
 
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
-(13, 'Diego Godín', 'Atlético de Madrid', 'Defensa', 5180000);
+(13, 'Diego Godin', 'Atletico de Madrid', 'Defensa', 5180000);
 
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
-(14, 'Filipe Luis', 'Atlético de Madrid', 'Defensa', 4490000);
+(14, 'Filipe Luis', 'Atletico de Madrid', 'Defensa', 4490000);
 
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
-(15, 'Juanfran Torres', 'Atlético de Madrid', 'Defensa', 4010000);
+(15, 'Juanfran Torres', 'Atletico de Madrid', 'Defensa', 4010000);
 
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
-(16, 'Stefan Savic', 'Atlético de Madrid', 'Defensa', 3600000);
+(16, 'Stefan Savic', 'Atletico de Madrid', 'Defensa', 3600000);
 
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
-(17, 'Koke', 'Atlético de Madrid', 'Mediocentro', 5710000);
+(17, 'Koke', 'Atletico de Madrid', 'Mediocentro', 5710000);
 
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
-(18, 'Yannick Carrasco', 'Atlético de Madrid', 'Mediocentro', 7950000);
+(18, 'Yannick Carrasco', 'Atletico de Madrid', 'Mediocentro', 7950000);
 
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
-(19, 'Gabriel Fernández', 'Atlético de Madrid', 'Mediocentro', 1850000);
+(19, 'Gabriel Fernandez', 'Atletico de Madrid', 'Mediocentro', 1850000);
 
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
-(20, 'Saúl Níguez', 'Atlético de Madrid', 'Mediocentro', 3280000);
+(20, 'Saul Niguez', 'Atletico de Madrid', 'Mediocentro', 3280000);
 
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
-(21, 'Antoine Griezmann', 'Atlético de Madrid', 'Delantero', 14200000);
+(21, 'Antoine Griezmann', 'Atletico de Madrid', 'Delantero', 14200000);
 
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
-(22, 'Kevin Gameiro', 'Atlético de Madrid', 'Delantero', 8260000);
+(22, 'Kevin Gameiro', 'Atletico de Madrid', 'Delantero', 8260000);
 
 
 /*FC BARCELONA*/
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
-(23, 'Ter Stegen', 'FB Barcelona', 'Portero', 2290000);
+(23, 'Ter Stegen', 'FC Barcelona', 'Portero', 2290000);
 
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
-(24, 'Gerard Piqué', 'FB Barcelona', 'Defensa', 8770000);
+(24, 'Gerard Pique', 'FC Barcelona', 'Defensa', 8770000);
 
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
-(25, 'Jordi Alba', 'FB Barcelona', 'Defensa', 4280000);
+(25, 'Jordi Alba', 'FC Barcelona', 'Defensa', 4280000);
 
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
-(26, 'Javier Mascherano', 'FB Barcelona', 'Defensa', 2690000);
+(26, 'Javier Mascherano', 'FC Barcelona', 'Defensa', 2690000);
 
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
-(27, 'Sergi Roberto', 'FB Barcelona', 'Defensa', 5100000);
+(27, 'Sergi Roberto', 'FC Barcelona', 'Defensa', 5100000);
 
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
-(28, 'Andrés Iniesta', 'FB Barcelona', 'Mediocentro', 8710000);
+(28, 'Andres Iniesta', 'FC Barcelona', 'Mediocentro', 8710000);
 
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
-(29, 'Sergio Busquets', 'FB Barcelona', 'Mediocentro', 4540000);
+(29, 'Sergio Busquets', 'FC Barcelona', 'Mediocentro', 4540000);
 
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
-(30, 'Arda Turan', 'FB Barcelona', 'Mediocentro', 4090000);
+(30, 'Arda Turan', 'FC Barcelona', 'Mediocentro', 4090000);
 
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
-(31, 'Luis Suárez', 'FB Barcelona', 'Delantero', 17600000);
+(31, 'Luis Suarez', 'FC Barcelona', 'Delantero', 17600000);
 
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
-(32, 'Neymar Santos', 'FB Barcelona', 'Delantero', 14000000);
+(32, 'Neymar Santos', 'FC Barcelona', 'Delantero', 14000000);
 
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
-(33, 'Lionel Messi', 'FB Barcelona', 'Delantero', 24770000);
+(33, 'Lionel Messi', 'FC Barcelona', 'Delantero', 24770000);
 
 
 
 
 /*M�?LAGA FC*/
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
-(34, 'Carlos Kameni', 'Málaga FC', 'Portero', 1210000);
+(34, 'Carlos Kameni', 'Malaga FC', 'Portero', 1210000);
 
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
-(35, 'Juan Carlos Pérez', 'Málaga FC', 'Defensa', 880000);
+(35, 'Juan Carlos Perez', 'Malaga FC', 'Defensa', 880000);
 
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
-(36, 'Diego LLorente', 'Málaga FC', 'Defensa', 1000000);
+(36, 'Diego LLorente', 'Malaga FC', 'Defensa', 1000000);
 
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
-(37, 'Roberto Rosales', 'Málaga FC', 'Defensa', 2680000);
+(37, 'Roberto Rosales', 'Malaga FC', 'Defensa', 2680000);
 
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
-(38, 'Mikel Villanueva', 'Málaga FC', 'Defensa', 640000);
+(38, 'Mikel Villanueva', 'Malaga FC', 'Defensa', 640000);
 
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
-(39, 'Ignacio Camacho', 'Málaga FC', 'Mediocentro', 6680000);
+(39, 'Ignacio Camacho', 'Malaga FC', 'Mediocentro', 6680000);
 
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
-(40, 'Juan Pablo Añor', 'Málaga FC', 'Mediocentro', 3540000);
+(40, 'Juan Pablo Añor', 'Malaga FC', 'Mediocentro', 3540000);
 
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
-(41, 'Recio', 'Málaga FC', 'Mediocentro', 690000);
+(41, 'Recio', 'Malaga FC', 'Mediocentro', 690000);
 
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
-(42, 'Sandro Ramírez', 'Málaga FC', 'Delantero', 5420000);
+(42, 'Sandro Ramirez', 'Malaga FC', 'Delantero', 5420000);
 
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
-(43, 'Charles Dias', 'Málaga FC', 'Delantero',1720000);
+(43, 'Charles Dias', 'Malaga FC', 'Delantero',1720000);
 
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
-(44, 'Michael Santos', 'Málaga FC', 'Delantero', 1890000);
+(44, 'Michael Santos', 'Malaga FC', 'Delantero', 1890000);
 
 
 /*GRANADA FC*/
@@ -165,19 +165,19 @@ INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES
 (45, 'Guillermo Ochoa', 'Granada FC', 'Portero', 2690000);
 
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
-(46, 'David Lombán', 'Granada FC', 'Defensa', 910000);
+(46, 'David Lomban', 'Granada FC', 'Defensa', 910000);
 
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
 (47, 'Dmitri Foulquier', 'Granada FC', 'Defensa', 510000);
 
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
-(48, 'Gastón Silva', 'Granada FC', 'Defensa', 320000);
+(48, 'Gaston Silva', 'Granada FC', 'Defensa', 320000);
 
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
 (49, 'Matthieu Saunier', 'Granada FC', 'Defensa', 360000);
 
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
-(50, 'Jérémie Boga', 'Granada FC', 'Mediocentro', 1820000);
+(50, 'Jeremie Boga', 'Granada FC', 'Mediocentro', 1820000);
 
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
 (51, 'Sergi Samper', 'Granada FC', 'Mediocentro', 820000);
@@ -198,37 +198,37 @@ INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES
 
 /*CÓRDOBA FC*/
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
-(56, 'Pawel Kieszek', 'Córdoba FC', 'Portero', 200000);
+(56, 'Pawel Kieszek', 'Cordoba FC', 'Portero', 200000);
 
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
-(57, 'Domingo Cisma', 'Córdoba FC', 'Defensa',260000);
+(57, 'Domingo Cisma', 'Cordoba FC', 'Defensa',260000);
 
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
-(58, 'Héctor Rodas', 'Córdoba FC', 'Defensa',450000);
+(58, 'Hector Rodas', 'Cordoba FC', 'Defensa',450000);
 
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
-(59, 'José Antonio Caro', 'Córdoba FC', 'Defensa', 860000);
+(59, 'Jose Antonio Caro', 'Cordoba FC', 'Defensa', 860000);
 
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
-(60, 'Zakarya Bergdich', 'Córdoba FC', 'Defensa', 125000);
+(60, 'Zakarya Bergdich', 'Cordoba FC', 'Defensa', 125000);
 
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
-(61, 'Pedro Ríos', 'Córdoba FC', 'Mediocentro', 680000);
+(61, 'Pedro Rios', 'Cordoba FC', 'Mediocentro', 680000);
 
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
-(62, 'Eduardo Ramos', 'Córdoba FC', 'Mediocentro', 1250000);
+(62, 'Eduardo Ramos', 'Cordoba FC', 'Mediocentro', 1250000);
 
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
-(63, 'Alejandro Alfaro', 'Córdoba FC', 'Mediocentro', 850000);
+(63, 'Alejandro Alfaro', 'Cordoba FC', 'Mediocentro', 850000);
 
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
-(64, 'Carlos Caballero', 'Córdoba FC', 'Mediocentro', 200000);
+(64, 'Carlos Caballero', 'Cordoba FC', 'Mediocentro', 200000);
 
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
-(65, 'Rodrigo Ríos', 'Córdoba FC', 'Delantero', 2400000);
+(65, 'Rodrigo Rios', 'Cordoba FC', 'Delantero', 2400000);
 
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
-(66, 'Federico Piovaccari', 'Córdoba FC', 'Delantero', 1520000);
+(66, 'Federico Piovaccari', 'Cordoba FC', 'Delantero', 1520000);
 
 
 
