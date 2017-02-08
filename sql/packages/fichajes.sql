@@ -1,9 +1,9 @@
 
 CREATE OR REPLACE PACKAGE BODY PKG_FICHAJES AS
 
-FUNCTION precio_minimo(codigo_jugador INT, nombre_comunidad VARCHAR2) return INTEGER IS precio INTEGER;
+FUNCTION precio_minimo(codigo INT, comunidad VARCHAR2) return INTEGER IS precio INTEGER;
 BEGIN
-  select precio_min into precio from ApareceEn where codigo_jugador=codigo_jugador and nombre_comunidad=nombre_comunidad;
+  select precio_min into precio from ApareceEn where codigo_jugador=codigo and nombre_comunidad=comunidad;
   return(precio);
 END;
 
@@ -14,10 +14,14 @@ BEGIN
 END;
 
 PROCEDURE Pujar(nomb_usuario VARCHAR2, nomb_comunidad VARCHAR2,id_jugador INTEGER, cantidad INT) AS
+vendedor VARCHAR(30);
 BEGIN 
- 
- IF (precio_minimo(id_jugador, nomb_comunidad) <= cantidad) THEN
-   INSERT into RealizarOferta(nombre_usuario,nombre_comunidad,codigo_jugador,precio, estado) values (nomb_usuario, nomb_comunidad, id_jugador, cantidad, 0);
+ select nombre_vendedor into vendedor from ApareceEn where nombre_comunidad = nomb_comunidad and codigo_jugador = id_jugador;
+
+ IF (nomb_usuario <> vendedor) THEN
+    IF (precio_minimo(id_jugador, nomb_comunidad) <= cantidad) THEN
+     INSERT into RealizarOferta(nombre_usuario,nombre_comunidad,codigo_jugador,precio, estado) values (nomb_usuario, nomb_comunidad, id_jugador, cantidad, 0);
+    END IF;
  END IF;
 END Pujar;
 
@@ -29,8 +33,23 @@ END ofrecer_sistema;
 
 PROCEDURE ofrecer_jugador(nomb_usuario VARCHAR2, nomb_comunidad VARCHAR2, id_jugador INTEGER, precio INT) AS
 BEGIN  
-  INSERT into ApareceEn(NOMBRE_VENDEDOR, nombre_comunidad,codigo_jugador,precio_min) values (nomb_usuario,nomb_comunidad, id_jugador, precio);
+  INSERT into ApareceEn(nombre_vendedor, nombre_comunidad,codigo_jugador,precio_min) values (nomb_usuario,nomb_comunidad, id_jugador, precio);
 END ofrecer_jugador;
+
+PROCEDURE retirar_jugador(nomb_usuario VARCHAR2, nomb_comunidad VARCHAR2, id_jugador INTEGER) AS
+contador int;
+contador2 int;
+BEGIN
+  select count(*) into contador from ApareceEn where nombre_comunidad = nomb_comunidad and codigo_jugador = id_jugador and nombre_vendedor=nomb_usuario;
+  select count(*) into contador2 from RealizarOferta where nombre_comunidad = nomb_comunidad and codigo_jugador = id_jugador and estado = 0;
+  
+  IF (contador > 0 and contador2 > 0) THEN
+    delete from RealizarOferta where nombre_comunidad = nomb_comunidad and codigo_jugador = id_jugador and estado = 0;
+  END IF;
+  IF(contador > 0) THEN
+    delete from ApareceEn where nombre_comunidad = nomb_comunidad and codigo_jugador = id_jugador and nombre_vendedor=nomb_usuario;
+  END IF;
+END;
 
 PROCEDURE deshacer_fichaje(usuario VARCHAR2, comunidad VARCHAR2, jugador INT) AS
 contador int;
@@ -104,6 +123,12 @@ BEGIN
   SELECT cod,nombre, equipo,pos, precio_min, precio, nombre_vendedor , sum(goles) as sumg, sum(asistencias) as suma, sum(t_amarillas) as sumta, sum(t_rojas) as sumtr, pkg_puntos.calcularPuntosTotales(cod) as puntos
   FROM (select * from APARECEEN, JUGADORES, PUNTOS
   where apareceen.codigo_jugador = Jugadores.cod and nombre_comunidad = comunidad and jugadores.cod = puntos.cod_jugador)
+  group by cod,nombre, equipo, pos, precio_min,precio, nombre_vendedor
+  union 
+  select cod,nombre, equipo,pos, precio_min, precio, nombre_vendedor , 0, 0, 0, 0, 0 from 
+  APARECEEN, JUGADORES, PUNTOS
+  where apareceen.codigo_jugador = Jugadores.cod and nombre_comunidad = comunidad
+  and not exists(select * from PUNTOS where jugadores.cod = puntos.cod_jugador)
   group by cod,nombre, equipo, pos, precio_min,precio, nombre_vendedor;
 END;
 
@@ -117,7 +142,13 @@ BEGIN
   SELECT cod,nombre, equipo,pos, precio, sum(goles) as sumg, sum(asistencias) as suma, sum(t_amarillas) as sumta, sum(t_rojas) as sumtr,  pkg_puntos.calcularPuntosTotales(cod) as puntos
   FROM (select * from TieneAlineado, Jugadores, Puntos
   where TieneAlineado.codigo_jugador = Jugadores.cod and nombre_comunidad = comunidad and jugadores.cod = puntos.cod_jugador and TieneAlineado.nombre_usuario = usuario) 
-  group by cod,nombre, equipo, pos, precio;
+  group by cod,nombre, equipo, pos, precio
+  union 
+  select cod,nombre, equipo,pos, precio, 0, 0, 0, 0, 0 from 
+  TIENEALINEADO, JUGADORES, PUNTOS
+  where TieneAlineado.codigo_jugador = Jugadores.cod and nombre_comunidad = comunidad and TieneAlineado.nombre_usuario = usuario
+  and not exists(select * from PUNTOS where jugadores.cod = puntos.cod_jugador and TieneAlineado.nombre_usuario = usuario)
+  group by cod,nombre, equipo, pos, precio_min,precio, nombre_vendedor;
 END;
 
 PROCEDURE obtenerMisJugadores(usuario VARCHAR2, comunidad VARCHAR2, devolver OUT SYS_REFCURSOR) AS
@@ -130,7 +161,13 @@ BEGIN
   SELECT cod,nombre, equipo,pos, precio , sum(goles) as sumg, sum(asistencias) as suma, sum(t_amarillas) as sumta, sum(t_rojas) as sumtr,  pkg_puntos.calcularPuntosTotales(cod) as puntos
   FROM (select * from Tiene, Jugadores, Puntos
   where Tiene.codigo_jugador = Jugadores.cod and nombre_comunidad = comunidad and jugadores.cod = puntos.cod_jugador and Tiene.nombre_usuario = usuario)
-  group by cod,nombre, equipo, pos, precio;
+  group by cod,nombre, equipo, pos, precio
+  union 
+  select cod,nombre, equipo,pos, precio , 0, 0, 0, 0, 0 from 
+  TIENE, JUGADORES, PUNTOS
+  where TIENE.codigo_jugador = Jugadores.cod and nombre_comunidad = comunidad and Tiene.nombre_usuario = usuario
+  and not exists(select * from PUNTOS where jugadores.cod = puntos.cod_jugador and Tiene.nombre_usuario = usuario)
+  group by cod,nombre, equipo, pos, precio_min,precio, nombre_vendedor;
 END;
 
 PROCEDURE ponerJugadorEnOnce(usu VARCHAR2, comunidad VARCHAR2, cod INTEGER, ronda INTEGER) AS
