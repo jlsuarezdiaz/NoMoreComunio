@@ -200,7 +200,7 @@ public class Server {
                                 case "updatemarket":
                                     try{
                                     if(args.length > 1){
-                                        serverData.updateMarket(args[0]);
+                                        serverData.updateMarket(args[1]);
                                     }
                                     else throw new IllegalArgumentException("Illegal arguments.");
                                     }

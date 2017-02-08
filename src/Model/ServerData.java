@@ -222,6 +222,32 @@ public class ServerData {
         }
     }
     
+    public int registerUser(ArrayList<String> userData, ServerProcessor p){
+       try{ 
+            boolean oklog = DBFunctions.registrar(userData);
+            int remoteId = -1;
+
+            if(oklog){
+                p.getSocket().writeMessage(new CSMessage(MessageKind.OK_SIGNUP,new Object[]{userData.get(0)}));
+                int su_id = addUser(userData.get(0),userData.get(3).toCharArray(),p);
+                remoteId=su_id;
+                
+            }
+            else{
+                 p.getSocket().writeMessage(new CSMessage(MessageKind.ERR_INVALIDSIGNUP,new Object[]{"El usuario ya existe."}));
+            } 
+            return remoteId;
+        }
+        catch(Exception ex){
+            Tracer.getInstance().trace(ex);
+            try{
+                p.getSocket().writeMessage(new CSMessage(MessageKind.ERR_DATABASE,new Object[]{ex.getMessage()}));
+            }
+            catch(Exception exx){}
+        }
+       return -2;
+   }
+    
     /**
      * Changes private mode of a user in server.
      * @param id User to be changed.
@@ -313,5 +339,7 @@ public class ServerData {
             Tracer.getInstance().trace(ex);
         }
    }
+   
+   
 
 }

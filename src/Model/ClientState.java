@@ -6,5 +6,5 @@ package Model;
  * @author Juan Luis
  */
 public enum ClientState {
-    START, UPDATE, LOGIN, ONLINE, DISCONNECTING, OFF
+    START, UPDATE, LOGIN, SIGNUP, ONLINE, DISCONNECTING, OFF
 }

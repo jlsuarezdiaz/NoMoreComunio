@@ -77,6 +77,7 @@ public enum MessageKind {
     ERR_INVALIDUSER    (408),
     ERR_DATABASE       (409),
     ERR_INVALIDCOM     (410),
+    ERR_INVALIDSIGNUP  (411),
     
     
     //0xx

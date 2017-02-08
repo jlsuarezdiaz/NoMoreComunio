@@ -5,18 +5,32 @@
  */
 package GUI;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+
 /**
  *
  * @author Juan Luis
  */
 public class ComunioSignUp extends javax.swing.JDialog {
 
+    private ArrayList<String> userData;
+    
     /**
      * Creates new form ComunioSignUp
      */
     public ComunioSignUp(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        userData = new ArrayList();
+        
+        this.addWindowListener (new WindowAdapter() {
+            @Override
+            public void windowClosing (WindowEvent e) {
+                System.exit(0);
+            }
+        });
     }
 
     /**
@@ -119,9 +133,18 @@ public class ComunioSignUp extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btSignUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSignUpActionPerformed
-        // TODO add your handling code here:
+        userData.add(txtUser.getText());
+        userData.add(txtName.getText());
+        userData.add(txtSurname.getText());
+        userData.add(txtPasswd.getText());
+        userData.add(txtMail.getText());
+        this.dispose();
     }//GEN-LAST:event_btSignUpActionPerformed
 
+    public ArrayList<String> getUserData(){
+        this.setVisible(true);
+        return userData;
+    }
     /**
      * @param args the command line arguments
      */

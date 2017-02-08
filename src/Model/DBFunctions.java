@@ -519,6 +519,36 @@ public class DBFunctions {
         return users;
    
     }
+    
+    public static boolean registrar(ArrayList<String> userData) throws SQLException{
+        Connection con = DBConnect();
+        //Consulta que se va a realizar (los argumentos se escriben como ?, se especifican después). 
+        String jobquery = "begin pkg_connection.registrar(?,?,?,?,?,?); end;";
+        //Preparamos la llamada.
+        CallableStatement callStmt = con.prepareCall(jobquery);
+        
+        //[LOGIN (user IN VARCHAR, passwd IN VARCHAR2, oklog OUT INTEGER)]
+        
+        //Parámetros de salida
+        callStmt.registerOutParameter(6, OracleTypes.INTEGER);
+        
+        //Parámetros de entrada
+        for(int i = 1; i <= 5; i++){
+            callStmt.setString(i, userData.get(i-1));
+        }
+        
+        
+        //Ejecutamos comando.
+        callStmt.execute();
+        
+        //Obtenemos resultado. (Nota: Para cursores consultar ResultSet)
+        int oklog = (int)callStmt.getObject(6);
+        
+        if(oklog==0)
+            return true;
+        else
+            return false;
+    }
   
 } 
    

@@ -90,6 +90,21 @@ class ServerProcessor extends Thread{
                         int id = serverData.addUser((String)receivedData.getData(0),(char[])receivedData.getData(1),this);    //Necesita Mutex
                         remoteId=id;
                         break;
+                        
+                    case SIGN_UP:
+                       int su_id = serverData.registerUser((ArrayList<String>)receivedData.getData(0),this);
+                       remoteId = su_id;
+                        
+                     /*   ArrayList<String> userData = (ArrayList<String>)receivedData.getData(0);
+                        boolean oklog = DBFunctions.registrar(userData);
+                        if(oklog){
+                            int su_id = serverData.addUser(userData.get(0),(char[])receivedData.getData(3), this);
+                            remoteId=su_id;
+                        }
+                        else{
+
+                        }*/
+                        break;
 
                     case LOGOUT:   
                         if(remoteId >= 0) serverData.removeUser(Integer.valueOf(remoteId));

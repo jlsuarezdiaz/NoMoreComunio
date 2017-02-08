@@ -3,6 +3,7 @@ package Model;
 
 import GUI.LoadingView;
 import GUI.ComunioIntro;
+import GUI.ComunioSignUp;
 import GUI.ComunioView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -275,7 +276,41 @@ public class ClientController{
                     }
                         break;
                         
-                    case LOGIN: //Actions for state LOGIN
+                    case SIGNUP: //Actions for state LOGIN
+                    {
+                        switch(receivedMsg.getMessageKind()){
+                            case OK_SIGNUP:
+                            /*    clientControllerInstance.myId = (int) receivedMsg.getData(0);
+                                view.setMSN(clientControllerInstance);
+                                view.showView();
+                                view.enableMSNComponents(true);
+                                clientState = ClientState.ONLINE;
+                                clientControllerInstance.updater.start();
+                                sendMessage = new CSMessage(MessageKind.LISTCOMS, new Object[]{myUser.getName()});
+                                sendToServer(sendMessage);*/
+                                myUser = new User((String)receivedMsg.getData(0));
+                                clientState = ClientState.LOGIN;
+                                break;
+                            case ERR_DATABASE:    
+                            case ERR_INVALIDSIGNUP: 
+                            case ERR_USEROVERFLOW:
+                                String err_msg = "";
+                                if(receivedMsg.getData().length > 0) err_msg = (String) receivedMsg.getData(0);
+                                JOptionPane.showMessageDialog(view, err_msg, "ERROR AL REGISTRARSE", JOptionPane.ERROR_MESSAGE);
+                                clientControllerInstance.myUser = null;
+                                startSignUp();
+                                break;
+                                
+                            case NOP:
+                                break;
+                            default:
+                                Tracer.getInstance().trace(new Exception("Bad request: "+receivedMsg.getMessageKind()));
+                                break;
+                        }
+                    }
+                        break;
+                        
+                    case LOGIN:
                     {
                         switch(receivedMsg.getMessageKind()){
                             case OK_LOGIN:
@@ -305,7 +340,8 @@ public class ClientController{
                                 break;
                         }
                     }
-                        break;
+                        
+                    break;
                         
                     case ONLINE:
                     {
@@ -512,11 +548,23 @@ public class ClientController{
             logData = intro.getUser();
             userName = logData.first;
             passwd = logData.second;
-            this.myUser = new User(userName);
+            if(userName != null) this.myUser = new User(userName);
         }
-        sendToServer(new CSMessage(MessageKind.LOGIN, new Object[]{userName,passwd}));
+        if(userName!=null && passwd != null)
+            sendToServer(new CSMessage(MessageKind.LOGIN, new Object[]{userName,passwd}));
+        else{
+            this.clientState = ClientState.SIGNUP;
+            startSignUp();
+        }
     }
     
+    private void startSignUp(){
+        ArrayList<String> userData;
+        ComunioSignUp signup = new ComunioSignUp(view,true);
+        
+        userData = signup.getUserData();
+        sendToServer(new CSMessage(MessageKind.SIGN_UP, new Object[]{userData}));
+    }
     /**
      * Performs updating.
      */

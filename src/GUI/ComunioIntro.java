@@ -261,7 +261,9 @@ public class ComunioIntro extends javax.swing.JDialog {
     }//GEN-LAST:event_txtUserNameKeyReleased
 
     private void btSignUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSignUpActionPerformed
-        
+        this.user = null;
+        this.password = null;
+        this.dispose();
     }//GEN-LAST:event_btSignUpActionPerformed
 
     private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
