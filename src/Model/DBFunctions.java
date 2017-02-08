@@ -148,7 +148,122 @@ public class DBFunctions {
         return tablon;
     }
     
-    public static void ponerJugadorEnOnce(String usu, String com, Integer cod, int ronda) throws SQLException{
+    public static ArrayList<Player> obtener_jugadores(String com) throws SQLException {
+        Connection con = DBConnect();
+
+        //Consulta que se va a realizar (los argumentos se escriben como ?, se especifican después). 
+        String jobquery = "begin pkg_fichajes.obtener_jugadores(?,?); end;";
+        //Preparamos la llamada.
+        CallableStatement callStmt = con.prepareCall(jobquery);
+        
+        //Parámetros de salida
+        callStmt.registerOutParameter(2, OracleTypes.CURSOR);
+
+        //Parámetros de entrada
+        callStmt.setString(1, com);
+        
+        //Ejecutamos comando.
+        callStmt.execute();
+        
+        ResultSet rset = (ResultSet)callStmt.getObject(2);
+        
+        
+        // determine the number of columns in each row of the result set
+        //ResultSetMetaData rsetMeta = rset.getMetaData();
+        //int count = rsetMeta.getColumnCount();
+        //System.out.println(rsetMeta.getColumnCount());
+        
+        ArrayList<Player> market = new ArrayList();
+
+        while(rset.next()){
+            String rNom = rset.getString(1);
+            String rTeam = rset.getString(2);
+            String rPos = rset.getString(3);
+            int rPMin = rset.getInt(4);
+            int rPrec = rset.getInt(5);
+            String rVend = rset.getString(6);
+            int rGol = rset.getInt(7);
+            int rAsist = rset.getInt(8);
+            int rEnc = 0;
+            int rTAma = rset.getInt(9);
+            int rTRoja = rset.getInt(10);
+            int rPts = rset.getInt(11);
+            market.add(new Player(rNom,rTeam,rPos,rVend,rPMin,rPrec,rGol,rAsist,rEnc,rTAma,rTRoja,rPts));
+        }
+        return market;
+    }
+    
+    public static long obtenerDinero(String usuario, String com) throws SQLException{
+        Connection con = DBConnect();
+
+        //Consulta que se va a realizar (los argumentos se escriben como ?, se especifican después). 
+        String jobquery = "begin pkg_global.obtenerDinero(?,?,?); end;";
+        //Preparamos la llamada.
+        CallableStatement callStmt = con.prepareCall(jobquery);
+        
+        //Parámetros de salida
+        callStmt.registerOutParameter(3, OracleTypes.INTEGER);
+
+        //Parámetros de entrada
+        callStmt.setString(1, usuario);
+        callStmt.setString(2, com);
+        
+        callStmt.execute();
+        
+        return callStmt.getLong(3);
+    }
+    
+    public static boolean accederCom(String user, String com, String pass) throws SQLException{
+        Connection con = DBConnect();
+
+        //Consulta que se va a realizar (los argumentos se escriben como ?, se especifican después). 
+        String jobquery = "begin pkg_connection.acceder(?,?,?,?); end;";
+        //Preparamos la llamada.
+        CallableStatement callStmt = con.prepareCall(jobquery);
+        
+        //Parámetros de salida
+        callStmt.registerOutParameter(4, OracleTypes.INTEGER);
+
+        //Parámetros de entrada
+        callStmt.setString(1, user);
+        callStmt.setString(2, com);
+        callStmt.setString(3, pass);
+        
+        callStmt.execute();
+        
+        int res = callStmt.getInt(4);
+        if(res==0)
+            return false;
+        else
+            return true;
+    }
+    
+    public static boolean registrarComunidad(String com, String pass) throws SQLException{
+        Connection con = DBConnect();
+
+        //Consulta que se va a realizar (los argumentos se escriben como ?, se especifican después). 
+        String jobquery = "begin pkg_connection.registrarComunidad(?,?,?); end;";
+        //Preparamos la llamada.
+        CallableStatement callStmt = con.prepareCall(jobquery);
+        
+        //Parámetros de salida
+        callStmt.registerOutParameter(3, OracleTypes.INTEGER);
+
+        //Parámetros de entrada
+        callStmt.setString(1, com);
+        callStmt.setString(2, pass);
+        
+        
+        callStmt.execute();
+        
+        int res = callStmt.getInt(3);
+        if(res==1)
+            return false;
+        else
+            return true;
+    }
+    
+     public static void ponerJugadorEnOnce(String usu, String com, Integer cod, int ronda) throws SQLException{
         Connection con = DBConnect();
         
         //Consulta que se va a realizar (los argumentos se escriben como ?, se especifican después). 
@@ -268,123 +383,6 @@ public class DBFunctions {
         
         return jugadores;
     }
-    
-    
-    public static ArrayList<Player> obtener_jugadores(String com) throws SQLException {
-        Connection con = DBConnect();
-
-        //Consulta que se va a realizar (los argumentos se escriben como ?, se especifican después). 
-        String jobquery = "begin pkg_fichajes.obtener_jugadores(?,?); end;";
-        //Preparamos la llamada.
-        CallableStatement callStmt = con.prepareCall(jobquery);
-        
-        //Parámetros de salida
-        callStmt.registerOutParameter(2, OracleTypes.CURSOR);
-
-        //Parámetros de entrada
-        callStmt.setString(1, com);
-        
-        //Ejecutamos comando.
-        callStmt.execute();
-        
-        ResultSet rset = (ResultSet)callStmt.getObject(2);
-        
-        
-        // determine the number of columns in each row of the result set
-        //ResultSetMetaData rsetMeta = rset.getMetaData();
-        //int count = rsetMeta.getColumnCount();
-        //System.out.println(rsetMeta.getColumnCount());
-        
-        ArrayList<Player> market = new ArrayList();
-
-        while(rset.next()){
-            String rNom = rset.getString(1);
-            String rTeam = rset.getString(2);
-            String rPos = rset.getString(3);
-            int rPMin = rset.getInt(4);
-            int rPrec = rset.getInt(5);
-            String rVend = rset.getString(6);
-            int rGol = rset.getInt(7);
-            int rAsist = rset.getInt(8);
-            int rEnc = 0;
-            int rTAma = rset.getInt(9);
-            int rTRoja = rset.getInt(10);
-            int rPts = rset.getInt(11);
-            market.add(new Player(rNom,rTeam,rPos,rVend,rPMin,rPrec,rGol,rAsist,rEnc,rTAma,rTRoja,rPts));
-        }
-        return market;
-    }
-    
-    public static long obtenerDinero(String usuario, String com) throws SQLException{
-        Connection con = DBConnect();
-
-        //Consulta que se va a realizar (los argumentos se escriben como ?, se especifican después). 
-        String jobquery = "begin pkg_global.obtenerDinero(?,?,?); end;";
-        //Preparamos la llamada.
-        CallableStatement callStmt = con.prepareCall(jobquery);
-        
-        //Parámetros de salida
-        callStmt.registerOutParameter(3, OracleTypes.INTEGER);
-
-        //Parámetros de entrada
-        callStmt.setString(1, usuario);
-        callStmt.setString(2, com);
-        
-        callStmt.execute();
-        
-        return callStmt.getLong(3);
-    }
-    
-    public static boolean accederCom(String user, String com, String pass) throws SQLException{
-        Connection con = DBConnect();
-
-        //Consulta que se va a realizar (los argumentos se escriben como ?, se especifican después). 
-        String jobquery = "begin pkg_connection.acceder(?,?,?,?); end;";
-        //Preparamos la llamada.
-        CallableStatement callStmt = con.prepareCall(jobquery);
-        
-        //Parámetros de salida
-        callStmt.registerOutParameter(4, OracleTypes.INTEGER);
-
-        //Parámetros de entrada
-        callStmt.setString(1, user);
-        callStmt.setString(2, com);
-        callStmt.setString(3, pass);
-        
-        callStmt.execute();
-        
-        int res = callStmt.getInt(4);
-        if(res==0)
-            return false;
-        else
-            return true;
-    }
-    
-    public static boolean registrarComunidad(String com, String pass) throws SQLException{
-        Connection con = DBConnect();
-
-        //Consulta que se va a realizar (los argumentos se escriben como ?, se especifican después). 
-        String jobquery = "begin pkg_connection.registrarComunidad(?,?,?); end;";
-        //Preparamos la llamada.
-        CallableStatement callStmt = con.prepareCall(jobquery);
-        
-        //Parámetros de salida
-        callStmt.registerOutParameter(3, OracleTypes.INTEGER);
-
-        //Parámetros de entrada
-        callStmt.setString(1, com);
-        callStmt.setString(2, pass);
-        
-        
-        callStmt.execute();
-        
-        int res = callStmt.getInt(3);
-        if(res==1)
-            return false;
-        else
-            return true;
-    }
-    
     
 }
     
