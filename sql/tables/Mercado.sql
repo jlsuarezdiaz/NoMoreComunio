@@ -1,4 +1,4 @@
-/*drop table Mercado;*/
+drop table Mercado cascade constraints;
 
 create table Mercado(
   nombre_com varchar(20) PRIMARY KEY NOT NULL,

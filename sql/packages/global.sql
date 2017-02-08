@@ -12,6 +12,7 @@ PROCEDURE modificarMercado(numjug INTEGER, comunidad VARCHAR2) AS
   precioj INTEGER;
   estaen INTEGER;
   cantidad INTEGER;
+  
 BEGIN
   select count(*) into cantidad from ApareceEn where nombre_comunidad=comunidad and nombre_vendedor='COMPUTER';
   IF (cantidad > 0) THEN
@@ -21,12 +22,12 @@ BEGIN
   FOR contador IN 1..numjug LOOP
     codigo:=obtenerCodigoPrimero;
       
-    select count(*) into estaen from ApareceEn where codigo_jugador=codigo and nombre_comunidad=comunidad;
-      
+    select count(*) into estaen from ApareceEn where codigo_jugador=codigo and nombre_comunidad=comunidad;   
     IF (estaen = 0) THEN
       select precio into precioj from Jugadores where cod=codigo; 
       insert into ApareceEn values ('COMPUTER',comunidad,codigo,precioj);
     END IF;
+    
   END LOOP;
 END;
 
@@ -121,14 +122,14 @@ BEGIN
   (select * from EscribeNoticia, TABLONANUNCIOS 
   where escribenoticia.nombre_comunidad = tablonanuncios.nombre_comunidad 
   and escribenoticia.codigo_noticia = tablonanuncios.codigo_noticia and escribenoticia.nombre_comunidad = comunidad);
-  
+  /*
   LOOP
     FETCH devolver INTO noticia, fecha, usuario;
     EXIT WHEN (devolver%NOTFOUND);
 
   END LOOP;
   CLOSE devolver;
-  
+  */
 END;
 
 PROCEDURE obtenerDinero(usuario VARCHAR2, comunidad VARCHAR2, dinero OUT INTEGER) AS

@@ -22,8 +22,12 @@ import oracle.jdbc.pool.OracleDataSource;
 public class DBFunctions {
     private static Connection DBConnect() throws SQLException{
         String host = "jdbc:oracle:thin:@localhost:1521:XE";
-        String uName = "SYSTEM";
+        /*String uName = "SYSTEM";
         String uPass = "comunio";
+        */
+        
+        String uName = "C##JUANLU";
+        String uPass = "juanlu";
         
         DriverManager.registerDriver(new  oracle.jdbc.driver.OracleDriver());
         Connection conn = DriverManager.getConnection
@@ -446,7 +450,7 @@ public class DBFunctions {
     
     public static void realizar_fichaje( String com, int id_player)throws SQLException{
         Connection con = DBConnect();
-        String jobquery = "begin pkg_fichajes.deshacer_fichaje(?,?,?); end;";
+        String jobquery = "begin pkg_fichajes.realizar_fichaje(?,?,?); end;";
         
         CallableStatement callSmt = con.prepareCall(jobquery);
         
@@ -456,5 +460,9 @@ public class DBFunctions {
         callSmt.execute();
     }
     
+    public static void retirarJugador(String user, String com ,int id_player){
+        
+   
+    }
 }
     

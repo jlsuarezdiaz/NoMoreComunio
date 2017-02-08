@@ -1,4 +1,4 @@
-/*drop table EscribeNoticia;*/
+drop table EscribeNoticia cascade constraints;
 
 create table EscribeNoticia(
   nombre_us varchar(20) NOT NULL,

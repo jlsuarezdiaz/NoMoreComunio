@@ -276,6 +276,7 @@ public class ComunioView extends javax.swing.JFrame {
         btCambiarAlineacion.setVisible(false);
         
         btRealizarOferta.setVisible(true);
+        btOfrecerJugadores.setVisible(false);
         marketPanel.repaint();
         marketPanel.revalidate();
     }
@@ -305,7 +306,8 @@ public class ComunioView extends javax.swing.JFrame {
         btJugadores.setSelected(true);
         btCambiarAlineacion.setVisible(true);
         
-        btRealizarOferta.setVisible(true);
+        btRealizarOferta.setVisible(false);
+        btOfrecerJugadores.setVisible(true);
         marketPanel.repaint();
         marketPanel.revalidate();
     }

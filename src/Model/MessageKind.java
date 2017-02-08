@@ -35,6 +35,7 @@ public enum MessageKind {
     OK_LINEUP          (210),
     OK_OFFER           (211),
     OK_OFFERPLAYER     (212),
+    OK_SIGNUP          (213),
     
     //3xx - Communication messages
     USERS              (300),
@@ -56,6 +57,7 @@ public enum MessageKind {
     CHANGE_LINEUP       (316),  //Jugadores (ArrayList<Player>) 
     MAKE_OFFER          (317),
     OFFER_PLAYER        (318),
+    SIGN_UP             (319),
     
     
     
