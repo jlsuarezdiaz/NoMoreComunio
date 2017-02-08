@@ -543,6 +543,11 @@ public class ComunioView extends javax.swing.JFrame {
         });
 
         btJoinCom.setText("Unirse a una comunidad");
+        btJoinCom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btJoinComActionPerformed(evt);
+            }
+        });
 
         btCreateCom.setText("Crear una nueva comunidad");
 
@@ -678,6 +683,13 @@ public class ComunioView extends javax.swing.JFrame {
     private void boxSelectComActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxSelectComActionPerformed
         this.controller.setCommunity((String)this.boxSelectCom.getSelectedItem());
     }//GEN-LAST:event_boxSelectComActionPerformed
+
+    private void btJoinComActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btJoinComActionPerformed
+        JoinCommunityDialog joind = new JoinCommunityDialog(this, true);
+        joind.setVisible(true);
+        ArrayList<String> comData = joind.getCommunityData();
+        controller.joinCommunity(comData);
+    }//GEN-LAST:event_btJoinComActionPerformed
 
     
 

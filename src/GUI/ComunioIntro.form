@@ -62,7 +62,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="btStart" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="btStart1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="btSignUp" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="labelAskName1" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="txtPassword" alignment="0" max="32767" attributes="0"/>
@@ -109,7 +109,7 @@
               <EmptySpace pref="26" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btStart" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btStart1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btSignUp" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
           </Group>
@@ -226,7 +226,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPasswordActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="btStart1">
+    <Component class="javax.swing.JButton" name="btSignUp">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="33" green="cc" red="0" type="rgb"/>
@@ -237,7 +237,7 @@
         <Property name="text" type="java.lang.String" value="Registrarse"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btStart1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btSignUpActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

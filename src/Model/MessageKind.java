@@ -30,6 +30,7 @@ public enum MessageKind {
     //OK_STATE           (205),
     OK_FILE            (206),
     OK_VERSION         (207),
+    OK_JOIN            (208),
     
     
     //3xx - Communication messages
@@ -65,6 +66,7 @@ public enum MessageKind {
     
     ERR_INVALIDUSER    (408),
     ERR_DATABASE       (409),
+    ERR_INVALIDCOM     (410),
     
     
     //0xx

@@ -212,5 +212,32 @@ public class DBFunctions {
         
         return callStmt.getLong(3);
     }
+    
+    public static boolean accederCom(String user, String com, String pass) throws SQLException{
+        Connection con = DBConnect();
+
+        //Consulta que se va a realizar (los argumentos se escriben como ?, se especifican después). 
+        String jobquery = "begin pkg_connection.acceder(?,?,?,?); end;";
+        //Preparamos la llamada.
+        CallableStatement callStmt = con.prepareCall(jobquery);
+        
+        //Parámetros de salida
+        callStmt.registerOutParameter(4, OracleTypes.INTEGER);
+
+        //Parámetros de entrada
+        callStmt.setString(1, user);
+        callStmt.setString(2, com);
+        callStmt.setString(3, pass);
+        
+        callStmt.execute();
+        
+        int res = callStmt.getInt(4);
+        if(res==0)
+            return true;
+        else
+            return false;
+    }
+    
+    
 }
     

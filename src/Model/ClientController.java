@@ -340,10 +340,20 @@ public class ClientController{
                                 long money = (long)receivedMsg.getData(0);
                                 view.setMoney(money);
                                 break;
-                            case ERR_DATABASE:
+                            case OK_JOIN:
+                                sendMessage = new CSMessage(MessageKind.LISTCOMS, new Object[]{myUser.getName()});
+                                sendToServer(sendMessage);
+                                break;
+                            case ERR_INVALIDCOM:
                                 String err_msg = "";
                                 if(receivedMsg.getData().length > 0) err_msg = (String) receivedMsg.getData(0);
-                                JOptionPane.showMessageDialog(view, err_msg, "SQL EXCEPTION", JOptionPane.ERROR_MESSAGE);
+                                JOptionPane.showMessageDialog(view, err_msg, "Comunidad incorrecta", JOptionPane.ERROR_MESSAGE);
+                                clientControllerInstance.myUser = null;
+                                break;
+                            case ERR_DATABASE:
+                                String err_db_msg = "";
+                                if(receivedMsg.getData().length > 0) err_db_msg = (String) receivedMsg.getData(0);
+                                JOptionPane.showMessageDialog(view, err_db_msg, "SQL EXCEPTION", JOptionPane.ERROR_MESSAGE);
                                 clientControllerInstance.myUser = null;
                                 break;
                             case NOP:
@@ -560,5 +570,9 @@ public class ClientController{
     public void setCommunity(String com){
         this.comunidadActual = com;
         sendToServer(new CSMessage(MessageKind.GETCOM, new Object[]{comunidadActual,myUser.getName()}));
+    }
+    
+    public void joinCommunity(ArrayList<String> comData){
+        sendToServer(new CSMessage(MessageKind.JOIN, new Object[]{myUser.getName(),comData.get(0),comData.get(1)}));
     }
 }

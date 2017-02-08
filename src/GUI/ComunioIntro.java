@@ -70,7 +70,7 @@ public class ComunioIntro extends javax.swing.JDialog {
         btStart = new javax.swing.JButton();
         labelAskName1 = new javax.swing.JLabel();
         txtPassword = new javax.swing.JPasswordField();
-        btStart1 = new javax.swing.JButton();
+        btSignUp = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Dropbox MSN");
@@ -138,12 +138,12 @@ public class ComunioIntro extends javax.swing.JDialog {
             }
         });
 
-        btStart1.setBackground(new java.awt.Color(0, 204, 51));
-        btStart1.setForeground(new java.awt.Color(255, 255, 255));
-        btStart1.setText("Registrarse");
-        btStart1.addActionListener(new java.awt.event.ActionListener() {
+        btSignUp.setBackground(new java.awt.Color(0, 204, 51));
+        btSignUp.setForeground(new java.awt.Color(255, 255, 255));
+        btSignUp.setText("Registrarse");
+        btSignUp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btStart1ActionPerformed(evt);
+                btSignUpActionPerformed(evt);
             }
         });
 
@@ -174,7 +174,7 @@ public class ComunioIntro extends javax.swing.JDialog {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(btStart)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btStart1))
+                                        .addComponent(btSignUp))
                                     .addComponent(labelAskName1)
                                     .addComponent(txtPassword))
                                 .addGap(0, 0, Short.MAX_VALUE))))
@@ -210,7 +210,7 @@ public class ComunioIntro extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btStart)
-                    .addComponent(btStart1))
+                    .addComponent(btSignUp))
                 .addGap(29, 29, 29))
         );
 
@@ -260,9 +260,9 @@ public class ComunioIntro extends javax.swing.JDialog {
         setValidName(!txtUserName.getText().trim().isEmpty());
     }//GEN-LAST:event_txtUserNameKeyReleased
 
-    private void btStart1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btStart1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btStart1ActionPerformed
+    private void btSignUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSignUpActionPerformed
+        
+    }//GEN-LAST:event_btSignUpActionPerformed
 
     private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
         if(validName) performReadName();
@@ -278,8 +278,8 @@ public class ComunioIntro extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btSignUp;
     private javax.swing.JButton btStart;
-    private javax.swing.JButton btStart1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel labelAskName;

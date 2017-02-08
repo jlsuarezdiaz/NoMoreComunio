@@ -152,6 +152,17 @@ class ServerProcessor extends Thread{
                         long gc_money = DBFunctions.obtenerDinero(gc_user, com);
                         serverData.sendTo(remoteId,new CSMessage(MessageKind.MONEY, new Object[]{gc_money}));
                         break;
+                    case JOIN:
+                        String j_user = (String) receivedData.getData(0);
+                        String j_com = (String) receivedData.getData(1);
+                        String j_pass = (String) receivedData.getData(2);
+                        if(DBFunctions.accederCom(j_user,j_com,j_pass)){
+                            sendData = new CSMessage(MessageKind.OK_JOIN,new Object[]{j_com});
+                        }
+                        else{
+                            sendData = new CSMessage(MessageKind.ERR_INVALIDCOM,new Object[]{"La comunidad o contraseña no son correctos."});
+                        }
+                        break;
                     case NOP:
                         break;
                     default:
