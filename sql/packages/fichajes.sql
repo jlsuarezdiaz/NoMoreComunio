@@ -107,6 +107,47 @@ BEGIN
   group by nombre, equipo, pos, precio_min,precio, nombre_vendedor;
 END;
 
+PROCEDURE obtenerAlineacion(comunidad VARCHAR2, devolver OUT SYS_REFCURSOR) AS
+  nombre VARCHAR(40);
+  precio_min INT;
+  equipo VARCHAR(40);
+  nombre_vendedor VARCHAR(40);
+BEGIN
+  OPEN devolver FOR
+  SELECT nombre, equipo,pos, precio, sum(goles) as sumg, sum(asistencias) as suma, sum(t_amarillas) as sumta, sum(t_rojas) as sumtr, sum(valoracion) as sumval
+  FROM (select * from TieneAlineado, Jugadores, Puntos
+  where TieneAlineado.codigo_jugador = Jugadores.cod and nombre_comunidad = comunidad and jugadores.cod = puntos.cod_jugador)
+  group by nombre, equipo, pos, precio;
+END;
+
+PROCEDURE obtenerMisJugadores(comunidad VARCHAR2, devolver OUT SYS_REFCURSOR) AS
+  nombre VARCHAR(40);
+  precio_min INT;
+  equipo VARCHAR(40);
+  nombre_vendedor VARCHAR(40);
+BEGIN
+  OPEN devolver FOR
+  SELECT nombre, equipo,pos, precio, sum(goles) as sumg, sum(asistencias) as suma, sum(t_amarillas) as sumta, sum(t_rojas) as sumtr, sum(valoracion) as sumval
+  FROM (select * from Tiene, Jugadores, Puntos
+  where Tiene.codigo_jugador = Jugadores.cod and nombre_comunidad = comunidad and jugadores.cod = puntos.cod_jugador)
+  group by nombre, equipo, pos, precio;
+END;
+
+PROCEDURE ponerJugadorEnOnce(usu VARCHAR2, comunidad VARCHAR2, cod INTEGER, ronda INTEGER) AS
+  estaen INTEGER;
+BEGIN
+    select count(*) into estaen from Tiene where nombre_usuario=usu and nombre_comunidad=comunidad and codigo_jugador=cod;
+    
+    IF (estaen = 1) THEN 
+      INSERT INTO TieneAlineado(nombre_usuario, nombre_comunidad, codigo_jugador,jornada) VALUES (usu,comunidad,cod,ronda);
+    END IF;
+END;
+
+PROCEDURE borrarAlineacion(usu VARCHAR2, comunidad VARCHAR2, ronda INTEGER) AS
+BEGIN
+  delete from TieneAlineado where nombre_usuario=usu and NOMBRE_COMUNIDAD=comunidad and jornada=ronda;
+END;
+
 END PKG_FICHAJES;
 
 
