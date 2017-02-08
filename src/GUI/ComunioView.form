@@ -64,9 +64,13 @@
                       <Component id="btMarket" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btJugadores" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="53" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="btCambiarAlineacion" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="303" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="btRealizarOferta" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="btOfrecerJugadores" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
                       <Component id="BtExit" min="-2" pref="81" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -114,6 +118,8 @@
                               <Component id="btMarket" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="btJugadores" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="btCambiarAlineacion" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btRealizarOferta" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btOfrecerJugadores" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -329,6 +335,22 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btCambiarAlineacionActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btRealizarOferta">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Realizar Oferta"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btRealizarOfertaActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btOfrecerJugadores">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Ofrecer Jugadores"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btOfrecerJugadoresActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

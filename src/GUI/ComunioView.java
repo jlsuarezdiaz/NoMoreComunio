@@ -275,6 +275,7 @@ public class ComunioView extends javax.swing.JFrame {
         btJugadores.setSelected(false);
         btCambiarAlineacion.setVisible(false);
         
+        btRealizarOferta.setVisible(true);
         marketPanel.repaint();
         marketPanel.revalidate();
     }
@@ -304,6 +305,7 @@ public class ComunioView extends javax.swing.JFrame {
         btJugadores.setSelected(true);
         btCambiarAlineacion.setVisible(true);
         
+        btRealizarOferta.setVisible(true);
         marketPanel.repaint();
         marketPanel.revalidate();
     }
@@ -528,6 +530,8 @@ public class ComunioView extends javax.swing.JFrame {
         btMarket = new javax.swing.JToggleButton();
         btJugadores = new javax.swing.JToggleButton();
         btCambiarAlineacion = new javax.swing.JButton();
+        btRealizarOferta = new javax.swing.JButton();
+        btOfrecerJugadores = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Dropbox MSN");
@@ -641,6 +645,20 @@ public class ComunioView extends javax.swing.JFrame {
             }
         });
 
+        btRealizarOferta.setText("Realizar Oferta");
+        btRealizarOferta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btRealizarOfertaActionPerformed(evt);
+            }
+        });
+
+        btOfrecerJugadores.setText("Ofrecer Jugadores");
+        btOfrecerJugadores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btOfrecerJugadoresActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -671,9 +689,13 @@ public class ComunioView extends javax.swing.JFrame {
                         .addComponent(btMarket)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btJugadores)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btCambiarAlineacion)
-                        .addGap(303, 303, 303)
+                        .addGap(18, 18, 18)
+                        .addComponent(btRealizarOferta)
+                        .addGap(18, 18, 18)
+                        .addComponent(btOfrecerJugadores)
+                        .addGap(73, 73, 73)
                         .addComponent(BtExit, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addComponent(lblMarket_Players)
@@ -713,7 +735,9 @@ public class ComunioView extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(btMarket)
                                 .addComponent(btJugadores)
-                                .addComponent(btCambiarAlineacion)))
+                                .addComponent(btCambiarAlineacion)
+                                .addComponent(btRealizarOferta)
+                                .addComponent(btOfrecerJugadores)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(MessageScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
@@ -793,6 +817,36 @@ public class ComunioView extends javax.swing.JFrame {
         controller.changeLineUp(getSelectedPlayers());
     }//GEN-LAST:event_btCambiarAlineacionActionPerformed
 
+    private void btRealizarOfertaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRealizarOfertaActionPerformed
+        // TODO add your handling code here:
+        ArrayList<Player> jugadores = getSelectedPlayers();
+        
+        for(Player p:jugadores){
+            fijarPrecio fp = new fijarPrecio(this,true);
+            fp.setJugador(p.getName());
+            fp.setVisible(true);
+            
+            int pOferta = fp.getOferta();
+            controller.makeOffer(p.getCode(),pOferta);
+        }
+        
+    }//GEN-LAST:event_btRealizarOfertaActionPerformed
+
+    private void btOfrecerJugadoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btOfrecerJugadoresActionPerformed
+        // TODO add your handling code here:
+        ArrayList<Player> jugadores = getSelectedPlayers();
+        
+        for(Player p:jugadores){
+            fijarPrecio fp = new fijarPrecio(this,true);
+            fp.setJugador(p.getName());
+            fp.setText("Introduzca precio mínimo para el jugador ");
+            fp.setVisible(true);
+            
+            int pOferta = fp.getOferta();
+            controller.ofrecerJugador(p.getCode(),pOferta);
+        }
+    }//GEN-LAST:event_btOfrecerJugadoresActionPerformed
+
     
 
 
@@ -807,6 +861,8 @@ public class ComunioView extends javax.swing.JFrame {
     private javax.swing.JButton btJoinCom;
     private javax.swing.JToggleButton btJugadores;
     private javax.swing.JToggleButton btMarket;
+    private javax.swing.JButton btOfrecerJugadores;
+    private javax.swing.JButton btRealizarOferta;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

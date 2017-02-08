@@ -195,6 +195,26 @@ class ServerProcessor extends Thread{
                         }
                         sendData = new CSMessage(MessageKind.OK_LINEUP,null);
                         break;
+                    case MAKE_OFFER:
+                        String mo_user = (String)receivedData.getData(0);
+                        String mo_com = (String)receivedData.getData(1);
+                        int mo_code = (int)receivedData.getData(2);
+                        int mo_precio = (int)receivedData.getData(3);
+                        
+                        DBFunctions.Pujar(mo_user, mo_com, mo_code, mo_precio);
+                        sendData = new CSMessage(MessageKind.OK_OFFER,null);
+                    break;
+                    
+                    case OFFER_PLAYER:
+                        String op_user = (String)receivedData.getData(0);
+                        String op_com = (String)receivedData.getData(1);
+                        int op_code = (int)receivedData.getData(2);
+                        int op_precio = (int)receivedData.getData(3);
+                        
+                        DBFunctions.ofrecer_jugador(op_user, op_com, op_code, op_precio);
+                        sendData = new CSMessage(MessageKind.OK_OFFERPLAYER,null);
+                    break;
+                        
                     case NOP:
                         break;
                     default:

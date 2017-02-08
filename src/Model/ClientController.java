@@ -366,6 +366,16 @@ public class ClientController{
                                 sendMessage = new CSMessage(MessageKind.GETCOM,new Object[]{myUser.getName()});
                                 sendToServer(sendMessage);
                                 break;
+                            case OK_OFFER:
+                                JOptionPane.showMessageDialog(view, "La puja se realizó correctamente.","OFFER" , JOptionPane.INFORMATION_MESSAGE);
+                                sendMessage = new CSMessage(MessageKind.GETCOM,new Object[]{myUser.getName()});
+                                sendToServer(sendMessage);
+                                break;
+                            case OK_OFFERPLAYER:
+                                JOptionPane.showMessageDialog(view, "El jugador se ofreció correctamente.","OFFER_PLAYER" , JOptionPane.INFORMATION_MESSAGE);
+                                sendMessage = new CSMessage(MessageKind.GETCOM,new Object[]{myUser.getName()});
+                                sendToServer(sendMessage);
+                                break;
                             case ERR_INVALIDCOM:
                                 String err_msg = "";
                                 if(receivedMsg.getData().length > 0) err_msg = (String) receivedMsg.getData(0);
@@ -609,5 +619,14 @@ public class ClientController{
     
     public void changeLineUp(ArrayList<Player> lineup){
         sendToServer(new CSMessage(MessageKind.CHANGE_LINEUP, new Object[]{myUser.getName(),comunidadActual,lineup}));
+    }
+    
+    public void makeOffer(int user_cod, int precio){
+        sendToServer(new CSMessage(MessageKind.MAKE_OFFER, new Object[]{myUser.getName(),comunidadActual,user_cod, precio}));
+        
+    }
+    
+    public void ofrecerJugador(int user_cod, int precio){
+         sendToServer(new CSMessage(MessageKind.OFFER_PLAYER, new Object[]{myUser.getName(),comunidadActual,user_cod, precio}));       
     }
 }

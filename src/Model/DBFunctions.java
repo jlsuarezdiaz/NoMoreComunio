@@ -389,5 +389,72 @@ public class DBFunctions {
         return jugadores;
     }
     
+    public static void Pujar(String user, String com, int id_player, int cantidad)throws SQLException{
+        Connection con = DBConnect();
+        String jobquery = "begin pkg_fichajes.obtenerMisJugadores(?,?,?,?); end;";
+        
+        CallableStatement callSmt = con.prepareCall(jobquery);
+        
+        callSmt.setString(1,user);
+        callSmt.setString(2,com);
+        callSmt.setInt(3, id_player);
+        callSmt.setInt(4, cantidad);
+        
+        callSmt.execute();
+        
+        
+    }
+    
+    public static void ofrecer_sistema(String com, int id_player)throws SQLException{
+        Connection con = DBConnect();
+        String jobquery = "begin pkg_fichajes.ofrecer_sistema(?,?); end;";
+        
+        CallableStatement callSmt = con.prepareCall(jobquery);
+        
+        callSmt.setString(1,com);
+        callSmt.setInt(2, id_player);
+        
+        callSmt.execute();
+    }
+    
+    public static void ofrecer_jugador(String user, String com, int id_player, int precio)throws SQLException{
+        Connection con = DBConnect();
+        String jobquery = "begin pkg_fichajes.ofrecer_jugador(?,?,?,?); end;";
+        
+        CallableStatement callSmt = con.prepareCall(jobquery);
+        
+        callSmt.setString(1,user);
+        callSmt.setString(2,com);
+        callSmt.setInt(3, id_player);
+        callSmt.setInt(4, precio);
+        
+        callSmt.execute();
+    }
+    
+    public static void deshacer_fichaje(String user, String com, int id_player)throws SQLException{
+        Connection con = DBConnect();
+        String jobquery = "begin pkg_fichajes.deshacer_fichaje(?,?,?); end;";
+        
+        CallableStatement callSmt = con.prepareCall(jobquery);
+        
+        callSmt.setString(1,user);
+        callSmt.setString(2,com);
+        callSmt.setInt(3, id_player);
+        
+        callSmt.execute();
+    }
+    
+    public static void realizar_fichaje( String com, int id_player)throws SQLException{
+        Connection con = DBConnect();
+        String jobquery = "begin pkg_fichajes.deshacer_fichaje(?,?,?); end;";
+        
+        CallableStatement callSmt = con.prepareCall(jobquery);
+        
+        callSmt.setString(1,com);
+        callSmt.setInt(2, id_player);
+        
+        callSmt.execute();
+    }
+    
 }
     

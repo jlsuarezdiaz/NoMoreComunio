@@ -33,7 +33,8 @@ public enum MessageKind {
     OK_JOIN            (208),
     OK_CREATE          (209),
     OK_LINEUP          (210),
-    
+    OK_OFFER           (211),
+    OK_OFFERPLAYER     (212),
     
     //3xx - Communication messages
     USERS              (300),
@@ -53,7 +54,8 @@ public enum MessageKind {
     CREATECOM           (314),  //Usuario (String), Comunidad (String), passwd (String)
     PLAYERS             (315),  //Jugadores (ArrayList<Player>)
     CHANGE_LINEUP       (316),  //Jugadores (ArrayList<Player>) 
-    
+    MAKE_OFFER          (317),
+    OFFER_PLAYER        (318),
     
     
     
