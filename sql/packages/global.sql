@@ -11,9 +11,13 @@ PROCEDURE modificarMercado(numjug INTEGER, comunidad VARCHAR2) AS
   codigo INTEGER;
   precioj INTEGER;
   estaen INTEGER;
+  cantidad INTEGER;
 BEGIN
-  delete from ApareceEn where nombre_comunidad=comunidad and nombre_vendedor='COMPUTER';
-    
+  select count(*) into cantidad from ApareceEn where nombre_comunidad=comunidad and nombre_vendedor='COMPUTER';
+  IF (cantidad > 0) THEN
+    delete from ApareceEn where nombre_comunidad=comunidad and nombre_vendedor='COMPUTER';
+  END IF;
+  
   FOR contador IN 1..numjug LOOP
     codigo:=obtenerCodigoPrimero;
       

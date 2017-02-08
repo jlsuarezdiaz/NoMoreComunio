@@ -1,4 +1,4 @@
-/*drop table Comunidad;*/
+drop table Comunidad cascade constraints;
 
 create table Comunidad(
   nombre_comunidad varchar(20) NOT NULL PRIMARY KEY,

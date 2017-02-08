@@ -62,9 +62,9 @@ BEGIN
   
 
   /*Retiramos créditos del usuario*/
- /* update PERTENECE set creditos = (select creditos from PERTENECE where nombre_usu = usuario) - 
+  update PERTENECE set creditos = (select creditos from PERTENECE where nombre_usu = usuario) - 
   (select precio from REALIZAROFERTA where codigo_jugador = jugador and nombre_comunidad = comunidad and nombre_usuario = usuario)
-  where nombre_usu = usuario;*/
+  where nombre_usu = usuario;
   
   /*Quitamos de realizar oferta todos los jugadores que hayan pujado por ese jugador (manteniendo el realizado para la posibilidad de deshacer)*/
   delete from REALIZAROFERTA where codigo_jugador=jugador and estado=0 and nombre_comunidad = comunidad;

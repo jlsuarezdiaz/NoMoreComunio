@@ -137,6 +137,8 @@ BEGIN
   existe:=yaexisteComunidad(nombre_comunidad);
   IF (existe = 0) THEN
     INSERT into Comunidad(nombre_comunidad,pass) values (nombre_comunidad,pass_comunidad);
+    INSERT into Mercado values (nombre_comunidad);
+    pkg_global.modificarMercado(8, nombre_comunidad);
   END IF;
   
 END registrarComunidad;
