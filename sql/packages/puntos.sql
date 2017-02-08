@@ -128,6 +128,31 @@ BEGIN
 END;
 
 
+FUNCTION calcularPuntosTotales(jugador INT) RETURN INTEGER IS suma INTEGER;
+
+cod_jornada INT;
+cod_jugador INT;
+auxiliar INT;
+valoracion int;
+CURSOR recorrer IS SELECT cod_jornada,valoracion FROM (select * from Puntos 
+where cod_jugador=jugador);
+
+BEGIN
+
+  suma:=0;
+  OPEN recorrer;
+  
+  LOOP
+    FETCH recorrer INTO cod_jornada, valoracion;
+
+    EXIT WHEN (recorrer%NOTFOUND);
+    calcularPuntos(jugador, cod_jornada, auxiliar);
+    suma := suma + auxiliar;
+  END LOOP;
+  CLOSE recorrer;
+  return(suma);
+END;
+
 FUNCTION obtenerPuntosUsuario(usuario VARCHAR2, jor INT, comunidad VARCHAR2) return INTEGER IS suma INTEGER;
 codigo_jugador INT;
 auxiliar INT;
