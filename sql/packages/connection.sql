@@ -31,7 +31,7 @@ BEGIN
   INSERT into PERTENECE(nombre_usu,nombre_comunidad,creditos,administrador) values (usuario,comunidad,20.0, 0);
 END;
 
-PROCEDURE acceder(usuario VARCHAR2, comunidad VARCHAR2, pass_comunidad VARCHAR2, okaccess OUT VARCHAR2) AS
+PROCEDURE acceder(usuario VARCHAR2, comunidad VARCHAR2, pass_comunidad VARCHAR2, okaccess OUT INTEGER) AS
 BEGIN
   select count(*) into okaccess from COMUNIDAD where nombre_comunidad=comunidad and pass_comunidad=pass;
   IF(pertenece(usuario,comunidad) = 0 and okaccess=1) THEN
