@@ -33,8 +33,6 @@ INSERT into TieneAlineado(nombre_usuario, nombre_comunidad, codigo_jugador, jorn
 ('rbnuria', 'ComunioDDSI2',27,2);
 INSERT into TieneAlineado(nombre_usuario, nombre_comunidad, codigo_jugador, jornada) VALUES
 ('rbnuria', 'ComunioDDSI2',28,2);
-INSERT into TieneAlineado(nombre_usuario, nombre_comunidad, codigo_jugador, jornada) VALUES
-('rbnuria', 'ComunioDDSI2',67,2);
 /*
 INSERT into TieneAlineado(nombre_usuario, nombre_comunidad, codigo_jugador, jornada) VALUES
 ('rbnuria', 'ComunioDDSI2',34,2);*/
