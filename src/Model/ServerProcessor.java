@@ -185,6 +185,16 @@ class ServerProcessor extends Thread{
                             sendData = new CSMessage(MessageKind.ERR_INVALIDCOM,new Object[]{"La comunidad ya existe."});
                         }
                         break;
+                    case CHANGE_LINEUP:
+                        String cl_user = (String)receivedData.getData(0);
+                        String cl_com = (String)receivedData.getData(1);
+                        ArrayList<Player> lineup = (ArrayList<Player>)receivedData.getData(2);
+                        DBFunctions.borrarAlineacion(cl_user, cl_com, serverData.getJornadaActual());
+                        for(Player p : lineup){
+                            DBFunctions.ponerJugadorEnOnce(cl_user, cl_com, p.getCode(), serverData.getJornadaActual());
+                        }
+                        sendData = new CSMessage(MessageKind.OK_LINEUP,null);
+                        break;
                     case NOP:
                         break;
                     default:

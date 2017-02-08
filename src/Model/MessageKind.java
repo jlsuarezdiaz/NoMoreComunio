@@ -32,6 +32,7 @@ public enum MessageKind {
     OK_VERSION         (207),
     OK_JOIN            (208),
     OK_CREATE          (209),
+    OK_LINEUP          (210),
     
     
     //3xx - Communication messages
@@ -51,7 +52,7 @@ public enum MessageKind {
     JOIN                (313),  //Usuario (String), Comunidad (String), passwd (String)
     CREATECOM           (314),  //Usuario (String), Comunidad (String), passwd (String)
     PLAYERS             (315),  //Jugadores (ArrayList<Player>)
-    //LINEUP              (316),  //Jugadores (ArrayList<Player>) 
+    CHANGE_LINEUP       (316),  //Jugadores (ArrayList<Player>) 
     
     
     

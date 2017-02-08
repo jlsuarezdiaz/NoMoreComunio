@@ -361,6 +361,11 @@ public class ClientController{
                                 sendMessage = new CSMessage(MessageKind.LISTCOMS, new Object[]{myUser.getName()});
                                 sendToServer(sendMessage);
                                 break;
+                            case OK_LINEUP:
+                                JOptionPane.showMessageDialog(view, "La alineación se guardó correctamente.","LINEUP" , JOptionPane.INFORMATION_MESSAGE);
+                                sendMessage = new CSMessage(MessageKind.GETCOM,new Object[]{myUser.getName()});
+                                sendToServer(sendMessage);
+                                break;
                             case ERR_INVALIDCOM:
                                 String err_msg = "";
                                 if(receivedMsg.getData().length > 0) err_msg = (String) receivedMsg.getData(0);
@@ -603,6 +608,6 @@ public class ClientController{
     }
     
     public void changeLineUp(ArrayList<Player> lineup){
-        
+        sendToServer(new CSMessage(MessageKind.CHANGE_LINEUP, new Object[]{myUser.getName(),comunidadActual,lineup}));
     }
 }

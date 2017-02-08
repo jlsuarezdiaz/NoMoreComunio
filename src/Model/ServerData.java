@@ -56,6 +56,8 @@ public class ServerData {
      */
     private boolean privateMode[] = new boolean[MAX_USERS];
     
+    private int jornadaActual;
+    
         
     /**
      * Maximum period of inactivity available before removing a user (in s).
@@ -121,6 +123,7 @@ public class ServerData {
         
         this.userChecker.start();
         */
+        this.jornadaActual = 3;
     }
     
     /**
@@ -284,6 +287,14 @@ public class ServerData {
                 Tracer.getInstance().trace(2,"- USER "+ Integer.toString(i) +" KILLED.");
             }
         }
+    }
+
+    public int getJornadaActual() {
+        return jornadaActual;
+    }
+
+    public void setJornadaActual(int jornadaActual) {
+        this.jornadaActual = jornadaActual;
     }
     
    
