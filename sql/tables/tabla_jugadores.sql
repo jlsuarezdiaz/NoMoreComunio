@@ -230,7 +230,6 @@ INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES
 INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
 (66, 'Federico Piovaccari', 'Córdoba FC', 'Delantero', 1520000);
 
-INSERT into Jugadores (cod,nombre,equipo,pos, precio) VALUES 
-(67, 'Nuevo', 'Córdoba FC', 'Delantero', 1520000);
+
 
 select count(*) from Jugadores;
