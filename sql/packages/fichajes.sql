@@ -1,9 +1,9 @@
 
 CREATE OR REPLACE PACKAGE BODY PKG_FICHAJES AS
 
-FUNCTION precio_minimo(codigo_jugador INT, nombre_comunidad VARCHAR2) return INTEGER IS precio INTEGER;
+FUNCTION precio_minimo(codigo INT, comunidad VARCHAR2) return INTEGER IS precio INTEGER;
 BEGIN
-  select precio_min into precio from ApareceEn where codigo_jugador=codigo_jugador and nombre_comunidad=nombre_comunidad;
+  select precio_min into precio from ApareceEn where codigo_jugador=codigo and nombre_comunidad=comunidad;
   return(precio);
 END;
 
@@ -17,11 +17,12 @@ PROCEDURE Pujar(nomb_usuario VARCHAR2, nomb_comunidad VARCHAR2,id_jugador INTEGE
 vendedor VARCHAR(30);
 BEGIN 
  select nombre_vendedor into vendedor from ApareceEn where nombre_comunidad = nomb_comunidad and codigo_jugador = id_jugador;
- IF nomb_usuario != vendedor THEN
+
+ IF (nomb_usuario <> vendedor) THEN
     IF (precio_minimo(id_jugador, nomb_comunidad) <= cantidad) THEN
      INSERT into RealizarOferta(nombre_usuario,nombre_comunidad,codigo_jugador,precio, estado) values (nomb_usuario, nomb_comunidad, id_jugador, cantidad, 0);
     END IF;
-  END IF;
+ END IF;
 END Pujar;
 
 PROCEDURE ofrecer_sistema(nomb_comunidad VARCHAR2,id_jugador INTEGER) AS
@@ -32,8 +33,23 @@ END ofrecer_sistema;
 
 PROCEDURE ofrecer_jugador(nomb_usuario VARCHAR2, nomb_comunidad VARCHAR2, id_jugador INTEGER, precio INT) AS
 BEGIN  
-  INSERT into ApareceEn(NOMBRE_VENDEDOR, nombre_comunidad,codigo_jugador,precio_min) values (nomb_usuario,nomb_comunidad, id_jugador, precio);
+  INSERT into ApareceEn(nombre_vendedor, nombre_comunidad,codigo_jugador,precio_min) values (nomb_usuario,nomb_comunidad, id_jugador, precio);
 END ofrecer_jugador;
+
+PROCEDURE retirar_jugador(nomb_usuario VARCHAR2, nomb_comunidad VARCHAR2, id_jugador INTEGER) AS
+contador int;
+contador2 int;
+BEGIN
+  select count(*) into contador from ApareceEn where nombre_comunidad = nomb_comunidad and codigo_jugador = id_jugador and nombre_vendedor=nomb_usuario;
+  select count(*) into contador2 from RealizarOferta where nombre_comunidad = nomb_comunidad and codigo_jugador = id_jugador and estado = 0;
+  
+  IF (contador > 0 and contador2 > 0) THEN
+    delete from RealizarOferta where nombre_comunidad = nomb_comunidad and codigo_jugador = id_jugador and estado = 0;
+  END IF;
+  IF(contador > 0) THEN
+    delete from ApareceEn where nombre_comunidad = nomb_comunidad and codigo_jugador = id_jugador and nombre_vendedor=nomb_usuario;
+  END IF;
+END;
 
 PROCEDURE deshacer_fichaje(usuario VARCHAR2, comunidad VARCHAR2, jugador INT) AS
 contador int;

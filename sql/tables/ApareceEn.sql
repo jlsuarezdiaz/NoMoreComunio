@@ -14,11 +14,11 @@ create table ApareceEn(
 select * from ApareceEN;
 
 INSERT into ApareceEn( nombre_vendedor, nombre_comunidad, codigo_jugador, precio_min) VALUES
-('COMPUTER','ComunioDDSI2',1, 11);
+('COMPUTER','ComunioDDSI2',2, 11);
 INSERT into ApareceEn( nombre_vendedor, nombre_comunidad, codigo_jugador, precio_min) VALUES
 ('COMPUTER','ComunioDDSI2',11, 11);
 INSERT into ApareceEn( nombre_vendedor, nombre_comunidad, codigo_jugador, precio_min) VALUES
-('COMPUTER','ComunioDDSI2',2, 10);
+('rbnuria','ComunioDDSI2',1, 10);
 
 /*INSERT into ApareceEn( nombre_comunidad, codigo_jugador) VALUES
 ('ComunioDDSI2',5);
