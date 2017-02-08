@@ -8,5 +8,10 @@ PROCEDURE proceso_acceso(usuario VARCHAR2, comunidad VARCHAR2);
 PROCEDURE acceder(usuario VARCHAR2, comunidad VARCHAR2, pass_comunidad VARCHAR2, okaccess OUT INTEGER);
 PROCEDURE registrarComunidad(nombre_comunidad VARCHAR2, pass_comunidad VARCHAR2, existe OUT INTEGER);
 FUNCTION yaexisteComunidad(nombre VARCHAR2) return INTEGER;
+PROCEDURE addJugadores(usuario VARCHAR2, comunidad VARCHAR2);
+FUNCTION generaCentro RETURN INTEGER;
+FUNCTION generaPortero RETURN INTEGER;
+FUNCTION generaDefensas RETURN INTEGER;
+FUNCTION generaDelantero RETURN INTEGER;
 
 END PKG_CONNECTION;

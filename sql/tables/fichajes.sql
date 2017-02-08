@@ -1,4 +1,3 @@
-
 CREATE OR REPLACE PACKAGE BODY PKG_FICHAJES AS
 
 FUNCTION precio_minimo(codigo_jugador INT, nombre_comunidad VARCHAR2) return INTEGER IS precio INTEGER;
@@ -101,54 +100,25 @@ PROCEDURE obtener_jugadores(comunidad VARCHAR2, devolver OUT SYS_REFCURSOR) AS
   nombre_vendedor VARCHAR(40);
 BEGIN
   OPEN devolver FOR
-  SELECT cod,nombre, equipo,pos, precio_min, precio, nombre_vendedor , sum(goles) as sumg, sum(asistencias) as suma, sum(t_amarillas) as sumta, sum(t_rojas) as sumtr, sum(valoracion) as sumval
-  FROM (select * from APARECEEN, JUGADORES, PUNTOS
-  where apareceen.codigo_jugador = Jugadores.cod and nombre_comunidad = comunidad and jugadores.cod = puntos.cod_jugador)
-  group by cod,nombre, equipo, pos, precio_min,precio, nombre_vendedor;
-END;
+  SELECT nombre, equipo, precio_min, nombre_vendedor
+  FROM (select * from APARECEEN, JUGADORES 
+  where apareceen.codigo_jugador = Jugadores.cod and nombre_comunidad = comunidad);
+/*  
+  LOOP
+    FETCH devolver INTO nombre, equipo, precio_min, nombre_vendedor;
 
-PROCEDURE obtenerAlineacion(usuario VARCHAR2, comunidad VARCHAR2, devolver OUT SYS_REFCURSOR) AS
-  nombre VARCHAR(40);
-  precio_min INT;
-  equipo VARCHAR(40);
-  nombre_vendedor VARCHAR(40);
-BEGIN
-  OPEN devolver FOR
-  SELECT cod,nombre, equipo,pos, precio, sum(goles) as sumg, sum(asistencias) as suma, sum(t_amarillas) as sumta, sum(t_rojas) as sumtr, sum(valoracion) as sumval
-  FROM (select * from TieneAlineado, Jugadores, Puntos
-  where TieneAlineado.codigo_jugador = Jugadores.cod and nombre_comunidad = comunidad and jugadores.cod = puntos.cod_jugador and TieneAlineado.nombre_usuario = usuario) 
-  group by cod,nombre, equipo, pos, precio;
-END;
+    EXIT WHEN (devolver%NOTFOUND);
 
-PROCEDURE obtenerMisJugadores(usuario VARCHAR2, comunidad VARCHAR2, devolver OUT SYS_REFCURSOR) AS
-  nombre VARCHAR(40);
-  precio_min INT;
-  equipo VARCHAR(40);
-  nombre_vendedor VARCHAR(40);
-BEGIN
-  OPEN devolver FOR
-  SELECT cod,nombre, equipo,pos, precio, sum(goles) as sumg, sum(asistencias) as suma, sum(t_amarillas) as sumta, sum(t_rojas) as sumtr, sum(valoracion) as sumval
-  FROM (select * from Tiene, Jugadores, Puntos
-  where Tiene.codigo_jugador = Jugadores.cod and nombre_comunidad = comunidad and jugadores.cod = puntos.cod_jugador and Tiene.nombre_usuario = usuario)
-  group by cod,nombre, equipo, pos, precio;
-END;
-
-PROCEDURE ponerJugadorEnOnce(usu VARCHAR2, comunidad VARCHAR2, cod INTEGER, ronda INTEGER) AS
-  estaen INTEGER;
-BEGIN
-    select count(*) into estaen from Tiene where nombre_usuario=usu and nombre_comunidad=comunidad and codigo_jugador=cod;
-    
-    IF (estaen = 1) THEN 
-      INSERT INTO TieneAlineado(nombre_usuario, nombre_comunidad, codigo_jugador,jornada) VALUES (usu,comunidad,cod,ronda);
-    END IF;
-END;
-
-PROCEDURE borrarAlineacion(usu VARCHAR2, comunidad VARCHAR2, ronda INTEGER) AS
-BEGIN
-  delete from TieneAlineado where nombre_usuario=usu and NOMBRE_COMUNIDAD=comunidad and jornada=ronda;
+  END LOOP;
+  CLOSE devolver;*/
 END;
 
 END PKG_FICHAJES;
+
+
+
+
+
 
 
 

@@ -14,9 +14,9 @@ create table ApareceEn(
 select * from ApareceEN;
 
 INSERT into ApareceEn( nombre_vendedor, nombre_comunidad, codigo_jugador, precio_min) VALUES
-('rbnuria','ComunioDDSI2',1, 11);
+('COMPUTER','ComunioDDSI2',1, 11);
 INSERT into ApareceEn( nombre_vendedor, nombre_comunidad, codigo_jugador, precio_min) VALUES
-('rbnuria','ComunioDDSI2',11, 11);
+('COMPUTER','ComunioDDSI2',11, 11);
 INSERT into ApareceEn( nombre_vendedor, nombre_comunidad, codigo_jugador, precio_min) VALUES
 ('COMPUTER','ComunioDDSI2',2, 10);
 
