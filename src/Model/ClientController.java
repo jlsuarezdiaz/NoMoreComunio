@@ -363,17 +363,22 @@ public class ClientController{
                                 break;
                             case OK_LINEUP:
                                 JOptionPane.showMessageDialog(view, "La alineación se guardó correctamente.","LINEUP" , JOptionPane.INFORMATION_MESSAGE);
-                                sendMessage = new CSMessage(MessageKind.GETCOM,new Object[]{myUser.getName()});
+                                sendMessage = new CSMessage(MessageKind.GETCOM,new Object[]{comunidadActual,myUser.getName()});
                                 sendToServer(sendMessage);
                                 break;
                             case OK_OFFER:
                                 JOptionPane.showMessageDialog(view, "La puja se realizó correctamente.","OFFER" , JOptionPane.INFORMATION_MESSAGE);
-                                sendMessage = new CSMessage(MessageKind.GETCOM,new Object[]{myUser.getName()});
+                                sendMessage = new CSMessage(MessageKind.GETCOM,new Object[]{comunidadActual,myUser.getName()});
                                 sendToServer(sendMessage);
                                 break;
                             case OK_OFFERPLAYER:
                                 JOptionPane.showMessageDialog(view, "El jugador se ofreció correctamente.","OFFER_PLAYER" , JOptionPane.INFORMATION_MESSAGE);
-                                sendMessage = new CSMessage(MessageKind.GETCOM,new Object[]{myUser.getName()});
+                                sendMessage = new CSMessage(MessageKind.GETCOM,new Object[]{comunidadActual,myUser.getName()});
+                                sendToServer(sendMessage);
+                                break;
+                            case OK_REMOVEPLAYER:
+                                JOptionPane.showMessageDialog(view, "El jugador se retiró correctamente.","REMOVE_PLAYER" , JOptionPane.INFORMATION_MESSAGE);
+                                sendMessage = new CSMessage(MessageKind.GETCOM,new Object[]{comunidadActual,myUser.getName()});
                                 sendToServer(sendMessage);
                                 break;
                             case ERR_INVALIDCOM:
@@ -627,6 +632,10 @@ public class ClientController{
     }
     
     public void ofrecerJugador(int user_cod, int precio){
-         sendToServer(new CSMessage(MessageKind.OFFER_PLAYER, new Object[]{myUser.getName(),comunidadActual,user_cod, precio}));       
+        sendToServer(new CSMessage(MessageKind.OFFER_PLAYER, new Object[]{myUser.getName(),comunidadActual,user_cod, precio}));       
+    }
+    
+    public void retirarJugador(int user_cod){
+        sendToServer(new CSMessage(MessageKind.REMOVE_PLAYER, new Object[]{myUser.getName(),comunidadActual,user_cod}));
     }
 }

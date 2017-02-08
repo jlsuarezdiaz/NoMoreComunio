@@ -197,6 +197,17 @@ public class Server {
                                 case "check":
                                     serverData.checkUsers();
                                     break;
+                                case "updatemarket":
+                                    try{
+                                    if(args.length > 1){
+                                        serverData.updateMarket(args[0]);
+                                    }
+                                    else throw new IllegalArgumentException("Illegal arguments.");
+                                    }
+                                    catch(Exception ex){
+                                        System.out.println("Uso: UPDATEMARKET comunidad");
+                                    }
+                                    break;
                                 case "debug":
                                     if(args.length<2) System.out.println(Tracer.debugInfo);
                                     else try{

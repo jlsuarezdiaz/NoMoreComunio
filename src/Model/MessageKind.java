@@ -36,6 +36,7 @@ public enum MessageKind {
     OK_OFFER           (211),
     OK_OFFERPLAYER     (212),
     OK_SIGNUP          (213),
+    OK_REMOVEPLAYER    (214),
     
     //3xx - Communication messages
     USERS              (300),
@@ -58,7 +59,7 @@ public enum MessageKind {
     MAKE_OFFER          (317),
     OFFER_PLAYER        (318),
     SIGN_UP             (319),
-    
+    REMOVE_PLAYER      (320),
     
     
     SEND_FILE          (399),

@@ -54,24 +54,30 @@ PROCEDURE addJugadores(usuario VARCHAR2, comunidad VARCHAR2) AS
 num_porteros INT;
 num_porteros_usuario INT;
 portero INT;
+portero_esta INT;
 num_centros INT;
 num_centros_usuario INT;
 centro INT;
+centro_esta INT;
 num_defensas INT;
 num_defensas_usuario INT;
 defensa INT;
+defensa_esta INT;
 num_delanteros INT;
 num_delanteros_usuario INT;
 delantero INT;
+delantero_esta INT;
 BEGIN
   num_porteros_usuario:=0;
   LOOP
     
     portero := generaPortero;
     select count(*) into num_porteros from Tiene where portero = codigo_jugador and nombre_comunidad = comunidad;
+    select count(*) into portero_esta from ApareceEn where portero = codigo_jugador and nombre_comunidad = comunidad;
+
     dbms_output.put_line(num_porteros);
     dbms_output.put_line(portero);
-    IF (num_porteros = 0) THEN
+    IF (num_porteros = 0 and portero_esta = 0) THEN
       insert into tiene values(usuario, comunidad, portero);
       num_porteros_usuario:=num_porteros_usuario+1;
     END IF;
@@ -82,7 +88,8 @@ BEGIN
   LOOP
     centro := generaCentro;
     select count(*) into num_centros from Tiene where centro = codigo_jugador and nombre_comunidad = comunidad;
-    IF (num_centros = 0) THEN
+    select count(*) into centro_esta from ApareceEn where centro = codigo_jugador and nombre_comunidad = comunidad;
+    IF (num_centros = 0 and centro_esta = 0) THEN
       insert into tiene values(usuario, comunidad, centro);
       num_centros_usuario:=num_centros_usuario+1;
     END IF;
@@ -93,7 +100,8 @@ BEGIN
   LOOP
     defensa := generaDefensas;
     select count(*) into num_defensas from Tiene where defensa = codigo_jugador and nombre_comunidad = comunidad;
-    IF (num_defensas = 0) THEN
+    select count(*) into defensa_esta from ApareceEn where defensa = codigo_jugador and nombre_comunidad = comunidad;
+    IF (num_defensas = 0 and defensa_esta = 0) THEN
       insert into tiene values(usuario, comunidad, defensa);
       num_defensas_usuario:=num_defensas_usuario+1;
     END IF;
@@ -104,7 +112,8 @@ BEGIN
   LOOP
     delantero := generaDelantero;
     select count(*) into num_delanteros from Tiene where delantero = codigo_jugador and nombre_comunidad = comunidad;
-    IF (num_delanteros = 0) THEN
+    select count(*) into delantero_esta from ApareceEn where delantero = codigo_jugador and nombre_comunidad = comunidad;
+    IF (num_delanteros = 0 and delantero_esta=0) THEN
       insert into tiene values(usuario, comunidad, delantero);
       num_delanteros_usuario:=num_delanteros_usuario+1;
     END IF;

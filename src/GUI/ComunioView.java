@@ -277,6 +277,8 @@ public class ComunioView extends javax.swing.JFrame {
         
         btRealizarOferta.setVisible(true);
         btOfrecerJugadores.setVisible(false);
+        btRetirarJugadores.setVisible(true);
+        
         marketPanel.repaint();
         marketPanel.revalidate();
     }
@@ -308,6 +310,8 @@ public class ComunioView extends javax.swing.JFrame {
         
         btRealizarOferta.setVisible(false);
         btOfrecerJugadores.setVisible(true);
+        btRetirarJugadores.setVisible(false);
+        
         marketPanel.repaint();
         marketPanel.revalidate();
     }
@@ -534,6 +538,7 @@ public class ComunioView extends javax.swing.JFrame {
         btCambiarAlineacion = new javax.swing.JButton();
         btRealizarOferta = new javax.swing.JButton();
         btOfrecerJugadores = new javax.swing.JButton();
+        btRetirarJugadores = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Dropbox MSN");
@@ -661,6 +666,13 @@ public class ComunioView extends javax.swing.JFrame {
             }
         });
 
+        btRetirarJugadores.setText("Retirar Jugadores");
+        btRetirarJugadores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btRetirarJugadoresActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -696,7 +708,9 @@ public class ComunioView extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(btRealizarOferta)
                         .addGap(18, 18, 18)
-                        .addComponent(btOfrecerJugadores)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btRetirarJugadores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btOfrecerJugadores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(73, 73, 73)
                         .addComponent(BtExit, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
@@ -727,7 +741,7 @@ public class ComunioView extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE))
                     .addComponent(marketScroll))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -740,10 +754,12 @@ public class ComunioView extends javax.swing.JFrame {
                                 .addComponent(btCambiarAlineacion)
                                 .addComponent(btRealizarOferta)
                                 .addComponent(btOfrecerJugadores)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(MessageScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
-                            .addComponent(BtSendMessage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(MessageScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(btRetirarJugadores, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(BtSendMessage, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addComponent(BtExit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -849,6 +865,14 @@ public class ComunioView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btOfrecerJugadoresActionPerformed
 
+    private void btRetirarJugadoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRetirarJugadoresActionPerformed
+        ArrayList<Player> jugadores = getSelectedPlayers();
+        
+        for(Player p:jugadores){
+            controller.retirarJugador(p.getCode());
+        }
+    }//GEN-LAST:event_btRetirarJugadoresActionPerformed
+
     
 
 
@@ -865,6 +889,7 @@ public class ComunioView extends javax.swing.JFrame {
     private javax.swing.JToggleButton btMarket;
     private javax.swing.JButton btOfrecerJugadores;
     private javax.swing.JButton btRealizarOferta;
+    private javax.swing.JButton btRetirarJugadores;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

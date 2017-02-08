@@ -148,7 +148,7 @@ BEGIN
   TIENEALINEADO, JUGADORES, PUNTOS
   where TieneAlineado.codigo_jugador = Jugadores.cod and nombre_comunidad = comunidad and TieneAlineado.nombre_usuario = usuario
   and not exists(select * from PUNTOS where jugadores.cod = puntos.cod_jugador and TieneAlineado.nombre_usuario = usuario)
-  group by cod,nombre, equipo, pos,precio;
+  group by cod,nombre, equipo, pos, precio_min,precio, nombre_vendedor;
 END;
 
 PROCEDURE obtenerMisJugadores(usuario VARCHAR2, comunidad VARCHAR2, devolver OUT SYS_REFCURSOR) AS
@@ -167,7 +167,7 @@ BEGIN
   TIENE, JUGADORES, PUNTOS
   where TIENE.codigo_jugador = Jugadores.cod and nombre_comunidad = comunidad and Tiene.nombre_usuario = usuario
   and not exists(select * from PUNTOS where jugadores.cod = puntos.cod_jugador and Tiene.nombre_usuario = usuario)
-  group by cod,nombre, equipo, pos ,precio;
+  group by cod,nombre, equipo, pos, precio_min,precio, nombre_vendedor;
 END;
 
 PROCEDURE ponerJugadorEnOnce(usu VARCHAR2, comunidad VARCHAR2, cod INTEGER, ronda INTEGER) AS

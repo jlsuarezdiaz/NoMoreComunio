@@ -1,6 +1,7 @@
 CREATE OR REPLACE PACKAGE PKG_GLOBAL AS
 
 FUNCTION obtenerCodigoPrimero return INTEGER;
+PROCEDURE obtenerUsuarios(comunidad VARCHAR2, devolver OUT SYS_REFCURSOR);
 PROCEDURE modificarMercado(numjug INTEGER, comunidad VARCHAR2);
 FUNCTION calcMax(comunidad VARCHAR2) return INTEGER;
 FUNCTION estaEnComunidad(nombre VARCHAR2, comunidad VARCHAR2) return INTEGER;

@@ -12,6 +12,7 @@ import java.io.OutputStreamWriter;
 import static java.lang.Thread.sleep;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
@@ -57,6 +58,7 @@ public class ServerData {
     private boolean privateMode[] = new boolean[MAX_USERS];
     
     private int jornadaActual;
+    
     
         
     /**
@@ -297,6 +299,19 @@ public class ServerData {
         this.jornadaActual = jornadaActual;
     }
     
-   
+   public void updateMarket(String com){
+        try {
+            DBFunctions.modificarMercado(8,com);
+            ArrayList<String> comUsers = DBFunctions.listaUsuarios(com);
+            ArrayList<Player> market = DBFunctions.obtener_jugadores(com);
+            for(int i = 0; i < User.getMaxUsers(); i++){
+                if(user_list[i] != null && comUsers.contains(user_list[i].getName())){
+                    sendTo(i, new CSMessage(MessageKind.MARKET,new Object[]{market}));
+                }
+            }
+        } catch (SQLException ex) {
+            Tracer.getInstance().trace(ex);
+        }
+   }
 
 }

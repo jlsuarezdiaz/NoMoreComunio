@@ -69,7 +69,10 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btRealizarOferta" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="btOfrecerJugadores" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="btRetirarJugadores" max="32767" attributes="0"/>
+                          <Component id="btOfrecerJugadores" max="32767" attributes="0"/>
+                      </Group>
                       <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
                       <Component id="BtExit" min="-2" pref="81" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -105,7 +108,7 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane2" pref="292" max="32767" attributes="0"/>
+                      <Component id="jScrollPane2" pref="288" max="32767" attributes="0"/>
                   </Group>
                   <Component id="marketScroll" max="32767" attributes="0"/>
               </Group>
@@ -122,10 +125,13 @@
                               <Component id="btOfrecerJugadores" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="MessageScroll" pref="45" max="32767" attributes="0"/>
-                          <Component id="BtSendMessage" max="32767" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="MessageScroll" min="-2" pref="45" max="-2" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="btRetirarJugadores" alignment="0" max="32767" attributes="0"/>
+                              <Component id="BtSendMessage" alignment="0" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
                   <Component id="BtExit" alignment="1" min="-2" pref="75" max="-2" attributes="0"/>
@@ -351,6 +357,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btOfrecerJugadoresActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btRetirarJugadores">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Retirar Jugadores"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btRetirarJugadoresActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

@@ -6,6 +6,12 @@ BEGIN
   return(codigo);
 END;
 
+PROCEDURE obtenerUsuarios(comunidad VARCHAR2, devolver OUT SYS_REFCURSOR) AS
+BEGIN
+  OPEN devolver FOR
+  select nombre_usu from Pertenece where NOMBRE_COMUNIDAD=comunidad;
+END;
+
 PROCEDURE modificarMercado(numjug INTEGER, comunidad VARCHAR2) AS
   contador INTEGER;
   codigo INTEGER;

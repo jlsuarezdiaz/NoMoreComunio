@@ -214,7 +214,14 @@ class ServerProcessor extends Thread{
                         DBFunctions.ofrecer_jugador(op_user, op_com, op_code, op_precio);
                         sendData = new CSMessage(MessageKind.OK_OFFERPLAYER,null);
                     break;
+                    case REMOVE_PLAYER:
+                        String rp_user = (String)receivedData.getData(0);
+                        String rp_com = (String)receivedData.getData(1);
+                        int rp_code = (int)receivedData.getData(2);
                         
+                        DBFunctions.retirarJugador(rp_user, rp_com, rp_code);
+                        sendData = new CSMessage(MessageKind.OK_REMOVEPLAYER,null);
+                    break;
                     case NOP:
                         break;
                     default:

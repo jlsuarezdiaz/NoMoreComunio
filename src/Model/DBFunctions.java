@@ -460,9 +460,67 @@ public class DBFunctions {
         callSmt.execute();
     }
     
-    public static void retirarJugador(String user, String com ,int id_player){
+    public static void retirarJugador(String user, String com ,int id_player) throws SQLException{
+        Connection con = DBConnect();
+        String jobquery = "begin pkg_fichajes.retirar_jugador(?,?,?); end;";
         
+        CallableStatement callSmt = con.prepareCall(jobquery);
+        
+        callSmt.setString(1,user);
+        callSmt.setString(2,com);
+        callSmt.setInt(3, id_player);
+        
+        callSmt.execute();          
+    }
+    
+    public static void modificarMercado(int numPlayers, String com) throws SQLException{
+        Connection con = DBConnect();
+        String jobquery = "begin pkg_global.modificarMercado(?,?); end;";
+        
+        CallableStatement callSmt = con.prepareCall(jobquery);
+        
+        callSmt.setInt(1,numPlayers);
+        callSmt.setString(2,com);
+        
+        callSmt.execute();          
+    } 
+    
+    public static ArrayList<String> listaUsuarios(String com) throws SQLException{
+        Connection con = DBConnect();
+
+        //Consulta que se va a realizar (los argumentos se escriben como ?, se especifican después). 
+        String jobquery = "begin pkg_global.obtenerUsuarios(?,?); end;";
+        //Preparamos la llamada.
+        CallableStatement callStmt = con.prepareCall(jobquery);
+           
+        //[ESCRIBENOTICIA(user IN VARCHAR, comunidad IN VARCHAR2, msg OUT INTEGER)]
+        //Parámetros de salida
+        callStmt.registerOutParameter(2, OracleTypes.CURSOR);
+
+        //Parámetros de entrada
+        callStmt.setString(1, com);
+        
+        //Ejecutamos comando.
+        callStmt.execute();
+        
+        ResultSet rset = (ResultSet)callStmt.getObject(2);
+        
+        
+        // determine the number of columns in each row of the result set
+        //ResultSetMetaData rsetMeta = rset.getMetaData();
+        //int count = rsetMeta.getColumnCount();
+      
+        ArrayList<String> users = new ArrayList();
+
+        while(rset.next()){
+            String rsetRow = rset.getString(1);
+            users.add(rsetRow);
+        }
+        return users;
    
     }
-}
+  
+} 
+   
+   
     
