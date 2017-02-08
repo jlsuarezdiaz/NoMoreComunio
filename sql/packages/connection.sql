@@ -25,10 +25,88 @@ BEGIN
   return(pert);
 END;
 
+FUNCTION generaPortero RETURN INTEGER IS codigo INTEGER;
+BEGIN
+  select cod into codigo from (select cod from Jugadores where pos='Portero' order by dbms_random.value) where rownum=1;
+  return(codigo);
+END;
+
+FUNCTION generaCentro RETURN INTEGER IS codigo INTEGER;
+BEGIN
+  select cod into codigo from (select cod from Jugadores where pos='Mediocentro' order by dbms_random.value) where rownum=1;
+  return(codigo);
+END;
+
+FUNCTION generaDefensas RETURN INTEGER IS codigo INTEGER;
+BEGIN
+  select cod into codigo from (select cod from Jugadores where pos='Defensa' order by dbms_random.value) where rownum=1;
+  return(codigo);
+END;
+
+FUNCTION generaDelantero RETURN INTEGER IS codigo INTEGER;
+BEGIN
+  select cod into codigo from (select cod from Jugadores where pos='Delantero' order by dbms_random.value) where rownum=1;
+  return(codigo);
+END;
+
+
+PROCEDURE addJugadores(usuario VARCHAR2, comunidad VARCHAR2) AS
+num_porteros INT;
+num_porteros_usuario INT;
+num_centros INT;
+num_centros_usuario INT;
+num_defensas INT;
+num_defensas_usuario INT;
+num_delanteros INT;
+num_delanteros_usuario INT;
+BEGIN
+  num_porteros_usuario:=0;
+  LOOP
+    select count(*) into num_porteros from Tiene where generaPortero = codigo_jugador and nombre_comunidad = comunidad;
+    dbms_output.put_line(num_porteros);
+    dbms_output.put_line(generaPortero);
+    IF (num_porteros = 0) THEN
+      insert into tiene values(usuario, comunidad, generaPortero);
+      num_porteros_usuario:=num_porteros_usuario+1;
+    END IF;
+  EXIT WHEN(num_porteros_usuario=1);
+  END LOOP;
+  
+  num_centros_usuario:=0;
+  LOOP
+    select count(*) into num_centros from Tiene where generaCentro = codigo_jugador and nombre_comunidad = comunidad;
+    IF (num_centros = 0) THEN
+      insert into tiene values(usuario, comunidad, generaCentro);
+      num_centros_usuario:=num_centros_usuario+1;
+    END IF;
+  EXIT WHEN(num_centros_usuario=4);
+  END LOOP;
+  
+  num_defensas_usuario:=0;
+  LOOP
+    select count(*) into num_defensas from Tiene where generaDefensas = codigo_jugador and nombre_comunidad = comunidad;
+    IF (num_defensas = 0) THEN
+      insert into tiene values(usuario, comunidad, generaDefensas);
+      num_defensas_usuario:=num_defensas_usuario+1;
+    END IF;
+  EXIT WHEN(num_defensas_usuario=4);
+  END LOOP;
+  
+  num_delanteros_usuario:=0;
+  LOOP
+    select count(*) into num_delanteros from Tiene where generaDelantero = codigo_jugador and nombre_comunidad = comunidad;
+    IF (num_delanteros = 0) THEN
+      insert into tiene values(usuario, comunidad, generaDelantero);
+      num_delanteros_usuario:=num_delanteros_usuario+1;
+    END IF;
+  EXIT WHEN(num_delanteros_usuario=3);
+  END LOOP;
+END;
+
 PROCEDURE proceso_acceso(usuario VARCHAR2, comunidad VARCHAR2) AS 
 BEGIN
-  
-  INSERT into PERTENECE(nombre_usu,nombre_comunidad,creditos,administrador) values (usuario,comunidad,20.0, 0);
+  INSERT into PERTENECE(nombre_usu,nombre_comunidad,creditos,administrador) values (usuario,comunidad,20000000.0, 0);
+  addJugadores(usuario, comunidad);
 END;
 
 PROCEDURE acceder(usuario VARCHAR2, comunidad VARCHAR2, pass_comunidad VARCHAR2, okaccess OUT INTEGER) AS
@@ -51,6 +129,7 @@ BEGIN
   IF (existe = 0) THEN
     INSERT into Comunidad(nombre_comunidad,pass) values (nombre_comunidad,pass_comunidad);
   END IF;
+  
 END registrarComunidad;
 
 END PKG_CONNECTION;

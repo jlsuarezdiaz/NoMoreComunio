@@ -1,4 +1,4 @@
-/*drop table Pertenece cascade constraints;*/
+drop table Pertenece cascade constraints;
 
 create table Pertenece(
   nombre_usu varchar(20) NOT NULL,
@@ -11,10 +11,9 @@ create table Pertenece(
 );
 
 
-insert into Pertenece(nombre_usu,nombre_comunidad,creditos,administrador) values ('jpoyatos','ComunioDDSI',20.0,0);
-insert into Pertenece(nombre_usu,nombre_comunidad,creditos,administrador) values ('moyita222','ComunioDDSI',20.0,0);
-insert into Pertenece(nombre_usu,nombre_comunidad,creditos,administrador) values ('juanikerbrahimi','ComunioDDSI',200000000000000.0,1);
-insert into Pertenece(nombre_usu,nombre_comunidad,creditos,administrador) values ('elenaro','ComunioDDSI2',100.0,0);
-insert into Pertenece(nombre_usu,nombre_comunidad,creditos,administrador) values ('rbnuria','ComunioDDSI2',20.0,0);
+insert into Pertenece(nombre_usu,nombre_comunidad,creditos,administrador) values ('jpoyatos','ComunioDDSI',1000000.0,0);
+insert into Pertenece(nombre_usu,nombre_comunidad,creditos,administrador) values ('moyita222','ComunioDDSI',1000000.0,0);
+insert into Pertenece(nombre_usu,nombre_comunidad,creditos,administrador) values ('juanikerbrahimi','ComunioDDSI',1000000.0,1);
+insert into Pertenece(nombre_usu,nombre_comunidad,creditos,administrador) values ('elenaro','ComunioDDSI2',10000000.0,0);
+insert into Pertenece(nombre_usu,nombre_comunidad,creditos,administrador) values ('rbnuria','ComunioDDSI2',1000000.0,0);
 
-select * from Pertenece;
