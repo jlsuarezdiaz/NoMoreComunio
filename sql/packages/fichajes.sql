@@ -134,11 +134,11 @@ BEGIN
 END;
 
 PROCEDURE ponerJugadorEnOnce(usu VARCHAR2, comunidad VARCHAR2, cod INTEGER, ronda INTEGER) AS
-  estaen INTEGER;
+  estaen INTEGER; esnuevo INTEGER;
 BEGIN
     select count(*) into estaen from Tiene where nombre_usuario=usu and nombre_comunidad=comunidad and codigo_jugador=cod;
-    
-    IF (estaen = 1) THEN 
+    select count(*) into esnuevo from TieneAlineado where nombre_usuario=usu and nombre_comunidad=comunidad and codigo_jugador=cod and jornada=ronda;
+    IF (estaen > 0 and esnuevo=0) THEN 
       INSERT INTO TieneAlineado(nombre_usuario, nombre_comunidad, codigo_jugador,jornada) VALUES (usu,comunidad,cod,ronda);
     END IF;
 END;

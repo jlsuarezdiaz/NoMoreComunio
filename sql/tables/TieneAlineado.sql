@@ -9,9 +9,9 @@ create table TieneAlineado(
   jornada int NOT NULL,
   PRIMARY KEY (nombre_usuario, nombre_comunidad, codigo_jugador, jornada),
   FOREIGN KEY (nombre_usuario, nombre_comunidad, codigo_jugador) REFERENCES TIENE(nombre_usuario, nombre_comunidad, codigo_jugador),
-  FOREIGN KEY (codigo_jugador, jornada) REFERENCES Puntos(cod_jugador, cod_jornada)
-
+  FOREIGN KEY (codigo_jugador) REFERENCES Jugadores(cod)
 );
+
 select * from Tiene;
 INSERT into TieneAlineado(nombre_usuario, nombre_comunidad, codigo_jugador,jornada) VALUES
 ('rbnuria', 'ComunioDDSI2',1,2);
@@ -71,4 +71,4 @@ INSERT into TieneAlineado(nombre_usuario, nombre_comunidad, codigo_jugador, jorn
 ('jpoyatos','ComunioDDSI',27,2);
 
 
-select count(*) from TieneAlineado where nombre_usuario = 'rbnuria' and jornada = 2;
+/*select count(*) from TieneAlineado where nombre_usuario = 'rbnuria' and jornada = 2;*/
