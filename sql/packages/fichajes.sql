@@ -127,7 +127,7 @@ PROCEDURE obtenerMisJugadores(usuario VARCHAR2, comunidad VARCHAR2, devolver OUT
   nombre_vendedor VARCHAR(40);
 BEGIN
   OPEN devolver FOR
-  SELECT cod,nombre, equipo,pos, precio, sum(goles) as sumg, sum(asistencias) as suma, sum(t_amarillas) as sumta, sum(t_rojas) as sumtr, sum(valoracion) as sumval
+  SELECT cod,nombre, equipo,pos, precio , sum(goles) as sumg, sum(asistencias) as suma, sum(t_amarillas) as sumta, sum(t_rojas) as sumtr,  pkg_puntos.obtenerPuntosTotalesUsuario(usuario,comunidad) as puntos
   FROM (select * from Tiene, Jugadores, Puntos
   where Tiene.codigo_jugador = Jugadores.cod and nombre_comunidad = comunidad and jugadores.cod = puntos.cod_jugador and Tiene.nombre_usuario = usuario)
   group by cod,nombre, equipo, pos, precio;
