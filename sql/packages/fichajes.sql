@@ -14,11 +14,14 @@ BEGIN
 END;
 
 PROCEDURE Pujar(nomb_usuario VARCHAR2, nomb_comunidad VARCHAR2,id_jugador INTEGER, cantidad INT) AS
+vendedor VARCHAR(30);
 BEGIN 
- 
- IF (precio_minimo(id_jugador, nomb_comunidad) <= cantidad) THEN
-   INSERT into RealizarOferta(nombre_usuario,nombre_comunidad,codigo_jugador,precio, estado) values (nomb_usuario, nomb_comunidad, id_jugador, cantidad, 0);
- END IF;
+ select nombre_vendedor into vendedor from ApareceEn where nombre_comunidad = nomb_comunidad and codigo_jugador = id_jugador;
+ IF nomb_usuario != vendedor THEN
+    IF (precio_minimo(id_jugador, nomb_comunidad) <= cantidad) THEN
+     INSERT into RealizarOferta(nombre_usuario,nombre_comunidad,codigo_jugador,precio, estado) values (nomb_usuario, nomb_comunidad, id_jugador, cantidad, 0);
+    END IF;
+  END IF;
 END Pujar;
 
 PROCEDURE ofrecer_sistema(nomb_comunidad VARCHAR2,id_jugador INTEGER) AS
