@@ -149,8 +149,12 @@ class ServerProcessor extends Thread{
                         serverData.sendTo(remoteId,new CSMessage(MessageKind.NEWS, new Object[]{gc_tablon}));
                         ArrayList<Player> gc_market = DBFunctions.obtener_jugadores(com);
                         serverData.sendTo(remoteId,new CSMessage(MessageKind.MARKET, new Object[]{gc_market}));
+                        ArrayList<Player> gc_players = DBFunctions.obtenerMisJugadores(gc_user,com);
+                        ArrayList<Player> gc_lineup = DBFunctions.obtenerAlineacion(gc_user, com);
+                        serverData.sendTo(remoteId,new CSMessage(MessageKind.PLAYERS, new Object[]{gc_players,gc_lineup}));
                         long gc_money = DBFunctions.obtenerDinero(gc_user, com);
                         serverData.sendTo(remoteId,new CSMessage(MessageKind.MONEY, new Object[]{gc_money}));
+                        
                         break;
                     case JOIN:
                         String j_user = (String) receivedData.getData(0);
@@ -169,6 +173,13 @@ class ServerProcessor extends Thread{
                         String cc_pass = (String) receivedData.getData(2);
                         if(DBFunctions.registrarComunidad(cc_com,cc_pass)){
                             sendData = new CSMessage(MessageKind.OK_CREATE,new Object[]{cc_com});
+                            
+                            if(DBFunctions.accederCom(cc_user,cc_com,cc_pass)){
+                                sendData = new CSMessage(MessageKind.OK_JOIN,new Object[]{cc_com});
+                            }
+                            else{
+                                sendData = new CSMessage(MessageKind.ERR_INVALIDCOM,new Object[]{"La comunidad o contraseña no son correctos."});
+                            }
                         }
                         else{
                             sendData = new CSMessage(MessageKind.ERR_INVALIDCOM,new Object[]{"La comunidad ya existe."});

@@ -6,6 +6,7 @@
 package GUI;
 
 import Model.Player;
+import java.awt.Color;
 
 /**
  *
@@ -14,6 +15,40 @@ import Model.Player;
 public class PlayerView extends javax.swing.JPanel {
 
     private Player playerModel;
+    
+    /**
+     * Selected checker.
+     */
+    boolean isSelected;
+    
+       /**
+     * Private method to set background according to selection.
+     */
+    private void setBackground(){
+        if(isSelected){
+            this.setBackground(new Color(0x00FFFF));
+        }
+        else{
+            this.setBackground(new Color(0xF0F0F0));
+        }
+    }
+    
+    /**
+     * @return true if and only if the user is selected.
+     */
+    public boolean isSelected(){
+        return isSelected;
+    }
+    
+    /**
+     * Selects or unselects the view.
+     * @param selection Boolean indicating selection or not.
+     */
+    public void select(boolean selection){
+        isSelected = selection;
+        setBackground();
+        repaint();
+    }
     
     /**
      * Creates new form PlayerView
@@ -34,7 +69,11 @@ public class PlayerView extends javax.swing.JPanel {
         this.btRojas.setText(Integer.toString(p.getRedCards()));
         this.btPuntos.setText(Integer.toString(p.getPoints()));
         this.lblVend.setText(p.getVendedor());
-        this.lblPrecioMin.setText(Integer.toString(p.getPrecioMin()));
+        if(p.getPrecioMin() < 0) this.lblPrecioMin.setVisible(false);
+        else{
+            this.lblPrecioMin.setVisible(true);
+            this.lblPrecioMin.setText(Integer.toString(p.getPrecioMin()));
+        }
         this.lblValor.setText(Integer.toString(p.getValor()));
         
         switch(p.getPos()){
@@ -86,6 +125,11 @@ public class PlayerView extends javax.swing.JPanel {
         setMaximumSize(new java.awt.Dimension(714, 74));
         setMinimumSize(new java.awt.Dimension(714, 74));
         setPreferredSize(new java.awt.Dimension(714, 74));
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
 
         lblName.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblName.setText("Youssef El-Arabi");
@@ -205,6 +249,10 @@ public class PlayerView extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        select(!isSelected());
+    }//GEN-LAST:event_formMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

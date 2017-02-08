@@ -86,6 +86,8 @@ public class ClientController{
     
     private ArrayList<String> listaComunidades;
     
+    boolean verMercado;
+    
     /**
      * Files' count.
      */
@@ -172,6 +174,8 @@ public class ClientController{
         
         this.listaComunidades = null;
         this.comunidadActual = null;
+        
+        this.verMercado = true;
         
         reader();//Iniciamos la hebra lectora.
         
@@ -333,8 +337,17 @@ public class ClientController{
                                 break;
                             case MARKET:
                                 //Actualizar mercado
-                                ArrayList<Player> market = (ArrayList<Player>)receivedMsg.getData(0);
-                                view.setMarket(market);
+                                if(verMercado){
+                                    ArrayList<Player> market = (ArrayList<Player>)receivedMsg.getData(0);
+                                    view.setMarket(market);
+                                }
+                                break;
+                            case PLAYERS:
+                                if(!verMercado){
+                                    ArrayList<Player> players = (ArrayList<Player>)receivedMsg.getData(0);
+                                    ArrayList<Player> lineup = (ArrayList<Player>)receivedMsg.getData(1);
+                                    view.setPlayers(players,lineup);
+                                }
                                 break;
                             case MONEY:   
                                 long money = (long)receivedMsg.getData(0);
@@ -582,5 +595,14 @@ public class ClientController{
     
     public void createCommunity(ArrayList<String> comData){
         sendToServer(new CSMessage(MessageKind.CREATECOM, new Object[]{myUser.getName(),comData.get(0),comData.get(1)}));
+    }
+    
+    public void setMarketView(boolean b){
+        this.verMercado = b;
+        sendToServer(new CSMessage(MessageKind.GETCOM, new Object[]{comunidadActual,myUser.getName()}));
+    }
+    
+    public void changeLineUp(ArrayList<Player> lineup){
+        
     }
 }

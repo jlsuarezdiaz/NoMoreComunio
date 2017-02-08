@@ -50,6 +50,8 @@ public enum MessageKind {
     MONEY               (312),  //Dinero    (int)
     JOIN                (313),  //Usuario (String), Comunidad (String), passwd (String)
     CREATECOM           (314),  //Usuario (String), Comunidad (String), passwd (String)
+    PLAYERS             (315),  //Jugadores (ArrayList<Player>)
+    //LINEUP              (316),  //Jugadores (ArrayList<Player>) 
     
     
     

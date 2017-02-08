@@ -176,19 +176,20 @@ public class DBFunctions {
         ArrayList<Player> market = new ArrayList();
 
         while(rset.next()){
-            String rNom = rset.getString(1);
-            String rTeam = rset.getString(2);
-            String rPos = rset.getString(3);
-            int rPMin = rset.getInt(4);
-            int rPrec = rset.getInt(5);
-            String rVend = rset.getString(6);
-            int rGol = rset.getInt(7);
-            int rAsist = rset.getInt(8);
+            int rcode = rset.getInt(1);
+            String rNom = rset.getString(2);
+            String rTeam = rset.getString(3);
+            String rPos = rset.getString(4);
+            int rPMin = rset.getInt(5);
+            int rPrec = rset.getInt(6);
+            String rVend = rset.getString(7);
+            int rGol = rset.getInt(8);
+            int rAsist = rset.getInt(9);
             int rEnc = 0;
-            int rTAma = rset.getInt(9);
-            int rTRoja = rset.getInt(10);
-            int rPts = rset.getInt(11);
-            market.add(new Player(rNom,rTeam,rPos,rVend,rPMin,rPrec,rGol,rAsist,rEnc,rTAma,rTRoja,rPts));
+            int rTAma = rset.getInt(10);
+            int rTRoja = rset.getInt(11);
+            int rPts = rset.getInt(12);
+            market.add(new Player(rcode,rNom,rTeam,rPos,rVend,rPMin,rPrec,rGol,rAsist,rEnc,rTAma,rTRoja,rPts));
         }
         return market;
     }
@@ -300,85 +301,89 @@ public class DBFunctions {
         callStmt.execute();
     }
     
-    public static ArrayList<Player> obtenerAlineacion(String com) throws SQLException{
+    public static ArrayList<Player> obtenerAlineacion(String user, String com) throws SQLException{
         Connection con = DBConnect();
         
         //Consulta que se va a realizar (los argumentos se escriben como ?, se especifican después).
-        String jobquery = "begin pkg_fichajes.obtenerAlineacion(?,?); end;";
+        String jobquery = "begin pkg_fichajes.obtenerAlineacion(?,?,?); end;";
         
         //Preparamos la llamada.
         CallableStatement callStmt = con.prepareCall(jobquery);
         //Parámetros de salida
-        callStmt.registerOutParameter(2,OracleTypes.CURSOR);
+        callStmt.registerOutParameter(3,OracleTypes.CURSOR);
         
         //Parámetros de entrada
-        callStmt.setString(1,com);
+        callStmt.setString(1,user);
+        callStmt.setString(2,com);
         
         //Ejecutamos comando.
         callStmt.execute();
         
-        ResultSet rset = (ResultSet)callStmt.getObject(2);
+        ResultSet rset = (ResultSet)callStmt.getObject(3);
         
         ArrayList<Player> alineacion = new ArrayList();
         
         // nombre, equipo,pos, precio, sum(goles) as sumg, sum(asistencias) as suma, sum(t_amarillas) as sumta, sum(t_rojas) as sumtr, sum(valoracion) as sumval
         //    1      2    3      4             5                     6                      7                      8                        9       
         while(rset.next()){
-            String rNom = rset.getString(1);
-            String rTeam = rset.getString(2);
-            String rPos = rset.getString(3);
+            int rcode = rset.getInt(1);
+            String rNom = rset.getString(2);
+            String rTeam = rset.getString(3);
+            String rPos = rset.getString(4);
             int rPMin = -1;
-            int rPrec = rset.getInt(4);
+            int rPrec = rset.getInt(5);
             String rVend = null;
-            int rGol = rset.getInt(5);
-            int rAsist = rset.getInt(6);
+            int rGol = rset.getInt(6);
+            int rAsist = rset.getInt(7);
             int rEnc = 0;
-            int rTAma = rset.getInt(7);
-            int rTRoja = rset.getInt(8);
-            int rPts = rset.getInt(9);
-            alineacion.add(new Player(rNom,rTeam,rPos,rVend,rPMin,rPrec,rGol,rAsist,rEnc,rTAma,rTRoja,rPts));
+            int rTAma = rset.getInt(8);
+            int rTRoja = rset.getInt(9);
+            int rPts = rset.getInt(10);
+            alineacion.add(new Player(rcode,rNom,rTeam,rPos,rVend,rPMin,rPrec,rGol,rAsist,rEnc,rTAma,rTRoja,rPts));
         }
         
         return alineacion;
     }
     
-    public static ArrayList<Player> obtenerMisJugadores(String com) throws SQLException{
+    public static ArrayList<Player> obtenerMisJugadores(String user, String com) throws SQLException{
         Connection con = DBConnect();
         
         //Consulta que se va a realizar (los argumentos se escriben como ?, se especifican después).
-        String jobquery = "begin pkg_fichajes.obtenerMisJugadores(?,?); end;";
+        String jobquery = "begin pkg_fichajes.obtenerMisJugadores(?,?,?); end;";
         
         //Preparamos la llamada.
         CallableStatement callStmt = con.prepareCall(jobquery);
         //Parámetros de salida
-        callStmt.registerOutParameter(2,OracleTypes.CURSOR);
+        callStmt.registerOutParameter(3,OracleTypes.CURSOR);
         
         //Parámetros de entrada
-        callStmt.setString(1,com);
+        callStmt.setString(1,user);
+        callStmt.setString(2,com);
         
         //Ejecutamos comando.
         callStmt.execute();
         
-        ResultSet rset = (ResultSet)callStmt.getObject(2);
+        ResultSet rset = (ResultSet)callStmt.getObject(3);
         
         ArrayList<Player> jugadores = new ArrayList();
         
         // nombre, equipo,pos, precio, sum(goles) as sumg, sum(asistencias) as suma, sum(t_amarillas) as sumta, sum(t_rojas) as sumtr, sum(valoracion) as sumval
         //    1      2    3      4             5                     6                      7                      8                        9       
         while(rset.next()){
-            String rNom = rset.getString(1);
-            String rTeam = rset.getString(2);
-            String rPos = rset.getString(3);
+            int rcode = rset.getInt(1);
+            String rNom = rset.getString(2);
+            String rTeam = rset.getString(3);
+            String rPos = rset.getString(4);
             int rPMin = -1;
-            int rPrec = rset.getInt(4);
+            int rPrec = rset.getInt(5);
             String rVend = null;
-            int rGol = rset.getInt(5);
-            int rAsist = rset.getInt(6);
+            int rGol = rset.getInt(6);
+            int rAsist = rset.getInt(7);
             int rEnc = 0;
-            int rTAma = rset.getInt(7);
-            int rTRoja = rset.getInt(8);
-            int rPts = rset.getInt(9);
-            jugadores.add(new Player(rNom,rTeam,rPos,rVend,rPMin,rPrec,rGol,rAsist,rEnc,rTAma,rTRoja,rPts));
+            int rTAma = rset.getInt(8);
+            int rTRoja = rset.getInt(9);
+            int rPts = rset.getInt(10);
+            jugadores.add(new Player(rcode,rNom,rTeam,rPos,rVend,rPMin,rPrec,rGol,rAsist,rEnc,rTAma,rTRoja,rPts));
         }
         
         return jugadores;

@@ -12,6 +12,8 @@ import java.io.Serializable;
  * @author Juan Luis
  */
 public class Player implements Serializable{
+    private int code;
+    
     private String name;
     
     private String team;
@@ -39,7 +41,8 @@ public class Player implements Serializable{
     public Player() {
     }
 
-    public Player(String name, String team, String pos, String vendedor, int precioMin, int valor, int goals, int asists, int encajados, int yellowCards, int redCards, int points) {
+    public Player(int code, String name, String team, String pos, String vendedor, int precioMin, int valor, int goals, int asists, int encajados, int yellowCards, int redCards, int points) {
+        this.code = code;
         this.name = name;
         this.team = team;
         this.pos = pos;
@@ -54,7 +57,8 @@ public class Player implements Serializable{
         this.points = points;
     }
     
-    public void set(String name, String team, String pos, String vendedor, int precioMin, int valor, int goals, int asists, int encajados, int yellowCards, int redCards, int points){
+    public void set(int code, String name, String team, String pos, String vendedor, int precioMin, int valor, int goals, int asists, int encajados, int yellowCards, int redCards, int points){
+        this.code = code;
         this.name = name;
         this.team = team;
         this.pos = pos;
@@ -114,5 +118,7 @@ public class Player implements Serializable{
         return yellowCards;
     }
     
-    
+    public int getCode(){
+        return code;
+    }
 }
