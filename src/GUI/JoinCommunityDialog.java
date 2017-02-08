@@ -31,6 +31,10 @@ public class JoinCommunityDialog extends javax.swing.JDialog {
         data.add(password);
         return data;
     }
+    
+    public void setBtText(String text){
+        this.btJoin.setText(text);
+    }
 
     
     /**

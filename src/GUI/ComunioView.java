@@ -550,6 +550,11 @@ public class ComunioView extends javax.swing.JFrame {
         });
 
         btCreateCom.setText("Crear una nueva comunidad");
+        btCreateCom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCreateComActionPerformed(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 153, 0));
@@ -690,6 +695,14 @@ public class ComunioView extends javax.swing.JFrame {
         ArrayList<String> comData = joind.getCommunityData();
         controller.joinCommunity(comData);
     }//GEN-LAST:event_btJoinComActionPerformed
+
+    private void btCreateComActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCreateComActionPerformed
+        JoinCommunityDialog joind = new JoinCommunityDialog(this, true);
+        joind.setBtText("CREAR");
+        joind.setVisible(true);
+        ArrayList<String> comData = joind.getCommunityData();
+        controller.createCommunity(comData);
+    }//GEN-LAST:event_btCreateComActionPerformed
 
     
 
