@@ -45,9 +45,10 @@ BEGIN
   return(existe);
 END;
 
-PROCEDURE registrarComunidad(nombre_comunidad VARCHAR2, pass_comunidad VARCHAR2) AS
+PROCEDURE registrarComunidad(nombre_comunidad VARCHAR2, pass_comunidad VARCHAR2, existe OUT INTEGER) AS
 BEGIN
-  IF (yaexisteComunidad(nombre_comunidad) = 0) THEN
+  existe:=yaexisteComunidad(nombre_comunidad);
+  IF (existe = 0) THEN
     INSERT into Comunidad(nombre_comunidad,pass) values (nombre_comunidad,pass_comunidad);
   END IF;
 END registrarComunidad;
