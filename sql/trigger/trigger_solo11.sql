@@ -21,9 +21,9 @@ BEGIN
                            'Solo puede tener alineado 11 jugadores en una misma jornada.' );
               
   END IF;
-  
+  /*
   IF(portero = 1) THEN
     RAISE_APPLICATION_ERROR( -20006, 
                              'Solo puede tener alineado 1 portero en una misma jornada' );
-  END IF;
+  END IF;*/
 END;
